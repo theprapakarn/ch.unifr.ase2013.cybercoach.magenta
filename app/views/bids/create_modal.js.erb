@@ -1,0 +1,12 @@
+/**
+ * Created with JetBrains RubyMine.
+ * User: pattamon
+ * Date: 10/7/13
+ * Time: 4:33 AM
+ * To change this template use File | Settings | File Templates.
+ */
+$("#bid-modal-window").html("<%= j render :partial => 'modal' %>");
+$("#bid-modal-error").html("<%= j render :partial => 'error_modal' %>");
+$('#bid-modal-close').click(function() {
+    location.reload();
+});

@@ -1,0 +1,17 @@
+<%= form_for ([@car, @car.bids.build]) do |f| %>
+    <% if !@errors.nil?  && @errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@bid.errors.count, "error") %> prohibited this bid from being saved:</h2>
+
+          <ul>
+            <% @errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <strong><%= current_user.username %>:</strong>
+    <%= f.number_field :price%>
+    <%= f.submit %>
+<% end %>

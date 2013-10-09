@@ -1,4 +1,6 @@
 class BidsController < ApplicationController
+  before_action :signed_in_user, only: [:show, :index, :new, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
   before_action :set_bid, only: [:show, :edit, :update, :destroy]
 
   # GET /bids
@@ -97,4 +99,14 @@ class BidsController < ApplicationController
   def bid_params
     params.require(:bid).permit(:price)
   end
+
+  def signed_in_user
+    redirect_to signin_url, notice: "Please sign in." unless signed_in?
+  end
+
+  def correct_user
+    @bid = Bid.find(params[:id])
+    redirect_to(root_url) unless current_user?(@bid.user)
+  end
+
 end

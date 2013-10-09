@@ -73,6 +73,7 @@ class CarsController < ApplicationController
     @car.user = current_user
     if @car.save
       @errors = @car.errors
+      @success = "Saved"
       respond_to :js
     else
       @errors = @car.errors
@@ -85,6 +86,7 @@ class CarsController < ApplicationController
     @car.user = current_user
     if @car.update(car_params)
       @errors = @car.errors
+      @success = "Updated"
       respond_to :js
     else
       @errors = @car.errors

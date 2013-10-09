@@ -1,10 +1,8 @@
 <div class="modal-header">
   <button id="car-modal-close" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h3 id="car-header">Modal header</h3>
+  <h3 id="car-header">Edit -  <%= @car.model %></h3>
 </div>
 <%= form_for @car, url: cars_update_modal_path(@car), :html => {:class => 'form-horizontal'}, method: 'post', remote: true do |f| %>
-    <div id="car-modal-error">
-    </div>
     <div class="modal-body">
       <div class="control-group">
         <%= f.label :model, :class => 'control-label' %>
@@ -20,7 +18,9 @@
       </div>
     </div>
     <div class="modal-footer">
-        <%= f.submit nil, :class => 'btn btn-primary' %>
+      <div id="car-modal-error">
+      </div>
+      <%= f.submit nil, :class => 'btn btn-primary' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                     cars_path, :class => 'btn' %>
     </div>

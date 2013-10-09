@@ -1,0 +1,12 @@
+/**
+ * Created with JetBrains RubyMine.
+ * User: pattamon
+ * Date: 10/7/13
+ * Time: 4:33 AM
+ * To change this template use File | Settings | File Templates.
+ */
+$("#car-modal-window").html("<%= j render :partial => 'update_modal' %>");
+$("#car-modal-error").html("<%= j render :partial => 'error_modal' %>");
+$('#car-modal-close').click(function() {
+    location.reload();
+});

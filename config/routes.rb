@@ -3,6 +3,7 @@ CarTrading::Application.routes.draw do
   root  'static_pages#home'
   match '/signin', to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/cars/' => 'cars#index' , via: 'get', :as => :cars_search
   match '/cars/modal' => 'cars#new_modal' , via: 'get', :as => :cars_new_modal
   match '/cars/:id/modal' => 'cars#edit_modal' , via: 'get', :as => :cars_edit_modal
   match '/cars/createmodal' => 'cars#create_modal' , via: 'post', :as => :cars_create_modal

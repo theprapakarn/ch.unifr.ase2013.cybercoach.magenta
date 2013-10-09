@@ -8,13 +8,17 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cars/_update_modal.html.erb" afterPath="$PROJECT_DIR$/app/views/cars/_update_modal.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/bid.rb" afterPath="$PROJECT_DIR$/app/models/bid.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/bids_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/bids_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/car.rb" afterPath="$PROJECT_DIR$/app/models/car.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/cars_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/cars_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/home.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/home.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cars/index.html.erb" afterPath="$PROJECT_DIR$/app/views/cars/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
     </list>
     <ignored path="CarTrading.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/development.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380797391403" ignored="false" />
-    <file path="/routes.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381273549864" ignored="false" />
+    <file path="/routes.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381334986458" ignored="false" />
     <file path="/Dummy.txt" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380988400659" ignored="false" />
     <file path="/home_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380820817117" ignored="false" />
     <file path="/database.yml" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380821314491" ignored="false" />
@@ -30,17 +34,17 @@
     <file path="/Gemfile" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381253507982" ignored="false" />
     <file path="/_form.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381258122185" ignored="false" />
     <file path="/application_helper.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380928297534" ignored="false" />
-    <file path="/index.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381270469151" ignored="false" />
-    <file path="/cars_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381306922492" ignored="false" />
+    <file path="/index.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381335944208" ignored="false" />
+    <file path="/cars_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381335192822" ignored="false" />
     <file path="/users_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380975766719" ignored="false" />
     <file path="/sessions_helper.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380993875938" ignored="false" />
-    <file path="/car.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381003283496" ignored="false" />
+    <file path="/car.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381335879421" ignored="false" />
     <file path="/20131005122719_add_user_id_to_cars.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380976275502" ignored="false" />
-    <file path="/bid.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381313086725" ignored="false" />
+    <file path="/bid.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381337036549" ignored="false" />
     <file path="/20131005195653_create_bids.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381005033916" ignored="false" />
     <file path="/bids_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381310754489" ignored="false" />
     <file path="/20131005203408_add_car_id_to_bids.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381097978042" ignored="false" />
-    <file path="/_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381309891354" ignored="false" />
+    <file path="/_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381336597868" ignored="false" />
     <file path="/_model_edit.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381060586059" ignored="false" />
     <file path="/_modal_list.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381062555415" ignored="false" />
     <file path="/_modal_edit.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381078823308" ignored="false" />
@@ -51,10 +55,10 @@
     <file path="/_form.html.haml" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381253223906" ignored="false" />
     <file path="/create_modal.js.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381272057075" ignored="false" />
     <file path="/_new_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381270628260" ignored="false" />
-    <file path="/_create_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381307304669" ignored="false" />
+    <file path="/_create_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381330781697" ignored="false" />
     <file path="/edit_modal.js.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381272266784" ignored="false" />
     <file path="/new_modal.js.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381272856462" ignored="false" />
-    <file path="/_error_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381306982360" ignored="false" />
+    <file path="/_error_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381336728422" ignored="false" />
     <file path="/update_modal.js.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381307151911" ignored="false" />
     <file path="/_update_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381307350495" ignored="false" />
     <file path="/a.dummy" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381312705395" ignored="false" />
@@ -82,37 +86,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="bids_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/bids_controller.rb">
+      <file leaf-file-name="car.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/models/car.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="6" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.0">
+            <state line="9" column="43" selection-start="332" selection-end="332" vertical-scroll-proportion="0.509434">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_error_modal.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/bids/_error_modal.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="4" selection-start="218" selection-end="218" vertical-scroll-proportion="-5.625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bid.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="bid.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/bid.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="62" selection-start="298" selection-end="298" vertical-scroll-proportion="0.3962264">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_modal.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/bids/_modal.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="6" selection-start="1365" selection-end="1365" vertical-scroll-proportion="-8.791667">
+            <state line="6" column="40" selection-start="205" selection-end="217" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -121,7 +107,43 @@
       <file leaf-file-name="cars_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/cars_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="126" column="36" selection-start="2791" selection-end="2791" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_modal.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/bids/_modal.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="17" selection-start="452" selection-end="452" vertical-scroll-proportion="-3.7916667">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_error_modal.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/cars/_error_modal.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="29" selection-start="189" selection-end="189" vertical-scroll-proportion="-3.125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/cars/index.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="5" selection-start="301" selection-end="334" vertical-scroll-proportion="-5.625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="7" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -145,22 +167,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/cars/index.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/cars/_new_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/cars/_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/cars/create_modal.js.erb" />
         <option value="$PROJECT_DIR$/app/views/cars/new_modal.js.erb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/cars_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/cars/_error_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/cars/edit_modal.js.erb" />
         <option value="$PROJECT_DIR$/app/views/cars/update_modal.js.erb" />
-        <option value="$PROJECT_DIR$/app/views/cars/_create_modal.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/cars/_update_modal.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/bids/_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/static_pages/home.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/bids_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/cars/_update_modal.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/cars/_create_modal.html.erb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/cars_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/cars/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/bids/_modal.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/cars/_error_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/models/bid.rb" />
+        <option value="$PROJECT_DIR$/app/models/car.rb" />
       </list>
     </option>
   </component>
@@ -259,7 +281,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bids" />
+              <option name="myItemId" value="cars" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -703,79 +725,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/cars/create_modal.js.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="236" selection-end="309" vertical-scroll-proportion="0.53149605">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/cars/_update_modal.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="43" selection-start="180" selection-end="180" vertical-scroll-proportion="0.12448133">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/cars/index.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="34" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.88593155">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/static_pages/home.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="15" selection-start="101" selection-end="101" vertical-scroll-proportion="0.27173913">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/users_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/static_pages_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/sessions_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="14" selection-start="613" selection-end="613" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/cars_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="36" selection-start="2791" selection-end="2791" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/bids_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="6" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/bids/_error_modal.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="4" selection-start="218" selection-end="218" vertical-scroll-proportion="-5.625">
+        <state line="9" column="4" selection-start="218" selection-end="218" vertical-scroll-proportion="0.513308">
           <folding />
         </state>
       </provider>
@@ -801,16 +753,86 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/bids_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="13" selection-start="1646" selection-end="1646" vertical-scroll-proportion="0.107913665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/cars/_update_modal.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="8" selection-start="880" selection-end="880" vertical-scroll-proportion="0.7148289">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/user.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="7" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/cars/_create_modal.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="40" selection-start="579" selection-end="579" vertical-scroll-proportion="0.746888">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/cars_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/cars/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="5" selection-start="301" selection-end="334" vertical-scroll-proportion="-5.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/bids/_modal.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="6" selection-start="1365" selection-end="1365" vertical-scroll-proportion="-8.791667">
+        <state line="14" column="17" selection-start="452" selection-end="452" vertical-scroll-proportion="-3.7916667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/cars/_error_modal.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="29" selection-start="189" selection-end="189" vertical-scroll-proportion="-3.125">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/bid.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="62" selection-start="298" selection-end="298" vertical-scroll-proportion="0.3962264">
+        <state line="6" column="40" selection-start="205" selection-end="217" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/car.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="43" selection-start="332" selection-end="332" vertical-scroll-proportion="0.509434">
           <folding />
         </state>
       </provider>

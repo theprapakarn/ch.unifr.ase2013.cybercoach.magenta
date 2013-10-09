@@ -3,6 +3,7 @@
   <h3 id="bid-header">Bids - <%= @car.model %></h3>
 </div>
 <div class="modal-body">
+  <strong>Start Price: <%= @car.price %></strong>
   <% @bids.each do |bid| %>
       <div>
         <table width="100%">
@@ -14,11 +15,11 @@
           <tr bgcolor="#eeeeee">
             <td><strong><%= bid.user.username %>:</strong></td>
             <td align="right"><%= bid.price %></td>
-            <td> <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                                     [bid.car, bid],
-                                     :method => :delete,
-                                     :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-                                     :class => 'btn btn-mini btn-danger' %>
+            <td width="9%"> <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                             [bid.car, bid],
+                             :method => :delete,
+                             :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                             :class => 'btn btn-mini btn-danger' %>
             </td>
           </tr>
           </tbody>
@@ -31,7 +32,9 @@
       <div id="bid-modal-error">
       </div>
       <strong><%= current_user.username %>:</strong>
-      <%= f.number_field :price %>
-      <%= f.submit %>
+      <div class="input-append">
+      <%= f.number_field :price, class: "span2" %>
+        <%= f.submit nil, class: "btn" %>
+      </div>
   <% end %>
 </div>

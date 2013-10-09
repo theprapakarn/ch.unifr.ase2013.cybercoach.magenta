@@ -1,7 +1,7 @@
 class Car < ActiveRecord::Base
   belongs_to :user
   has_many :bids, dependent: :destroy
-  validates :user_id, presence: true
+  validates :user_id, :brand, :model, presence: true
   default_scope -> { order('created_at DESC') }
   validates_numericality_of :price, only_decimal: true, allow_blank: false
 

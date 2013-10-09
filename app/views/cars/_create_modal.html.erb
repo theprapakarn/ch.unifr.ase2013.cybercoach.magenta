@@ -5,22 +5,16 @@
 <%= form_for @car, url: cars_create_modal_path, :html => {:class => 'form-horizontal'}, method: 'post', remote: true do |f| %>
     <div class="modal-body">
       <div class="control-group">
-        <%= f.label :model, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :model, :class => 'text_field' %>
-        </div>
+        <%= f.label :model %>
+        <%= f.text_field :model, :class => 'text_field' %>
       </div>
       <div class="control-group">
-        <%= f.label :brand, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :brand, :class => 'text_field' %>
-        </div>
+        <%= f.label :brand %>
+        <%= f.text_field :brand, :class => 'text_field' %>
       </div>
       <div class="control-group">
-        <%= f.label :price, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.number_field :price, :class => 'number_field' %>
-        </div>
+        <%= f.label :price %>
+        <%= f.number_field :price, :class => 'number_field' %>
       </div>
     </div>
     <div class="modal-footer">

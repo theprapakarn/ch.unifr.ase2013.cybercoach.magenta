@@ -41,7 +41,7 @@
     <file path="/sessions_helper.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380993875938" ignored="false" />
     <file path="/car.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381341274577" ignored="false" />
     <file path="/20131005122719_add_user_id_to_cars.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380976275502" ignored="false" />
-    <file path="/bid.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381337036549" ignored="false" />
+    <file path="/bid.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381520522674" ignored="false" />
     <file path="/20131005195653_create_bids.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381005033916" ignored="false" />
     <file path="/bids_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381310754489" ignored="false" />
     <file path="/20131005203408_add_car_id_to_bids.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381097978042" ignored="false" />
@@ -87,19 +87,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="car.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="car.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/car.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="57" selection-start="377" selection-end="377" vertical-scroll-proportion="0.41811848">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bid.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="_modal.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/bids/_modal.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="19" selection-start="1010" selection-end="1010" vertical-scroll-proportion="-6.25">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bid.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/bid.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="27" selection-start="300" selection-end="345" vertical-scroll-proportion="0.0">
+            <state line="6" column="6" selection-start="203" selection-end="203" vertical-scroll-proportion="0.3">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/cars/index.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="68" column="25" selection-start="2877" selection-end="2877" vertical-scroll-proportion="-9.083333">
               <folding />
             </state>
           </provider>
@@ -136,9 +154,9 @@
         <option value="$PROJECT_DIR$/app/views/cars/index.html.erb" />
         <option value="$PROJECT_DIR$/app/views/cars/_update_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/cars/_create_modal.html.erb" />
+        <option value="$PROJECT_DIR$/app/models/car.rb" />
         <option value="$PROJECT_DIR$/app/views/bids/_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/models/bid.rb" />
-        <option value="$PROJECT_DIR$/app/models/car.rb" />
       </list>
     </option>
   </component>
@@ -198,6 +216,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="CarTrading" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarTrading" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarTrading" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarTrading" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarTrading" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cars" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -711,16 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/cars/index.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="17" selection-start="830" selection-end="830" vertical-scroll-proportion="-0.625">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/cars/_update_modal.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="21" selection-start="364" selection-end="770" vertical-scroll-proportion="-4.4166665">
@@ -735,23 +783,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/bids/_modal.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/cars/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="4" selection-start="781" selection-end="781" vertical-scroll-proportion="0.39923954">
+        <state line="68" column="25" selection-start="2877" selection-end="2877" vertical-scroll-proportion="-9.083333">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/bid.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/bids/_modal.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="27" selection-start="300" selection-end="345" vertical-scroll-proportion="0.0">
+        <state line="23" column="19" selection-start="1010" selection-end="1010" vertical-scroll-proportion="-6.25">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/car.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="57" selection-start="377" selection-end="377" vertical-scroll-proportion="0.41811848">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/bid.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="6" selection-start="203" selection-end="203" vertical-scroll-proportion="0.3">
           <folding />
         </state>
       </provider>

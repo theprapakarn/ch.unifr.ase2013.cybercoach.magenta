@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @subscription.reference %>
+</p>
+
+<p>
+  <strong>Public Visible:</strong>
+  <%= @subscription.public_visible %>
+</p>
+
+<p>
+  <strong>Sport:</strong>
+  <%= @subscription.sport.name %>
+</p>
+
+
+<h2>Entries</h2>
+
+<h2>Add a Subscription:</h2>
+<%= form_for ([@subscription, @subscription.entries.build()]) do |f| %>
+    <div class="field">
+      <%= f.label :comment %>
+      <br>
+      <%= f.text_field :comment %>
+    </div>
+    <div class="field">
+      <%= f.label :entry_date %>
+      <br>
+      <%= f.datetime_select :entry_date %>
+    </div>
+    <div class="field">
+      <%= f.label :entry_location %>
+      <br>
+      <%= f.text_field :entry_location %>
+    </div>
+    <% if @subscription.sport.name == "Running" %>
+        <div class="field">
+          <%= f.label :course_length %><br>
+          <%= f.text_field :course_length %>
+        </div>
+        <div class="field">
+          <%= f.label :course_type %><br>
+          <%= f.text_field :course_type %>
+        </div>
+        <div class="field">
+          <%= f.label :number_of_round %><br>
+          <%= f.number_field :number_of_round %>
+        </div>
+        <div class="field">
+          <%= f.label :track %><br>
+          <%= f.text_field :track %>
+        </div>
+        <%= f.hidden_field :type %>
+    <% end %>
+    <% if @subscription.sport.name == "Soccer" %>
+        <%= f.hidden_field :type %>
+    <% end %>
+
+    <%= f.submit %>
+
+<% end %>
+
+
+<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
+<%= link_to 'Back', subscriptions_path %>

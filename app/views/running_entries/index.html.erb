@@ -1,0 +1,33 @@
+<h1>Listing running_entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Course length</th>
+      <th>Course type</th>
+      <th>Number of round</th>
+      <th>Track</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @running_entries.each do |running_entry| %>
+      <tr>
+        <td><%= running_entry.course_length %></td>
+        <td><%= running_entry.course_type %></td>
+        <td><%= running_entry.number_of_round %></td>
+        <td><%= running_entry.track %></td>
+        <td><%= link_to 'Show', running_entry %></td>
+        <td><%= link_to 'Edit', edit_running_entry_path(running_entry) %></td>
+        <td><%= link_to 'Destroy', running_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Running entry', new_running_entry_path %>

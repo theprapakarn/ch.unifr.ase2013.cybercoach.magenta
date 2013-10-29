@@ -1,0 +1,34 @@
+<h1>Listing subscriptions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Public Visible</th>
+      <th>Sport</th>
+      <th>User</th>
+      <th>Is Proxy</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subscriptions.each do |subscription| %>
+      <tr>
+        <td><%= subscription.reference %></td>
+        <td><%= subscription.public_visible %></td>
+        <td><%= subscription.sport_id %></td>
+        <td><%= subscription.user_id %></td>
+        <td><%= subscription.is_proxy %></td>
+        <td><%= link_to 'Show', subscription %></td>
+        <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
+        <td><%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subscription', new_subscription_path %>

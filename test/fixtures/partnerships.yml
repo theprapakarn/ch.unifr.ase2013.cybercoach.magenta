@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  reference: MyString
+  public_visible: MyString
+  first_user_id: 1
+  second_user_id: 1
+  first_user_confirmed: false
+  second_user_confirmed: false
+  datecreated: 2013-10-28 11:33:48
+
+two:
+  reference: MyString
+  public_visible: MyString
+  first_user_id: 1
+  second_user_id: 1
+  first_user_confirmed: false
+  second_user_confirmed: false
+  datecreated: 2013-10-28 11:33:48

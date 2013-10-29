@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @partnership.reference %>
+</p>
+
+<p>
+  <strong>Public visible:</strong>
+  <%= @partnership.public_visible %>
+</p>
+
+
+<p>
+  <strong>First user confirmed:</strong>
+  <%= @partnership.first_user_confirmed %>
+</p>
+
+<p>
+  <strong>Second user confirmed:</strong>
+  <%= @partnership.second_user_confirmed %>
+</p>
+
+<p>
+  <strong>Datecreated:</strong>
+  <%= @partnership.datecreated %>
+</p>
+
+<%= link_to 'Edit', edit_partnership_path(@partnership) %> |
+<%= link_to 'Back', partnerships_path %>

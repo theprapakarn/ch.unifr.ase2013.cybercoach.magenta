@@ -1,0 +1,2 @@
+class RunningEntry < Entry
+end

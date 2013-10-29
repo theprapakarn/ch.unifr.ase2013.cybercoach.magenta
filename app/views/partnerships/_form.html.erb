@@ -1,0 +1,44 @@
+<%= form_for(@partnership) do |f| %>
+  <% if @partnership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@partnership.errors.count, "error") %> prohibited this partnership from being saved:</h2>
+
+      <ul>
+      <% @partnership.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :reference %><br>
+    <%= f.text_field :reference %>
+  </div>
+  <div class="field">
+    <%= f.label :public_visible %><br>
+    <%= f.text_field :public_visible %>
+  </div>
+  <div class="field">
+    <%= f.label :first_user_id %><br>
+  </div>
+  <div class="field">
+    <%= f.label :second_user_id %><br>
+    <%= f.number_field :second_user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :first_user_confirmed %><br>
+    <%= f.check_box :first_user_confirmed %>
+  </div>
+  <div class="field">
+    <%= f.label :second_user_confirmed %><br>
+    <%= f.check_box :second_user_confirmed %>
+  </div>
+  <div class="field">
+    <%= f.label :date_created %><br>
+    <%= f.datetime_select :date_created %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  reference: MyString
+  public_visible: MyString
+  user_id: 1
+  subscription_id: 1
+  comment: MyString
+  entry_date: 2013-10-28 23:28:41
+  entry_location: MyString
+  is_proxy: false
+
+two:
+  reference: MyString
+  public_visible: MyString
+  user_id: 1
+  subscription_id: 1
+  comment: MyString
+  entry_date: 2013-10-28 23:28:41
+  entry_location: MyString
+  is_proxy: false

@@ -1,0 +1,39 @@
+<h1>Listing partnerships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Public visible</th>
+      <th>First user</th>
+      <th>Second user</th>
+      <th>First user confirmed</th>
+      <th>Second user confirmed</th>
+      <th>Datecreated</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @partnerships.each do |partnership| %>
+      <tr>
+        <td><%= partnership.reference %></td>
+        <td><%= partnership.public_visible %></td>
+        <td><%= partnership.first_user_id %></td>
+        <td><%= partnership.second_user_id %></td>
+        <td><%= partnership.first_user_confirmed %></td>
+        <td><%= partnership.second_user_confirmed %></td>
+        <td><%= partnership.datecreated %></td>
+        <td><%= link_to 'Show', partnership %></td>
+        <td><%= link_to 'Edit', edit_partnership_path(partnership) %></td>
+        <td><%= link_to 'Destroy', partnership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Partnership', new_partnership_path %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @entry.reference %>
+</p>
+
+<p>
+  <strong>Public visible:</strong>
+  <%= @entry.public_visible %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @entry.user_id %>
+</p>
+
+<p>
+  <strong>Subscription:</strong>
+  <%= @entry.subscription_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @entry.comment %>
+</p>
+
+<p>
+  <strong>Entry date:</strong>
+  <%= @entry.entry_date %>
+</p>
+
+<p>
+  <strong>Entry location:</strong>
+  <%= @entry.entry_location %>
+</p>
+
+<p>
+  <strong>Is proxy:</strong>
+  <%= @entry.is_proxy %>
+</p>
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>

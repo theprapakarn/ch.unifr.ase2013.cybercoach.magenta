@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  reference: MyString
+  publicvisible: MyString
+  user_id: 1
+
+two:
+  reference: MyString
+  publicvisible: MyString
+  user_id: 1

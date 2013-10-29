@@ -1,0 +1,104 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @participant.reference %>
+</p>
+
+<p>
+  <strong>Public Visible:</strong>
+  <%= @participant.public_visible %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @participant.user_id %>
+</p>
+
+<h2>Subscriptions</h2>
+<% @participant.subscriptions.each do |subscription| %>
+    <p>
+      <strong>Reference:</strong>
+      <%= subscription.reference %>
+      <strong>Public Visible:</strong>
+      <%= SubscriptionsHelper.fetch(subscription).public_visible %>
+      <strong>Sport:</strong>
+      <%= SubscriptionsHelper.fetch(subscription).sport.name %>
+    </p>
+<% end %>
+
+<h2>Add a Subscription:</h2>
+<%= form_for ([@participant, @participant.subscriptions.build()]) do |f| %>
+    <p>
+      <select name="sport_id">
+        <option value='0'>Select Sport</option>
+        <%= Sport.all.each do |sport| %>
+            <option value=<%= sport.name %>><%= sport.name %></option>
+        <% end %>
+      </select>
+    </p>
+    <%= f.submit %>
+<% end %>
+
+<h2>Partnerships</h2>
+<% @participant.partnerships.each do |partnership| %>
+    <p>
+      <strong>Reference:</strong>
+      <%= partnership.reference %>
+
+      <strong>Public Visible:</strong>
+      <%= partnership.public_visible %>
+      </p>
+
+    <h2>Partnership - Subscriptions</h2>
+    <% partnership.subscriptions.each do |subscription| %>
+        <p>
+          <strong>Reference:</strong>
+          <%= subscription.reference %>
+          <strong>Public Visible:</strong>
+          <%= SubscriptionsHelper.fetch(subscription).public_visible %>
+          <strong>Sport:</strong>
+          <%= SubscriptionsHelper.fetch(subscription).sport.name %>
+        </p>
+    <% end %>
+
+    <h2>Add a Partnership - Subscription:</h2>
+    <%= form_for ([partnership, partnership.subscriptions.build()]) do |f| %>
+        <p>
+          <select name="sport_id">
+            <option value='0'>Select Sport</option>
+            <%= Sport.all.each do |sport| %>
+                <option value=<%= sport.name %>><%= sport.name %></option>
+            <% end %>
+          </select>
+        </p>
+        <%= f.submit %>
+    <% end %>
+
+<% end %>
+
+<h2>Add a Partnership:</h2>
+<%= form_for ([@participant, @participant.partnerships.build()]) do |f| %>
+    <p>
+      <strong>First Participant:</strong>
+      <select name="first_participant_id">
+            <option value=<%= @participant.reference %>><%= @participant.user.username %></option>
+      </select>
+    </p>
+    <p>
+      <strong>Second Participant:</strong>
+      <select name="second_participant_id">
+        <option value='0'>Select Second</option>
+        <%= Participant.all.each do |participant| %>
+            <option value=<%= participant.reference %>><%= participant.user.username %></option>
+        <% end %>
+      </select>
+    </p>
+
+    <%= f.submit %>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_participant_path(@participant) %> |
+<%= link_to 'Back', participants_path %>

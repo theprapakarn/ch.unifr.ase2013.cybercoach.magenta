@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  course_length: MyString
+  course_type: MyString
+  number_of_round: 1
+  track: MyString
+
+two:
+  course_length: MyString
+  course_type: MyString
+  number_of_round: 1
+  track: MyString

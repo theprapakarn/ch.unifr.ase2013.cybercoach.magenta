@@ -1,5 +1,13 @@
 CarTrading::Application.routes.draw do
 
+  resources :running_entries
+
+  resources :soccer_entries
+
+  resources :entries
+
+  resources :partnerships
+
   root  'static_pages#home'
   match '/signin', to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
@@ -14,12 +22,35 @@ CarTrading::Application.routes.draw do
   match "/cars/:car_id/bids/" => "bids#create_modal" , via: 'post', :as => :bids_create_modal
 
   resources :users
+
   resources :bids do
     resources :users
   end
+
   resources :cars do
     resources :bids
   end
+
+  resources :sports
+  resources :participants
+  resources :subscriptions
+
+  resources :participants do
+    resources :partnerships
+  end
+
+  resources :participants do
+    resources :subscriptions
+  end
+
+  resources :partnerships do
+    resources :subscriptions
+  end
+
+  resources :subscriptions do
+    resources :entries
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,41 @@
+<h1>Listing entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Public visible</th>
+      <th>User</th>
+      <th>Subscription</th>
+      <th>Comment</th>
+      <th>Entry date</th>
+      <th>Entry location</th>
+      <th>Is proxy</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td><%= entry.reference %></td>
+        <td><%= entry.public_visible %></td>
+        <td><%= entry.user_id %></td>
+        <td><%= entry.subscription_id %></td>
+        <td><%= entry.comment %></td>
+        <td><%= entry.entry_date %></td>
+        <td><%= entry.entry_location %></td>
+        <td><%= entry.is_proxy %></td>
+        <td><%= link_to 'Show', entry %></td>
+        <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+        <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Entry', new_entry_path %>

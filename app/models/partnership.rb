@@ -1,4 +1,5 @@
 class Partnership < ActiveRecord::Base
+  belongs_to :user
   has_many :subscriptions
   has_many :participants_to_partnerships
   has_many :participants,
@@ -23,28 +24,16 @@ class Partnership < ActiveRecord::Base
     end
   end
 
-  def second_participant(second_participant)
-    @second_participant = second_participant
+  def current_user(current_user)
+    @current_user = current_user
   end
 
-  def second_participant
-    if @second_participant == nil
-      super
-    else
-      @second_participant
-    end
+  def current_user
+    @current_user
   end
 
   def save()
-    if self.is_proxy
-      if Partnership.find_by(reference: self.reference) == nil
-        super
-      end
-    else
       PartnershipsHelper.save_cy_ber_coach(self)
-      if Partnership.find_by(reference: self.reference) == nil
-        super
-      end
-    end
+      super
   end
 end

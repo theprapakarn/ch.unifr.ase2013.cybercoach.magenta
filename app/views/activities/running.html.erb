@@ -1,0 +1,219 @@
+<div id="scheduler"></div>
+
+<script id="all-event-template" type="text/x-kendo-template">
+  #if(info.Status == "Perfect"){#
+  <div style="background-color: rgb(0,128,0);">
+    #: title #
+  </div>
+  #}else if(info.Status == "Good"){#
+  <div style="background-color: rgb(124,252,0);">
+    #: title #
+  </div>
+  #}else if(info.Status == "Quite Bad"){#
+  <div style="background-color: rgb(255,140,0);">
+    #: title #
+  </div>
+  #}else if(info.Status == "Bad"){#
+  <div style="background-color: rgb(255,0,0);">
+    #: title #
+  </div>
+  #}#
+</script>
+
+<script id="editor" type="text/x-kendo-template">
+  #if(info.From == "Google"){#
+  <p>
+    #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
+  </p>
+
+  <h3>#: title #</h3>
+
+  <div style="background-color: rgb(169,169,169);">
+    This text is enclosed in a box.
+  </div>
+  #}else if(info.From == "Suggestion"){#
+  <p><strong>#: info.Description #</strong></p>
+
+  <p><strong>Morning</strong>: #: info.Morning #</p>
+
+  <p><strong>Noon:</strong> #: info.Noon #</p>
+
+  <p><strong>Evening:</strong> #: info.Evening #</p>
+  #}else{#
+  <p>
+    <label>Title:<input name="title" data-bind="value: title"/></label>
+  </p>
+
+  <p>
+    <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
+  </p>
+
+  <p>
+    <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
+  </p>
+
+  <p>
+    <label>Location:<input name="location" data-bind="value: location"/> </label>
+  </p>
+
+  <p>
+    <label>Comment:<input name="comment" data-bind="value: comment"/> </label>
+  </p>
+
+  <p>
+    <label>Participants:
+      <select id="participants"
+              data-placeholder="Select participants..."
+              multiple="multiple"
+              data-bind="value: participants">
+      </select>
+    </label>
+  </p>
+  #}#
+</script>
+
+<script id="event-template" type="text/x-kendo-template">
+  #if(info.From == "Google"){#
+  <strong>Google</strong>
+
+  <p>
+    #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
+  </p>
+
+  <p>#: title #</p>
+
+  #}else if(info.From == "CyberCoach"){#
+  <strong>Firmy</strong>
+
+  <p>
+    #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
+  </p>
+
+  <p>#: title #</p>
+  #}#
+</script>
+
+
+<script>
+    $(function () {
+        $('#test').hide();
+
+        $.get("http://ipinfo.io", function (response) {
+        }, "jsonp");
+
+        var crudServiceBaseUrl = "/running";
+        $("#scheduler").kendoScheduler({
+            height: 600,
+            views: [
+                "day",
+                { type: "week", selected: true },
+                "month",
+                "agenda"
+            ],
+            editable: {
+                template: $("#editor").html()
+                //template: $("#test").html()
+            },
+            allDayEventTemplate: $("#all-event-template").html(),
+            eventTemplate: $("#event-template").html(),
+            edit: function (e) {
+                $("#participants").kendoMultiSelect({
+                    dataTextField: "text",
+                    dataValueField: "value",
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: "http://localhost:3000/partnershiparticipants",
+                                dataType: "jsonp"
+                            }
+                        },
+                        schema: {
+                            data: "participants",
+                            model: {
+                                id: "value",
+                                fields: {
+                                    value: { from: "value"  },
+                                    text: { from: "text" }
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+            timezone: "Etc/UTC",
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: crudServiceBaseUrl + "all",
+                            //url: "http://demos.kendoui.com/service/meetings",
+                            dataType: "jsonp",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: crudServiceBaseUrl + "update",
+                            contentType: "application/json",
+                            type: "POST",
+                            data: JSON.stringify({ running: options.data }),
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: crudServiceBaseUrl,
+                            contentType: "application/json",
+                            type: "POST",
+                            data: JSON.stringify({ running: options.data }),
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    destroy: {
+                        url: "http://demos.kendoui.com/service/meetings/destroy",
+                        dataType: "jsonp"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation != "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
+                schema: {
+                    data: "running",
+                    model: {
+                        id: "id",
+                        fields: {
+                            id: {
+                                from: "Reference"
+                            },
+                            title: { from: "Title", defaultValue: "No title", validation: { required: true } },
+                            start: { type: "date", from: "StartTime" },
+                            end: { type: "date", from: "EndTime" },
+                            location: { from: "Location" },
+                            comment: { from: "Comment" },
+                            participants: { from: "Participants" },
+                            info: { from: "Info"},
+                            isAllDay: { type: "boolean", from: "IsAllDay", defaultValue: true }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

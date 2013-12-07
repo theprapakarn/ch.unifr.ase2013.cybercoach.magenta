@@ -17,47 +17,31 @@
 
 
 <h2>Entries</h2>
+<% @subscription.entries.each do |entry| %>
+    <p>
+      <strong>Reference:</strong>
+      <%= entry.reference %>
+    </p>
+<% end %>
+
 
 <h2>Add a Subscription:</h2>
 <%= form_for ([@subscription, @subscription.entries.build()]) do |f| %>
     <div class="field">
-      <%= f.label :comment %>
+      <label>Comment:</label>
       <br>
-      <%= f.text_field :comment %>
+      <input id="entry_comment" name="entry[comment]" type="text" /><br />
     </div>
     <div class="field">
-      <%= f.label :entry_date %>
+      <label>Date:</label>
       <br>
-      <%= f.datetime_select :entry_date %>
+      <input id="entry_date" name="entry[date]" type="text" /><br />
     </div>
     <div class="field">
-      <%= f.label :entry_location %>
+      <label>Location:</label>
       <br>
-      <%= f.text_field :entry_location %>
+      <input id="entry_location" name="entry[location]" type="text" /><br />
     </div>
-    <% if @subscription.sport.name == "Running" %>
-        <div class="field">
-          <%= f.label :course_length %><br>
-          <%= f.text_field :course_length %>
-        </div>
-        <div class="field">
-          <%= f.label :course_type %><br>
-          <%= f.text_field :course_type %>
-        </div>
-        <div class="field">
-          <%= f.label :number_of_round %><br>
-          <%= f.number_field :number_of_round %>
-        </div>
-        <div class="field">
-          <%= f.label :track %><br>
-          <%= f.text_field :track %>
-        </div>
-        <%= f.hidden_field :type %>
-    <% end %>
-    <% if @subscription.sport.name == "Soccer" %>
-        <%= f.hidden_field :type %>
-    <% end %>
-
     <%= f.submit %>
 
 <% end %>

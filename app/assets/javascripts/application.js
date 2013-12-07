@@ -13,11 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require turbolinks
+//= require kendo/kendo.web.min
 //= require_tree .
-
-
-
 
 function openOrReloadModal(id, partial){
     if ($(id).length>0){

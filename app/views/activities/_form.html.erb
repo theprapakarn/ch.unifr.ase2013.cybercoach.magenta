@@ -1,0 +1,154 @@
+<%= form_for(@activity) do |f| %>
+  <% if @activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+      <ul>
+      <% @activity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :reference %><br>
+    <%= f.text_field :reference %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.datetime_select :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.datetime_select :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :sport %><br>
+    <%= f.number_field :sport %>
+  </div>
+  <div class="field">
+    <%= f.label :owner %><br>
+    <%= f.number_field :owner %>
+  </div>
+  <div class="field">
+    <%= f.label :entry %><br>
+    <%= f.number_field :entry %>
+  </div>
+  <div class="field">
+    <%= f.label :is_proxy %><br>
+    <%= f.check_box :is_proxy %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+   <div id="scheduler"></div>
+
+<script id="editor" type="text/x-kendo-template">
+  <h3>Edit meeting</h3>
+  <p>
+    <label>Title: <input name="title" /></label>
+  </p>
+  <p>
+    <label>Start: <input data-role="datetimepicker" name="start" /></label>
+  </p>
+  <p>
+    <label>Start: <input data-role="datetimepicker" name="end" /></label>
+  </p>
+</script>
+<script>
+    $(function() {
+        $("#activity_reference").kendoAutoComplete(["Nike Free", "Saucony Series 7", "Vibram Five Fingers"]);
+        $("#scheduler").kendoScheduler({
+            date: new Date("2013/6/13"),
+            startTime: new Date("2013/6/13 07:00 AM"),
+            height: 600,
+            views: [
+                "day",
+                { type: "week", selected: true },
+                "month",
+                "agenda"
+            ],
+            editable: {
+                template: $("#editor").html()
+            },
+            timezone: "Etc/UTC",
+            dataSource: {
+                batch: true,
+                transport: {
+                    read: {
+                        url: "http://demos.kendoui.com/service/meetings",
+                        dataType: "jsonp"
+                    },
+                    update: {
+                        url: "http://demos.kendoui.com/service/meetings/update",
+                        dataType: "jsonp"
+                    },
+                    create: {
+                        url: "http://demos.kendoui.com/service/meetings/create",
+                        dataType: "jsonp"
+                    },
+                    destroy: {
+                        url: "http://demos.kendoui.com/service/meetings/destroy",
+                        dataType: "jsonp"
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "meetingID",
+                        fields: {
+                            meetingID: { from: "MeetingID", type: "number" },
+                            title: { from: "Title", defaultValue: "No title", validation: { required: true } },
+                            start: { type: "date", from: "Start" },
+                            end: { type: "date", from: "End" },
+                            startTimezone: { from: "StartTimezone" },
+                            endTimezone: { from: "EndTimezone" },
+                            description: { from: "Description" },
+                            recurrenceId: { from: "RecurrenceID" },
+                            recurrenceRule: { from: "RecurrenceRule" },
+                            recurrenceException: { from: "RecurrenceException" },
+                            roomId: { from: "RoomID", nullable: true },
+                            atendees: { from: "Atendees", nullable: true },
+                            isAllDay: { type: "boolean", from: "IsAllDay" }
+                        }
+                    }
+                }
+            },
+            resources: [
+                {
+                    field: "roomId",
+                    dataSource: [
+                        { text: "Meeting Room 101", value: 1, color: "#6eb3fa" },
+                        { text: "Meeting Room 201", value: 2, color: "#f58a8a" }
+                    ],
+                    title: "Room"
+                },
+                {
+                    field: "atendees",
+                    dataSource: [
+                        { text: "Alex", value: 1, color: "#f8a398" },
+                        { text: "Bob", value: 2, color: "#51a0ed" },
+                        { text: "Charlie", value: 3, color: "#56ca85" }
+                    ],
+                    multiple: true,
+                    title: "Atendees"
+                }
+            ]
+        });
+    });
+</script>

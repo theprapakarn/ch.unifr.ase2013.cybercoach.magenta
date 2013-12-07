@@ -1,4 +1,5 @@
 class Subscription < ActiveRecord::Base
+  belongs_to :user
   belongs_to :sport
   belongs_to :participant
   belongs_to :partnership
@@ -16,7 +17,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def save(save_info)
+  def self.save(save_info)
     if self.is_proxy
       super(save_info)
     else
@@ -25,7 +26,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def save()
+  def save
     if self.is_proxy
       if Subscription.find_by(reference: self.reference) == nil
         super

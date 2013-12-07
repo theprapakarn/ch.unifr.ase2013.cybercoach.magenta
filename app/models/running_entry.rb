@@ -1,2 +1,0 @@
-class RunningEntry < Entry
-end

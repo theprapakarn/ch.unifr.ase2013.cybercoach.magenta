@@ -56,11 +56,13 @@ module UsersHelper
 
           subscription.participant = participant
           subscription.reference = item['uri']
+          subscription.user = user
           subscription.is_proxy = true
           subscription.save
         end
       end
 
+=begin
       if parsed_json["partnerships"] != nil
         parsed_json["partnerships"].each do |item|
           partnership = Partnership.where('reference = ?', "#{ item['uri'] }").first
@@ -76,6 +78,7 @@ module UsersHelper
           participant.partnerships.concat(partnership)
         end
       end
+=end
 
       true
     else

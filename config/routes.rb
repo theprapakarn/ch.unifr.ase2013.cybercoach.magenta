@@ -1,8 +1,6 @@
 CarTrading::Application.routes.draw do
 
-  resources :running_entries
-
-  resources :soccer_entries
+  resources :activities
 
   resources :entries
 
@@ -20,6 +18,18 @@ CarTrading::Application.routes.draw do
 
   match "/cars/:car_id/bids/" => "bids#modal" , via: 'get', :as => :bids_modal
   match "/cars/:car_id/bids/" => "bids#create_modal" , via: 'post', :as => :bids_create_modal
+
+  match "/participantsall" => "participants#get_all" , via: 'get', :as => :participants_get_all
+
+  match "/running" => "activities#running" , via: 'get', :as => :activities_running
+  match "/running" => "activities#running_new" , via: 'post', :as => :activities_running_new
+  match "/runningall" => "activities#running_all" , via: 'get', :as => :activities_running_all
+  match "/runningupdate" => "activities#running_update" , via: 'post', :as => :activities_running_update
+
+
+  match "/partnershiparticipants" => "partnerships#partnership_participants" , via: 'get', :as => :partnership_partnership_participants
+  match "/partnershiprequest" => "partnerships#partnership_request" , via: 'post', :as => :partnership_partnership_request
+  match "/partnershipaccept/:id/" => "partnerships#partnership_accept" , via: 'get', :as => :partnership_partnership_accept
 
   resources :users
 
@@ -50,6 +60,15 @@ CarTrading::Application.routes.draw do
   resources :subscriptions do
     resources :entries
   end
+
+  resources :activities do
+    resources :participants
+  end
+
+  resources :activities do
+    resources :entries
+  end
+
 
   resources :sessions, only: [:new, :create, :destroy]
 

@@ -1,39 +1,138 @@
-<h1>Listing partnerships</h1>
+<h1>Request Partnerships</h1>
+<div id="participants"></div>
+<button type="button" id="request">Request</button>
 
 <table>
   <thead>
-    <tr>
-      <th>Reference</th>
-      <th>Public visible</th>
-      <th>First user</th>
-      <th>Second user</th>
-      <th>First user confirmed</th>
-      <th>Second user confirmed</th>
-      <th>Datecreated</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Reference</th>
+    <th>Public visible</th>
+    <th>First Confirmation</th>
+    <th>Second Confirmation</th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @partnerships.each do |partnership| %>
+  <% @partnerships.each do |partnership| %>
+      <% if (partnership.first_participant_confirmed && !partnership.second_participant_confirmed && partnership.participants[0].reference == Participant.find_by(user_id: current_user.id).reference) %>
       <tr>
-        <td><%= partnership.reference %></td>
-        <td><%= partnership.public_visible %></td>
-        <td><%= partnership.first_user_id %></td>
-        <td><%= partnership.second_user_id %></td>
-        <td><%= partnership.first_user_confirmed %></td>
-        <td><%= partnership.second_user_confirmed %></td>
-        <td><%= partnership.datecreated %></td>
-        <td><%= link_to 'Show', partnership %></td>
-        <td><%= link_to 'Edit', edit_partnership_path(partnership) %></td>
-        <td><%= link_to 'Destroy', partnership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+            <td><%= partnership.reference %></td>
+            <td><%= partnership.public_visible %></td>
+            <td><%= partnership.first_participant_confirmed %></td>
+            <td><%= partnership.second_participant_confirmed %></td>
+            <td><%= link_to 'Show', partnership %></td>
+            <td><%= link_to 'Edit', edit_partnership_path(partnership) %></td>
+            <td><%= link_to 'Destroy', partnership, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<h1>Accept Partnerships</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Reference</th>
+    <th>Public visible</th>
+    <th>First Confirmation</th>
+    <th>Second Confirmation</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @partnerships.each do |partnership| %>
+      <% if (!partnership.second_participant_confirmed && partnership.participants[0].reference != Participant.find_by(user_id: current_user.id).reference) %>
+          <tr>
+            <td><%= partnership.reference %></td>
+            <td><%= partnership.public_visible %></td>
+            <td><%= partnership.first_participant_confirmed %></td>
+            <td><%= partnership.second_participant_confirmed %></td>
+            <td><%= link_to 'Accept', partnership_partnership_accept_path(partnership) %></td>
+            <td><%= link_to 'Destroy', partnership, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h1>Friends</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Reference</th>
+    <th>Public visible</th>
+    <th>First Confirmation</th>
+    <th>Second Confirmation</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @partnerships.each do |partnership| %>
+      <% if (partnership.first_participant_confirmed && partnership.second_participant_confirmed) %>
+          <tr>
+            <td><%= partnership.reference %></td>
+            <td><%= partnership.public_visible %></td>
+            <td><%= partnership.first_participant_confirmed %></td>
+            <td><%= partnership.second_participant_confirmed %></td>
+            <td><%= link_to 'Show', partnership %></td>
+            <td><%= link_to 'Edit', edit_partnership_path(partnership) %></td>
+            <td><%= link_to 'Destroy', partnership, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+  <% end %>
   </tbody>
 </table>
 
 <br>
 
 <%= link_to 'New Partnership', new_partnership_path %>
+
+<script>
+    $(function () {
+        $("#participants").kendoMultiSelect({
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "http://localhost:3000/partnershiparticipants",
+                        dataType: "jsonp"
+                    }
+                },
+                schema: {
+                    data: "participants",
+                    model: {
+                        id: "value",
+                        fields: {
+                            value: { from: "value"  },
+                            text: { from: "text" }
+                        }
+                    }
+                }
+            }
+        });
+        $("#request").click(function () {
+            $.ajax({
+                url: "http://localhost:3000/partnershiprequest",
+                contentType: "application/json",
+                type: "POST",
+                dataType: "jsonp",
+                data: JSON.stringify({ participants: $("#participants").data("kendoMultiSelect").value() }),
+                success: function (result) {
+                    options.success(result);
+                },
+                error: function (result) {
+                    options.error(result);
+                }
+            });
+        });
+    });
+</script>

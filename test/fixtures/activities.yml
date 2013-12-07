@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  reference: MyString
+  name: MyString
+  user_id: 1
+  start_time: 2013-11-04 09:14:10
+  end_time: 2013-11-04 09:14:10
+  sport: 1
+  owner: 1
+  entry: 1
+  is_proxy: false
+
+two:
+  reference: MyString
+  name: MyString
+  user_id: 1
+  start_time: 2013-11-04 09:14:10
+  end_time: 2013-11-04 09:14:10
+  sport: 1
+  owner: 1
+  entry: 1
+  is_proxy: false

@@ -24,17 +24,21 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-    entry = Entry.new
+    @entry = Entry.new
+    @entry.user = current_user
 
     if params[:subscription_id]
       @subscription = Subscription.find(params[:subscription_id])
-      entry.subscription = @subscription
+      @subscription = SubscriptionsHelper.fetch(@subscription)
+      @entry.subscription = @subscription
     end
 
-    entry.comment = params[:comment]
-    entry.public_visible = 2
-    entry.save
-    @entry = entry
+    @entry.set_property("comment", params[:entry][:comment])
+    @entry.set_property("entrylocation", params[:entry][:location])
+    @entry.set_property("publicvisible", 2)
+
+    @entry.public_visible = 2
+    @entry.save
 
 =begin
     respond_to do |format|

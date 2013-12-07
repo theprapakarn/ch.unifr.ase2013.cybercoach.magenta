@@ -5,18 +5,24 @@ module PartnershipsHelper
     count = 0
     participants_path = ""
 
-    partnership.participants.each do |participant|
-      participants_path = participants_path + participant.user.username
-      if(partnership.participants.count - 1 != count)
-        participants_path = participants_path + ";"
+    if(partnership.reference == "")
+      participants_path  = partnership.reference
+    else
+      partnership.participants.each do |participant|
+        participants_path = participants_path + participant.user.username
+        if(partnership.participants.count - 1 != count)
+          participants_path = participants_path + ";"
+        end
+        count += 1
       end
-      count += 1
     end
+
+    puts participants_path
 
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new("/CyberCoachServer/resources/partnerships/" + participants_path)
     request["Accept"] = "application/json"
-    request["Authorization"] =  SessionsHelper.current_user.basic_authorization
+    request["Authorization"] =  partnership.user.basic_authorization
     request.set_form_data({ "publicvisible" => "1" })
     response = http.request(request)
 
@@ -26,6 +32,7 @@ module PartnershipsHelper
 
       if parsed_json["subscriptions"] != nil
         parsed_json["subscriptions"].each do |item|
+=begin
           subscription = Subscription.where('reference = ?', "#{item['uri']}").first
 
           if (subscription == nil)
@@ -36,6 +43,7 @@ module PartnershipsHelper
           subscription.reference = item['uri']
           subscription.is_proxy = true
           subscription.save
+=end
         end
       end
       partnership.is_proxy = true

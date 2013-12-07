@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028223119) do
+ActiveRecord::Schema.define(version: 20131104081410) do
+
+  create_table "activities", force: true do |t|
+    t.string   "reference"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "sport"
+    t.integer  "owner_id"
+    t.boolean  "is_proxy"
+    t.string   "place"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bids", force: true do |t|
     t.decimal  "price"
@@ -37,13 +52,13 @@ ActiveRecord::Schema.define(version: 20131028223119) do
     t.string   "public_visible"
     t.integer  "user_id"
     t.integer  "subscription_id"
-    t.string   "comment"
-    t.datetime "entry_date"
-    t.string   "entry_location"
     t.boolean  "is_proxy"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "activity_id"
   end
+
+  add_index "entries", ["activity_id"], name: "index_entries_on_activity_id", using: :btree
 
   create_table "participants", force: true do |t|
     t.string   "reference"
@@ -67,26 +82,13 @@ ActiveRecord::Schema.define(version: 20131028223119) do
   create_table "partnerships", force: true do |t|
     t.string   "reference"
     t.string   "public_visible"
+    t.integer  "user_id"
     t.integer  "first_participant_id"
     t.integer  "second_participant_id"
     t.boolean  "first_participant_confirmed"
     t.boolean  "second_participant_confirmed"
     t.datetime "date_created"
     t.boolean  "is_proxy"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "running_entries", force: true do |t|
-    t.string   "course_length"
-    t.string   "course_type"
-    t.integer  "number_of_round"
-    t.string   "track"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "soccer_entries", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -104,6 +106,7 @@ ActiveRecord::Schema.define(version: 20131028223119) do
     t.string   "public_visible"
     t.integer  "sport_id"
     t.integer  "user_id"
+    t.integer  "entry_id"
     t.boolean  "is_proxy"
     t.datetime "subscribed_created"
     t.datetime "created_at"

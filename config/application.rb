@@ -20,5 +20,9 @@ module CarTrading
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.assets.enabled = true
+    config.generators do |g|
+      g.assets true
+    end
   end
 end

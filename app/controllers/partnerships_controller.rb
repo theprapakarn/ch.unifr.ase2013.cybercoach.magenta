@@ -4,7 +4,9 @@ class PartnershipsController < ApplicationController
   # GET /partnerships
   # GET /partnerships.json
   def index
-    @partnerships = Partnership.all
+    #@partnerships = Partnership.all
+    @participant = Participant.find_by(user_id: current_user.id)
+    @partnerships = @participant.partnerships.distinct
   end
 
   # GET /partnerships/1
@@ -21,11 +23,91 @@ class PartnershipsController < ApplicationController
   def edit
   end
 
+  def partnership_participants
+    participant = Participant.find_by(user_id: current_user.id)
+    partnerships = participant.partnerships.distinct
+
+    json_participants = [partnerships.length]
+    count = 0
+
+    partnerships.each do |item|
+      if (item.first_participant_confirmed && item.second_participant_confirmed)
+        item.participants.each do |item_participant|
+          if (item_participant.reference != participant.reference)
+            json_participants[count] = {
+                "value" => item_participant.reference,
+                "text" => item_participant.user.username
+            }
+          end
+        end
+      end
+      count += 1
+    end
+
+    puts json_participants.to_s
+
+    respond_to do |format|
+      if params[:callback]
+        format.js { render :json => {:participants => json_participants}, :callback => params[:callback] }
+      else
+        format.json { render json: {:participants => json_participants} }
+      end
+    end
+  end
+
+  def partnership_request
+
+    params[:participants].each do |item|
+
+      participant = Participant.find_by(reference: item)
+      puts "/CyberCoachServer/resources/partnerships/" + current_user.username + ";" + participant.user.username + "/"
+      partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username + ";" + participant.user.username + "/").first
+
+      if (partnership == nil)
+        partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + participant.user.username + ";" + current_user.username + "/").first
+      end
+
+      if (partnership == nil)
+        partnership = participant.partnerships.build()
+        partnership.user = current_user
+
+        if (partnership.participants.find_by(user_id: current_user.id) == nil)
+          participant1= Participant.find_by(user_id: current_user.id)
+          partnership.participants.concat(participant1)
+        end
+
+        if (partnership.participants.find_by(reference: item) == nil)
+          participant2= Participant.find_by(reference: item)
+          partnership.participants.concat(participant2)
+        end
+
+        partnership.first_participant_confirmed = true
+
+        partnership.save
+      end
+    end
+  end
+
+  def partnership_accept
+    partnership = Partnership.where('id = ?', params[:id]).first
+
+    if (partnership != nil)
+      partnership.second_participant_confirmed = true
+      partnership.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to partnerships_url }
+      format.json { head :no_content }
+    end
+  end
+
   # POST /partnerships
   # POST /partnerships.json
   def create
 
     partnership = Partnership.new
+    partnership.user = current_user
 
     if (partnership.participants.find_by(reference: params[:first_participant_id]) == nil)
       participant1= Participant.find_by(reference: params[:first_participant_id])

@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :cars
   has_many :participants
+  has_many :partnerships
+  has_many :subscriptions
+  has_many :entries
+  has_many :activities
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

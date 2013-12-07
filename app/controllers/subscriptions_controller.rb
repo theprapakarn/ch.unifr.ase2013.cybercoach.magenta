@@ -28,6 +28,7 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions.json
   def create
     subscription = Subscription.new
+    subscription.user = current_user
 
     if params[:participant_id]
       @participant = Participant.find(params[:participant_id])

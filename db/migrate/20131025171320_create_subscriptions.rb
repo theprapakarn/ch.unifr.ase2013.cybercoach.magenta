@@ -5,6 +5,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.string :public_visible
       t.integer :sport_id
       t.integer :user_id
+      t.integer :entry_id
       t.boolean :is_proxy
       t.datetime :subscribed_created
       t.timestamps

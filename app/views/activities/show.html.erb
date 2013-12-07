@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @activity.reference %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @activity.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @activity.user_id %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @activity.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @activity.end_time %>
+</p>
+
+<p>
+  <strong>Sport:</strong>
+  <%= @activity.sport %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @activity.owner %>
+</p>
+
+<p>
+  <strong>Entry:</strong>
+  <%= @activity.entry %>
+</p>
+
+<p>
+  <strong>Is proxy:</strong>
+  <%= @activity.is_proxy %>
+</p>
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>

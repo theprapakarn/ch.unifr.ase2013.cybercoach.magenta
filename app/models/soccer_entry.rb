@@ -1,2 +1,0 @@
-class SoccerEntry < Entry
-end

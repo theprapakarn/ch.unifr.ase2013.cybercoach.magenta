@@ -1,0 +1,29 @@
+<p>
+  <label>Title:<input name="title" data-bind="value: title"/></label>
+</p>
+
+<p>
+  <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
+</p>
+
+<p>
+  <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
+</p>
+
+<p>
+  <label>Location:<input name="location" data-bind="value: location"/> </label>
+</p>
+
+<p>
+  <label>Comment:<input name="location" data-bind="value: comment"/> </label>
+</p>
+
+<p>
+  <label>Participants:
+    <select name="participants" data-role="multiselect" data-bind="value: selectedparticipants">
+      # for (var i = 0; i < allparticipants.length; i++) { #
+      <option> #: allparticipants[i].text #  </option>
+      # } #
+    </select>
+  </label>
+</p>

@@ -3,6 +3,7 @@ class CreatePartnerships < ActiveRecord::Migration
     create_table :partnerships do |t|
       t.string :reference
       t.string :public_visible
+      t.integer :user_id
       t.integer :first_participant_id
       t.integer :second_participant_id
       t.boolean :first_participant_confirmed

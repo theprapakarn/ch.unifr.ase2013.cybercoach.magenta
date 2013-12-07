@@ -1,21 +1,11 @@
 module SessionsHelper
 
-  class << self
-    attr_accessor :cookies_token
-
-    def current_user
-      remember_token = User.encrypt(SessionsHelper::cookies_token)
-      @current_user ||= User.find_by(remember_token: remember_token)
-    end
-  end
-
     def sign_in(user)
       remember_token = User.new_remember_token
       cookies.permanent[:remember_token] = remember_token
       user.remember_token = User.encrypt(remember_token)
       user.save
-      SessionsHelper::cookies_token = remember_token
-      self.current_user = user
+     self.current_user = user
     end
 
     def current_user=(user)

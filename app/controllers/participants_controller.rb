@@ -62,14 +62,37 @@ class ParticipantsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_participant
-       @participant = Participant.find(params[:id])
+  def get_all
+    @participants = Participant.all
+    json_participants = [@participants.length]
+    count = 0
+    @participants.each do |item|
+      json_participants[count] = {
+          "value" => item.reference,
+          "text" => item.user.username
+      }
+      count += 1
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def participant_params
-      params.require(:participant).permit(:reference, :public_visible, :user_id)
+    puts json_participants.to_json
+
+    respond_to do |format|
+      if params[:callback]
+        format.js { render :json => {:participants => json_participants}, :callback => params[:callback] }
+      else
+        format.json { render json: {:participants => json_participants} }
+      end
     end
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_participant
+    @participant = Participant.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def participant_params
+    params.require(:participant).permit(:reference, :public_visible, :user_id)
+  end
 end

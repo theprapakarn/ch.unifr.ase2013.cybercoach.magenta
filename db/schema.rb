@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(version: 20131104081410) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "sport"
+    t.integer  "entry_id"
     t.integer  "owner_id"
     t.boolean  "is_proxy"
     t.string   "place"
     t.string   "comment"
+    t.integer  "reference_activity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,10 +57,7 @@ ActiveRecord::Schema.define(version: 20131104081410) do
     t.boolean  "is_proxy"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "activity_id"
   end
-
-  add_index "entries", ["activity_id"], name: "index_entries_on_activity_id", using: :btree
 
   create_table "participants", force: true do |t|
     t.string   "reference"

@@ -21,6 +21,37 @@
 </script>
 
 <script id="editor" type="text/x-kendo-template">
+  #if(id == ""){#
+  <p>
+    <label>Title:<input name="title" data-bind="value: title"/></label>
+  </p>
+
+  <p>
+    <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
+  </p>
+
+  <p>
+    <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
+  </p>
+
+  <p>
+    <label>Location:<input name="location" data-bind="value: location"/> </label>
+  </p>
+
+  <p>
+    <label>Comment:<input name="comment" data-bind="value: comment"/> </label>
+  </p>
+
+  <p>
+    <label>Participants:
+      <select id="participants"
+              data-placeholder="Select participants..."
+              multiple="multiple"
+              data-bind="value: participants">
+      </select>
+    </label>
+  </p>
+  #}else{#
   #if(info.From == "Google"){#
   <p>
     #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
@@ -53,22 +84,15 @@
   </p>
 
   <p>
-    <label>Location:<input name="location" data-bind="value: location"/> </label>
-  </p>
-
-  <p>
-    <label>Comment:<input name="comment" data-bind="value: comment"/> </label>
-  </p>
-
-  <p>
     <label>Participants:
-      <select id="participants"
-              data-placeholder="Select participants..."
+      <select id="readonlyparticipants"
+              data-placeholder="No participant..."
               multiple="multiple"
               data-bind="value: participants">
       </select>
     </label>
   </p>
+  #}#
   #}#
 </script>
 
@@ -117,28 +141,57 @@
             allDayEventTemplate: $("#all-event-template").html(),
             eventTemplate: $("#event-template").html(),
             edit: function (e) {
-                $("#participants").kendoMultiSelect({
-                    dataTextField: "text",
-                    dataValueField: "value",
-                    dataSource: {
-                        transport: {
-                            read: {
-                                url: "http://localhost:3000/partnershiparticipants",
-                                dataType: "jsonp"
-                            }
-                        },
-                        schema: {
-                            data: "participants",
-                            model: {
-                                id: "value",
-                                fields: {
-                                    value: { from: "value"  },
-                                    text: { from: "text" }
+                if (e.event.id != "") {
+                    $("#readonlyparticipants").kendoMultiSelect({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        readonly: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "http://localhost:3000/partnershiparticipants",
+                                    dataType: "jsonp"
+                                }
+                            },
+                            schema: {
+                                data: "participants",
+                                model: {
+                                    id: "value",
+                                    fields: {
+                                        value: { from: "value"  },
+                                        text: { from: "text" }
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                    var multiselect = $("#readonlyparticipants").data("kendoMultiSelect");
+                    multiselect.readonly(true);
+                }
+                else {
+                    $("#participants").kendoMultiSelect({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "http://localhost:3000/partnershiparticipants",
+                                    dataType: "jsonp"
+                                }
+                            },
+                            schema: {
+                                data: "participants",
+                                model: {
+                                    id: "value",
+                                    fields: {
+                                        value: { from: "value"  },
+                                        text: { from: "text" }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             },
             timezone: "Etc/UTC",
             dataSource: {
@@ -156,20 +209,6 @@
                             }
                         });
                     },
-                    update: function (options) {
-                        $.ajax({
-                            url: crudServiceBaseUrl + "update",
-                            contentType: "application/json",
-                            type: "POST",
-                            data: JSON.stringify({ running: options.data }),
-                            success: function (result) {
-                                options.success(result);
-                            },
-                            error: function (result) {
-                                options.error(result);
-                            }
-                        });
-                    },
                     create: function (options) {
                         $.ajax({
                             url: crudServiceBaseUrl,
@@ -178,15 +217,32 @@
                             data: JSON.stringify({ running: options.data }),
                             success: function (result) {
                                 options.success(result);
+                                alert("saved");
+
                             },
                             error: function (result) {
                                 options.error(result);
+                                alert("saved error");
+
                             }
                         });
                     },
-                    destroy: {
-                        url: "http://demos.kendoui.com/service/meetings/destroy",
-                        dataType: "jsonp"
+                    destroy: function (options) {
+                        $.ajax({
+                            url: crudServiceBaseUrl + "delete",
+                            contentType: "application/json",
+                            type: "POST",
+                            data: JSON.stringify({ running: options.data }),
+                            success: function (result) {
+                                alert("deleted");
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                alert("deleted error");
+
+                                options.error(result);
+                            }
+                        });
                     },
                     parameterMap: function (options, operation) {
                         if (operation != "read" && options.models) {
@@ -209,7 +265,8 @@
                             comment: { from: "Comment" },
                             participants: { from: "Participants" },
                             info: { from: "Info"},
-                            isAllDay: { type: "boolean", from: "IsAllDay", defaultValue: true }
+                            isAllDay: { type: "boolean", from: "IsAllDay", defaultValue: true },
+                            readonly: { type: "boolean", from: "ReadOnly", defaultValue: true }
                         }
                     }
                 }

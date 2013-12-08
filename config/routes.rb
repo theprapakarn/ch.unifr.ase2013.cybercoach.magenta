@@ -25,6 +25,7 @@ CarTrading::Application.routes.draw do
   match "/running" => "activities#running_new" , via: 'post', :as => :activities_running_new
   match "/runningall" => "activities#running_all" , via: 'get', :as => :activities_running_all
   match "/runningupdate" => "activities#running_update" , via: 'post', :as => :activities_running_update
+  match "/runningdelete" => "activities#running_delete" , via: 'post', :as => :activities_running_delete
 
 
   match "/partnershiparticipants" => "partnerships#partnership_participants" , via: 'get', :as => :partnership_partnership_participants
@@ -65,9 +66,6 @@ CarTrading::Application.routes.draw do
     resources :participants
   end
 
-  resources :activities do
-    resources :entries
-  end
 
 
   resources :sessions, only: [:new, :create, :destroy]

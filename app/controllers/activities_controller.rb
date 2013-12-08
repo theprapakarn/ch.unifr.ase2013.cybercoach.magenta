@@ -71,82 +71,111 @@ class ActivitiesController < ApplicationController
   def running_all
     get_suggestions
 
-    @activities = Activity.all
+    @activities = Activity.where('user_id = ?', current_user.id)
     @body = [@activities.length]
-    count = 0
-
-    @activities.each do |item|
-      entries_Count = item.entries.count
-      if (entries_Count == 0)
-        puts "Activity Entry Count = 0"
-      else
-        puts "Activity Entry Count = 1"
-
-        if (entries_Count > 0)
-          count_participant = 0
-          json_participants = Array.new
-
-          entries = Entry.where('activity_id = ?', "#{ item.id }")
-          entries.each do |entry|
-            if entry.subscription.partnership != nil
-              puts "Many Participants:" + entry.subscription.partnership.participants[1].user.username
-
-              json_participants[count] = {
-                  "value" => entry.subscription.partnership.participants[1].reference,
-                  "Text" => entry.subscription.partnership.participants[1].user.username
-              }
-            end
-            count_participant += 1
-          end
-        else
-          json_participants = ""
-        end
-      end
-
-      entry = EntriesHelper.fetch(item.entries[0])
-
-      @body[count] = {
-          "Reference" => item.reference,
-          "Title" => item.name,
-          "StartTime" => item.start_time,
-          "EndTime" => item.end_time,
-          "Comment" => entry.get_property("comment"),
-          "Location" => entry.get_property("entrylocation"),
-          "Participants" => json_participants,
-          "IsAllDay" => false,
-          "Info" => {
-              "Status" => "Busy",
-              "From" => "CyberCoach"
-          }
-      }
-      count += 1
-    end
+    activity_count = 0
 
     cal = Google::Calendar.new(:username => current_user.email,
                                :password => 'Bern2013',
                                :app_name => 'firmy')
 
-    if (cal.events)
+    @activities.each do |item|
+      exist_event_on_google = cal.find_event_by_id(item.reference)
+
+      if (exist_event_on_google == nil)
+        item.delete()
+      else
+        count_participant = 0
+        json_participants = Array.new
+
+        ref_activities = Activity.where('reference_activity_id = ?', "#{ item.id }")
+
+        if (ref_activities.count == 0)
+          if (item.reference_activity_id != nil && item.reference_activity_id != "")
+            ref_activities = Activity.where('reference_activity_id = ?', "#{ item.reference_activity_id }")
+
+            ref_activities.each do |ref_item|
+              json_participants[count_participant] = {
+                  "value" => ref_item.entry.subscription.partnership.participants[0].reference,
+                  "Text" => ref_item.entry.subscription.partnership.participants[0].user.username
+              }
+              count_participant += 1
+            end
+          end
+        else
+          ref_activities.each do |ref_item|
+            json_participants[count_participant] = {
+                "value" => ref_item.entry.subscription.partnership.participants[1].reference,
+                "Text" => ref_item.entry.subscription.partnership.participants[1].user.username
+            }
+            count_participant += 1
+          end
+        end
+
+
+        if (ref_activities.count > 0)
+          entry = EntriesHelper.fetch(ref_activities[0].entry)
+        else
+          entry = EntriesHelper.fetch(item.entry)
+        end
+
+        @body[activity_count] = {
+            "Reference" => item.reference,
+            "Title" => item.name,
+            "StartTime" => item.start_time,
+            "EndTime" => item.end_time,
+            "Comment" => entry.get_property("comment"),
+            "Location" => entry.get_property("entrylocation"),
+            "Participants" => json_participants,
+            "IsAllDay" => false,
+            "ReadOnly" => true,
+            "Info" => {
+                "Status" => "Busy",
+                "From" => "CyberCoach"
+            }
+        }
+
+        activity_count += 1
+      end
+    end
+
+    if (cal.events.instance_of?(Array))
       cal.events.each do |item|
-        if (Activity.find_by(reference: item.id) == nil)
-          @body[count] = {
+        if (Activity.where('reference like ?', "%" + item.id.to_s + "%").first == nil)
+          @body[activity_count] = {
               "Reference" => item.id,
               "Title" => item.title,
               "StartTime" => item.start_time,
               "EndTime" => item.end_time,
+              "ReadOnly" => true,
               "Info" => {
                   "Status" => "Busy",
                   "From" => "Google"
               }
           }
-          count += 1
+          activity_count += 1
         end
+      end
+    else
+      if (Activity.where('reference like ?', "%" + item.id.to_s + "%").first == nil)
+        @body[activity_count] = {
+            "Reference" => cal.events.id,
+            "Title" => cal.events.title,
+            "StartTime" => cal.events.start_time,
+            "EndTime" => cal.events.end_time,
+            "ReadOnly" => true,
+            "Info" => {
+                "Status" => "Busy",
+                "From" => "Google"
+            }
+        }
+        activity_count += 1
       end
     end
 
     get_suggestions.each do |item|
-      @body[count] = item
-      count += 1
+      @body[activity_count] = item
+      activity_count += 1
     end
 
     puts @body.to_json
@@ -165,8 +194,16 @@ class ActivitiesController < ApplicationController
     @activity.name = params[:running][:Title]
     @activity.start_time = params[:running][:StartTime]
     @activity.end_time = params[:running][:EndTime]
+    @activity.user = current_user
 
-    @activity.entries = Array.new
+    entry = Entry.new
+    entry.reference = ""
+    entry.is_proxy = true
+    entry.user = current_user
+    entry.set_property("entrylocation", params[:running][:Location])
+    entry.set_property("comment", params[:running][:Comment])
+    entry.set_property("publicvisible", 2)
+    entry.public_visible = 2
 
     if (params[:running][:Participants] == nil || !params[:running][:Participants].instance_of?(Array))
 
@@ -188,34 +225,17 @@ class ActivitiesController < ApplicationController
       else
         subscription = SubscriptionsHelper.fetch(subscription)
       end
-      entry = Entry.new
-      entry.activity = @activity
+      entry.is_proxy = false
       entry.subscription = subscription
-      entry.user = current_user
-      entry.set_property("entrylocation", params[:running][:Location])
-      entry.set_property("comment", params[:running][:Comment])
-      entry.set_property("publicvisible", 2)
-      entry.public_visible = 2
-      entry.save
     else
       params[:running][:Participants].each do |item|
-        partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username + ";" + item[:text] + "/").first
+        partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username.downcase + ";" + item[:text].downcase + "/").first
+
         if (partnership == nil)
-          partnership = Partnership.new
-          partnership.user = current_user
-
-          if (partnership.participants.find_by(user_id: current_user.id) == nil)
-            participant1= Participant.find_by(user_id: current_user.id)
-            partnership.participants.concat(participant1)
-          end
-
-          if (partnership.participants.find_by(reference: item[:value]) == nil)
-            participant2= Participant.find_by(reference: item[:value])
-            partnership.participants.concat(participant2)
-          end
-
-          partnership.save
+          partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + item[:text].downcase + ";" + current_user.username.downcase + "/").first
         end
+
+        puts "/CyberCoachServer/resources/partnerships/" + item[:text].downcase + ";" + current_user.username.downcase + "/"
 
         subscription = Subscription.find_by(reference: partnership.reference + "/Running/")
         if (subscription == nil)
@@ -230,20 +250,40 @@ class ActivitiesController < ApplicationController
 
           subscription.public_visible = 2
           subscription.sport = sport
-          subscription.partnership.save
           subscription.save
         else
           subscription = SubscriptionsHelper.fetch(subscription)
         end
-        entry = Entry.new
-        entry.activity = @activity
-        entry.subscription = subscription
-        entry.user = current_user
-        entry.set_property("entrylocation", params[:running][:Location])
-        entry.set_property("comment", params[:running][:Comment])
-        entry.set_property("publicvisible", 2)
-        entry.public_visible = 2
-        entry.save
+
+        participant = Participant.find_by(reference: item[:value])
+        cal_participant = Google::Calendar.new(:username => participant.user.email,
+                                               :password => 'Bern2013',
+                                               :app_name => 'firmy')
+
+        event_participant = cal_participant.create_event do |e|
+          e.title = "[" + current_user.username + "] " + @activity.name
+          e.start_time = @activity.start_time
+          e.end_time = @activity.end_time
+        end
+
+        entry_participant = Entry.new
+        entry_participant.subscription = subscription
+        entry_participant.user = participant.user
+        entry_participant.set_property("entrylocation", params[:running][:Location])
+        entry_participant.set_property("comment", params[:running][:Comment])
+        entry_participant.set_property("publicvisible", 2)
+        entry_participant.public_visible = 2
+        entry_participant.save
+
+        activity_participant = Activity.new
+        activity_participant.name = "[" + current_user.username + "] " + @activity.name
+        activity_participant.entry = entry_participant
+        activity_participant.reference_activity = @activity
+        activity_participant.reference = event_participant.id
+        activity_participant.start_time = @activity.start_time
+        activity_participant.end_time = @activity.end_time
+        activity_participant.user = participant.user
+        activity_participant.save
       end
     end
 
@@ -257,13 +297,70 @@ class ActivitiesController < ApplicationController
       e.end_time = @activity.end_time
     end
 
-    @activity.reference = event.id
+    @activity.entry = entry
+    @activity.entry.save
 
+    @activity.reference = event.id
     @activity.save
   end
 
+  def running_delete
+    @activity = Activity.where('reference = ?', "#{params[:running][:Reference]}").first
+
+    if (@activity != nil && @activity.reference != nil && @activity.reference != '')
+
+      cal = Google::Calendar.new(:username => current_user.email,
+                                 :password => 'Bern2013',
+                                 :app_name => 'firmy')
+
+
+      event = cal.find_or_create_event_by_id(@activity.reference) do |e|
+        e.title = @activity.name
+        e.start_time = @activity.start_time
+        e.end_time = @activity.end_time
+      end
+
+      cal.delete_event(event)
+
+      if (@activity.entry != nil && @activity.entry.reference != nil)
+        @activity.entry.delete
+      end
+
+      @activity.delete
+
+      if (@activity.reference_activity == nil)
+
+        ref_activities = Activity.where('reference_activity_id = ?', "#{ @activity.id }")
+
+        ref_activities.each do |ref_item|
+          cal = Google::Calendar.new(:username => ref_item.user.email,
+                                     :password => 'Bern2013',
+                                     :app_name => 'firmy')
+
+          event = cal.find_or_create_event_by_id(ref_item.reference) do |e|
+            e.title = @activity.name
+            e.start_time = @activity.start_time
+            e.end_time = @activity.end_time
+          end
+
+          cal.delete_event(event)
+          if (ref_item.entry != nil)
+            ref_item.entry.delete
+          end
+          ref_item.delete
+        end
+      end
+    end
+  end
+
+
   def running_update
     @activity = Activity.where('reference = ?', "#{params[:running][:Reference]}").first
+    ref_activity = @activity
+
+    if (@activity.reference.include?("ref:"))
+      @activity = Activity.where('id = ?', "#{ @activity.reference[4, @activity.reference.length] }").first
+    end
 
     if (params[:running][:Participants] == nil || !params[:running][:Participants].instance_of?(Array))
 
@@ -292,26 +389,17 @@ class ActivitiesController < ApplicationController
       @activity.entries[0].save
     else
       params[:running][:Participants].each do |item|
-        partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username + ";" + item[:text] + "/").first
+        partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username.downcase + ";" + item[:text].downcase + "/").first
+
         if (partnership == nil)
-          partnership = Partnership.new
-          partnership.user = current_user
-
-          if (partnership.participants.find_by(user_id: current_user.id) == nil)
-            participant1 = Participant.find_by(user_id: current_user.id)
-            partnership.participants.concat(participant1)
-          end
-
-          if (partnership.participants.find_by(reference: item[:value]) == nil)
-            participant2 = Participant.find_by(reference: item[:value])
-            partnership.participants.concat(participant2)
-          end
-
-          partnership.save
+          partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + item[:text].downcase + ";" + current_user.username.downcase + "/").first
         end
+
+        puts "/CyberCoachServer/resources/partnerships/" + item[:text].downcase + ";" + current_user.username.downcase + "/"
 
         subscription = Subscription.find_by(reference: partnership.reference + "/Running/")
         if (subscription == nil)
+          puts "Not Found: "
           subscription = Subscription.new
           subscription.user = current_user
           subscription.partnership = Partnership.find_by(reference: partnership.reference)
@@ -324,10 +412,10 @@ class ActivitiesController < ApplicationController
 
           subscription.public_visible = 2
           subscription.sport = sport
-          subscription.partnership.save
           subscription.save
         else
           subscription = SubscriptionsHelper.fetch(subscription)
+          puts "Found: " + subscription.reference
         end
         isFound = false
         @activity.entries.each do |entry|
@@ -338,11 +426,16 @@ class ActivitiesController < ApplicationController
             entry.public_visible = 2
             entry.save
 
+            puts "Found Entry: " + entry.get_property("comment")
+
             isFound = true
           end
         end
 
         if (!isFound)
+
+          puts "Not Found Entry: " + params[:running][:Comment]
+
           entry = Entry.new
           entry.activity = @activity
           entry.subscription = subscription
@@ -368,40 +461,8 @@ class ActivitiesController < ApplicationController
       e.end_time = @activity.end_time
     end
 
-    current_participant = Participant.find_by(user_id: current_user.id)
-    partnerships = current_participant.partnerships.distinct
-
-    partnerships.each do |item|
-      if (item.first_participant_confirmed && item.second_participant_confirmed)
-        item.participants.each do |item_participant|
-          if (item_participant.reference != participant.reference)
-
-            @activity = Activity.new
-            @activity.name = params[:running][:Title]
-            @activity.start_time = params[:running][:StartTime]
-            @activity.end_time = params[:running][:EndTime]
-
-            @activity.entries = Array.new
-
-
-            cal_participant = Google::Calendar.new(:username => item_participant.user.email,
-                                       :password => 'Bern2013',
-                                       :app_name => 'firmy')
-
-            cal_participant.find_or_create_event_by_id(@activity.reference) do |e|
-              e.title = @activity.name
-              e.start_time = @activity.start_time
-              e.end_time = @activity.end_time
-            end
-          end
-        end
-      end
-      count += 1
-    end
-
     @activity.save
   end
-
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -448,6 +509,7 @@ class ActivitiesController < ApplicationController
           "StartTime" => Time.at(item["dt"]).to_datetime,
           "EndTime" => Time.at(item["dt"]).to_datetime,
           "IsAllDay" => true,
+          "ReadOnly" => true,
           "Info" => {
               "Morning" => item["temp"]["morn"].to_s,
               "Noon" => item["temp"]["day"].to_s,

@@ -27,7 +27,7 @@ class PartnershipsController < ApplicationController
     participant = Participant.find_by(user_id: current_user.id)
     partnerships = participant.partnerships.distinct
 
-    json_participants = [partnerships.length]
+    json_participants =  Array.new
     count = 0
 
     partnerships.each do |item|
@@ -42,6 +42,10 @@ class PartnershipsController < ApplicationController
         end
       end
       count += 1
+    end
+
+    if (count == 0)
+      json_participants = ""
     end
 
     puts json_participants.to_s

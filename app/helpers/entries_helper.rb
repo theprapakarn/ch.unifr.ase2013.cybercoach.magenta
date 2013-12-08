@@ -3,30 +3,34 @@ module EntriesHelper
     uri = URI.parse("http://diufvm31.unifr.ch:8090/")
     http = Net::HTTP.new(uri.host, uri.port)
 
-    if(entry.id == nil)
-      request = Net::HTTP::Post.new(entry.subscription.reference)
-    else
-      request = Net::HTTP::Put.new(entry.reference)
-    end
-
-    request["Accept"] = "application/json"
-    request["Authorization"] = entry.user.basic_authorization
-    request["Content-Type"] =  "application/json"
-
-    request.body = entry.get_data().to_json
-    response = http.request(request)
-
-    if (response.code == "200" || response.code == "201")
-      if(entry.id == nil)
-        entry.reference = response["location"]
+    if (entry.subscription != nil)
+      if (entry.id == nil)
+        request = Net::HTTP::Post.new(entry.subscription.reference)
+        puts "Entry Subscription: " +  entry.subscription.reference
+      else
+        request = Net::HTTP::Put.new(entry.reference)
+        puts "Entry Subscription: " +  entry.reference
       end
-      entry.is_proxy = true
-      true
-    else
-      puts(response.body)
-      puts(response.code)
-      subscription.asv = "ddd"
-      false
+
+      request["Accept"] = "application/json"
+      request["Authorization"] = entry.user.basic_authorization
+      request["Content-Type"] = "application/json"
+      request.body = entry.get_data().to_json
+
+      response = http.request(request)
+
+      if (response.code == "200" || response.code == "201")
+        if (entry.id == nil)
+          entry.reference = response["location"]
+        end
+        entry.is_proxy = true
+        true
+      else
+        puts(response.body)
+        puts(response.code)
+        subscription.asv = "ddd"
+        false
+      end
     end
   end
 
@@ -60,4 +64,27 @@ module EntriesHelper
     end
   end
 
+  def self.delete_cy_ber_coach(entry)
+    uri = URI.parse("http://diufvm31.unifr.ch:8090/")
+    http = Net::HTTP.new(uri.host, uri.port)
+
+    puts "Delete Entry : " +  entry.reference
+
+    if (entry.subscription != nil)
+      request = Net::HTTP::Delete.new(entry.reference)
+      request["Accept"] = "application/json"
+      request["Authorization"] = entry.user.basic_authorization
+      request["Content-Type"] = "application/json"
+      response = http.request(request)
+
+      if (response.code == "200" || response.code == "201")
+        true
+      else
+        puts(response.body)
+        puts(response.code)
+        subscription.asv = "ddd"
+        false
+      end
+    end
+  end
 end

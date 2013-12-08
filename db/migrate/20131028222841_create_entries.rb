@@ -8,8 +8,5 @@ class CreateEntries < ActiveRecord::Migration
       t.boolean :is_proxy
       t.timestamps
     end
-
-    add_column :entries, :activity_id, :integer
-    add_index :entries, :activity_id
   end
 end

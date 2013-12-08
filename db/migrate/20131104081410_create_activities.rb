@@ -7,11 +7,12 @@ class CreateActivities < ActiveRecord::Migration
       t.datetime :start_time
       t.datetime :end_time
       t.integer :sport
+      t.integer :entry_id
       t.integer :owner_id
       t.boolean :is_proxy
       t.string :place
       t.string :comment
-
+      t.integer :reference_activity_id
       t.timestamps
     end
   end

@@ -93,7 +93,7 @@
     <file path="/activity.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520767620" ignored="false" />
     <file path="/20131104081410_create_activities.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520730889" ignored="false" />
     <file path="/application.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1383860286452" ignored="false" />
-    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386543971043" ignored="false" />
+    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386594724547" ignored="false" />
     <file path="/running.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386543781904" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,10 +119,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="activities_controller.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="activities_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="248" column="45" selection-start="7953" selection-end="7953" vertical-scroll-proportion="0.0">
+            <state line="336" column="16" selection-start="11194" selection-end="11194" vertical-scroll-proportion="0.375">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="calendar.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///var/lib/gems/1.9.1/gems/google_calendar-0.3.1/lib/google/calendar.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="215" column="38" selection-start="8142" selection-end="8142" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -182,10 +191,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="running.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="running.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/activities/running.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="224" column="50" selection-start="7136" selection-end="7136" vertical-scroll-proportion="0.66560507">
+            <state line="217" column="27" selection-start="6809" selection-end="6809" vertical-scroll-proportion="-4.3333335">
               <folding>
                 <element signature="n#style#0;n#div#0;n#script#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#script#0;n#!!top" expanded="true" />
@@ -229,8 +238,8 @@
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/models/entry.rb" />
         <option value="$PROJECT_DIR$/app/helpers/entries_helper.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/activities_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/activities/running.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/activities_controller.rb" />
       </list>
     </option>
   </component>
@@ -737,7 +746,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="25" width="1028" height="745" extended-state="7" />
+    <frame x="-2" y="25" width="1028" height="745" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -847,13 +856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///var/lib/gems/1.9.1/gems/google_calendar-0.3.1/lib/google/calendar.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="42" selection-start="3933" selection-end="3933" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/partnerships_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="47" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
@@ -931,16 +933,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="248" column="45" selection-start="7953" selection-end="7953" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/activities/running.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="224" column="50" selection-start="7136" selection-end="7136" vertical-scroll-proportion="0.66560507">
+        <state line="217" column="27" selection-start="6809" selection-end="6809" vertical-scroll-proportion="-4.3333335">
           <folding>
             <element signature="n#style#0;n#div#0;n#script#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#script#0;n#!!top" expanded="true" />
@@ -948,6 +943,20 @@
             <element signature="n#style#0;n#div#3;n#script#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#script#1;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///var/lib/gems/1.9.1/gems/google_calendar-0.3.1/lib/google/calendar.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="215" column="38" selection-start="8142" selection-end="8142" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="336" column="16" selection-start="11194" selection-end="11194" vertical-scroll-proportion="0.375">
+          <folding />
         </state>
       </provider>
     </entry>

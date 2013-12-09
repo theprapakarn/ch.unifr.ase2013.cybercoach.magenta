@@ -314,12 +314,7 @@ class ActivitiesController < ApplicationController
                                  :app_name => 'firmy')
 
 
-      event = cal.find_or_create_event_by_id(@activity.reference) do |e|
-        e.title = @activity.name
-        e.start_time = @activity.start_time
-        e.end_time = @activity.end_time
-      end
-
+      event = cal.find_event_by_id(@activity.reference)
       cal.delete_event(event)
 
       if (@activity.entry != nil && @activity.entry.reference != nil)
@@ -333,17 +328,13 @@ class ActivitiesController < ApplicationController
         ref_activities = Activity.where('reference_activity_id = ?', "#{ @activity.id }")
 
         ref_activities.each do |ref_item|
-          cal = Google::Calendar.new(:username => ref_item.user.email,
+          ref_cal = Google::Calendar.new(:username => ref_item.user.email,
                                      :password => 'Bern2013',
                                      :app_name => 'firmy')
 
-          event = cal.find_or_create_event_by_id(ref_item.reference) do |e|
-            e.title = @activity.name
-            e.start_time = @activity.start_time
-            e.end_time = @activity.end_time
-          end
+          ref_event = ref_cal.find_event_by_id(ref_item.reference)
+          ref_cal.delete_event(ref_event)
 
-          cal.delete_event(event)
           if (ref_item.entry != nil)
             ref_item.entry.delete
           end

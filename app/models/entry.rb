@@ -20,6 +20,14 @@ class Entry < ActiveRecord::Base
     @dynamic_properties[property]
   end
 
+  def set_dynamic_property(value)
+    @dynamic_properties = value
+  end
+
+  def get_dynamic_property()
+    @dynamic_properties
+  end
+
   def get_data()
     #if (id == nil)
     @data ={

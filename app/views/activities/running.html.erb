@@ -135,8 +135,9 @@
                 "agenda"
             ],
             editable: {
+                move: false,
+                resize: false,
                 template: $("#editor").html()
-                //template: $("#test").html()
             },
             allDayEventTemplate: $("#all-event-template").html(),
             eventTemplate: $("#event-template").html(),
@@ -149,7 +150,7 @@
                         dataSource: {
                             transport: {
                                 read: {
-                                    url: "http://localhost:3000/partnershiparticipants",
+                                    url: "http://localhost:3000/participantsall",
                                     dataType: "jsonp"
                                 }
                             },
@@ -166,7 +167,10 @@
                         }
                     });
                     var multiselect = $("#readonlyparticipants").data("kendoMultiSelect");
-                    multiselect.readonly(true);
+                    if(multiselect != null)
+                    {
+                        multiselect.readonly(true);
+                    }
                 }
                 else {
                     $("#participants").kendoMultiSelect({
@@ -198,8 +202,7 @@
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: crudServiceBaseUrl + "all",
-                            //url: "http://demos.kendoui.com/service/meetings",
+                            url: "activitiesall",
                             dataType: "jsonp",
                             success: function (result) {
                                 options.success(result);
@@ -217,13 +220,13 @@
                             data: JSON.stringify({ running: options.data }),
                             success: function (result) {
                                 options.success(result);
-                                alert("saved");
-
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
-                                alert("saved error");
-
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
                             }
                         });
                     },
@@ -234,13 +237,14 @@
                             type: "POST",
                             data: JSON.stringify({ running: options.data }),
                             success: function (result) {
-                                alert("deleted");
-                                options.success(result);
+                               options.success(result);
+                               var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
                             },
                             error: function (result) {
-                                alert("deleted error");
-
                                 options.error(result);
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
                             }
                         });
                     },

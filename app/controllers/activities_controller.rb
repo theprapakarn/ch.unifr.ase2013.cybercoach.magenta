@@ -68,7 +68,7 @@ class ActivitiesController < ApplicationController
   def running
   end
 
-  def running_all
+  def activities_all
     get_suggestions
 
     @activities = Activity.where('user_id = ?', current_user.id)
@@ -87,6 +87,7 @@ class ActivitiesController < ApplicationController
       else
         count_participant = 0
         json_participants = Array.new
+        hash_participants = Hash.new()
 
         ref_activities = Activity.where('reference_activity_id = ?', "#{ item.id }")
 
@@ -95,23 +96,24 @@ class ActivitiesController < ApplicationController
             ref_activities = Activity.where('reference_activity_id = ?', "#{ item.reference_activity_id }")
 
             ref_activities.each do |ref_item|
-              json_participants[count_participant] = {
-                  "value" => ref_item.entry.subscription.partnership.participants[0].reference,
-                  "Text" => ref_item.entry.subscription.partnership.participants[0].user.username
-              }
-              count_participant += 1
+              hash_participants[ref_item.entry.subscription.partnership.participants[0].reference] = ref_item.entry.subscription.partnership.participants[0].user.username
+              hash_participants[ref_item.entry.subscription.partnership.participants[1].reference] = ref_item.entry.subscription.partnership.participants[1].user.username
             end
           end
         else
           ref_activities.each do |ref_item|
-            json_participants[count_participant] = {
-                "value" => ref_item.entry.subscription.partnership.participants[1].reference,
-                "Text" => ref_item.entry.subscription.partnership.participants[1].user.username
-            }
-            count_participant += 1
+            hash_participants[ref_item.entry.subscription.partnership.participants[0].reference] = ref_item.entry.subscription.partnership.participants[0].user.username
+            hash_participants[ref_item.entry.subscription.partnership.participants[1].reference] = ref_item.entry.subscription.partnership.participants[1].user.username
           end
         end
 
+        hash_participants.each do |ref_participant|
+          json_participants[count_participant] = {
+              "value" => ref_participant[0],
+              "Text" => ref_participant[1]
+          }
+          count_participant += 1
+        end
 
         if (ref_activities.count > 0)
           entry = EntriesHelper.fetch(ref_activities[0].entry)
@@ -190,12 +192,6 @@ class ActivitiesController < ApplicationController
   end
 
   def running_new
-    @activity = Activity.new
-    @activity.name = params[:running][:Title]
-    @activity.start_time = params[:running][:StartTime]
-    @activity.end_time = params[:running][:EndTime]
-    @activity.user = current_user
-
     entry = Entry.new
     entry.reference = ""
     entry.is_proxy = true
@@ -204,6 +200,31 @@ class ActivitiesController < ApplicationController
     entry.set_property("comment", params[:running][:Comment])
     entry.set_property("publicvisible", 2)
     entry.public_visible = 2
+
+    base_new(params, "Running", entry)
+  end
+
+  def running_delete
+    base_delete(params)
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = Activity.find(params[:id])
+  end
+
+# Never trust parameters from the scary internet, only allow the white list through.
+  def activity_params
+    params.require(:activity).permit(:reference, :name, :user_id, :start_time, :end_time, :sport, :owner, :entry, :is_proxy)
+  end
+
+  def base_new(params, sport_name, entry)
+    @activity = Activity.new
+    @activity.name = params[:running][:Title]
+    @activity.start_time = params[:running][:StartTime]
+    @activity.end_time = params[:running][:EndTime]
+    @activity.user = current_user
 
     if (params[:running][:Participants] == nil || !params[:running][:Participants].instance_of?(Array))
 
@@ -214,13 +235,14 @@ class ActivitiesController < ApplicationController
         subscription.participant = Participant.find_by(user_id: current_user.id)
 
         sport = Sport.new
-        sport.reference = "/CyberCoachServer/resources/sports/Running"
-        sport.name = "Running"
+        sport.reference = "/CyberCoachServer/resources/sports/" + sport_name
+        sport.name = sport_name
         sport.is_proxy = true
 
         subscription.public_visible = 2
         subscription.sport = sport
 
+        subscription.sport.save
         subscription.save
       else
         subscription = SubscriptionsHelper.fetch(subscription)
@@ -237,17 +259,16 @@ class ActivitiesController < ApplicationController
 
         puts "/CyberCoachServer/resources/partnerships/" + item[:text].downcase + ";" + current_user.username.downcase + "/"
 
-        subscription = Subscription.find_by(reference: partnership.reference + "/Running/")
+        subscription = Subscription.find_by(reference: partnership.reference + sport_name)
         if (subscription == nil)
+          sport = Sport.new
+          sport.reference = "/CyberCoachServer/resources/sports/" + sport_name
+          sport.name = sport_name
+          sport.is_proxy = true
+
           subscription = Subscription.new
           subscription.user = current_user
           subscription.partnership = Partnership.find_by(reference: partnership.reference)
-
-          sport = Sport.new
-          sport.reference = "/CyberCoachServer/resources/sports/Running"
-          sport.name = "Running"
-          sport.is_proxy = true
-
           subscription.public_visible = 2
           subscription.sport = sport
           subscription.save
@@ -269,9 +290,7 @@ class ActivitiesController < ApplicationController
         entry_participant = Entry.new
         entry_participant.subscription = subscription
         entry_participant.user = participant.user
-        entry_participant.set_property("entrylocation", params[:running][:Location])
-        entry_participant.set_property("comment", params[:running][:Comment])
-        entry_participant.set_property("publicvisible", 2)
+        entry_participant.set_dynamic_property(entry.get_dynamic_property)
         entry_participant.public_visible = 2
         entry_participant.save
 
@@ -300,11 +319,12 @@ class ActivitiesController < ApplicationController
     @activity.entry = entry
     @activity.entry.save
 
+    @activity.entry = Entry.find_by(id: entry.id)
     @activity.reference = event.id
     @activity.save
   end
 
-  def running_delete
+  def base_delete(params)
     @activity = Activity.where('reference = ?', "#{params[:running][:Reference]}").first
 
     if (@activity != nil && @activity.reference != nil && @activity.reference != '')
@@ -329,8 +349,8 @@ class ActivitiesController < ApplicationController
 
         ref_activities.each do |ref_item|
           ref_cal = Google::Calendar.new(:username => ref_item.user.email,
-                                     :password => 'Bern2013',
-                                     :app_name => 'firmy')
+                                         :password => 'Bern2013',
+                                         :app_name => 'firmy')
 
           ref_event = ref_cal.find_event_by_id(ref_item.reference)
           ref_cal.delete_event(ref_event)
@@ -342,128 +362,6 @@ class ActivitiesController < ApplicationController
         end
       end
     end
-  end
-
-
-  def running_update
-    @activity = Activity.where('reference = ?', "#{params[:running][:Reference]}").first
-    ref_activity = @activity
-
-    if (@activity.reference.include?("ref:"))
-      @activity = Activity.where('id = ?', "#{ @activity.reference[4, @activity.reference.length] }").first
-    end
-
-    if (params[:running][:Participants] == nil || !params[:running][:Participants].instance_of?(Array))
-
-      subscription = Subscription.find_by(reference: "/CyberCoachServer/resources/users/" + current_user.username.downcase + "/Running/")
-      if (subscription == nil)
-        subscription = Subscription.new
-        subscription.user = current_user
-        subscription.participant = Participant.find_by(user_id: current_user.id)
-
-        sport = Sport.new
-        sport.reference = "/CyberCoachServer/resources/sports/Running"
-        sport.name = "Running"
-        sport.is_proxy = true
-
-        subscription.public_visible = 2
-        subscription.sport = sport
-
-        subscription.save
-      else
-        subscription = SubscriptionsHelper.fetch(subscription)
-      end
-      @activity.entries[0].set_property("entrylocation", params[:running][:Location])
-      @activity.entries[0].set_property("comment", params[:running][:Comment])
-      @activity.entries[0].set_property("publicvisible", 2)
-      @activity.entries[0].public_visible = 2
-      @activity.entries[0].save
-    else
-      params[:running][:Participants].each do |item|
-        partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username.downcase + ";" + item[:text].downcase + "/").first
-
-        if (partnership == nil)
-          partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + item[:text].downcase + ";" + current_user.username.downcase + "/").first
-        end
-
-        puts "/CyberCoachServer/resources/partnerships/" + item[:text].downcase + ";" + current_user.username.downcase + "/"
-
-        subscription = Subscription.find_by(reference: partnership.reference + "/Running/")
-        if (subscription == nil)
-          puts "Not Found: "
-          subscription = Subscription.new
-          subscription.user = current_user
-          subscription.partnership = Partnership.find_by(reference: partnership.reference)
-
-          sport = Sport.new
-          sport.reference = "/CyberCoachServer/resources/sports/Running"
-          sport.name = "Running"
-          sport.is_proxy = true
-          sport.save
-
-          subscription.public_visible = 2
-          subscription.sport = sport
-          subscription.save
-        else
-          subscription = SubscriptionsHelper.fetch(subscription)
-          puts "Found: " + subscription.reference
-        end
-        isFound = false
-        @activity.entries.each do |entry|
-          if (entry.subscription.reference = subscription.reference)
-            entry.set_property("entrylocation", params[:running][:Location])
-            entry.set_property("comment", params[:running][:Comment])
-            entry.set_property("publicvisible", 2)
-            entry.public_visible = 2
-            entry.save
-
-            puts "Found Entry: " + entry.get_property("comment")
-
-            isFound = true
-          end
-        end
-
-        if (!isFound)
-
-          puts "Not Found Entry: " + params[:running][:Comment]
-
-          entry = Entry.new
-          entry.activity = @activity
-          entry.subscription = subscription
-          entry.user = current_user
-
-          entry.set_property("entrylocation", params[:running][:Location])
-          entry.set_property("comment", params[:running][:Comment])
-          entry.set_property("publicvisible", 2)
-          entry.public_visible = 2
-          entry.save
-        end
-      end
-    end
-
-    cal = Google::Calendar.new(:username => current_user.email,
-                               :password => 'Bern2013',
-                               :app_name => 'firmy')
-
-
-    event = cal.find_or_create_event_by_id(@activity.reference) do |e|
-      e.title = @activity.name
-      e.start_time = @activity.start_time
-      e.end_time = @activity.end_time
-    end
-
-    @activity.save
-  end
-
-  private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_activity
-    @activity = Activity.find(params[:id])
-  end
-
-# Never trust parameters from the scary internet, only allow the white list through.
-  def activity_params
-    params.require(:activity).permit(:reference, :name, :user_id, :start_time, :end_time, :sport, :owner, :entry, :is_proxy)
   end
 
   def get_suggestions

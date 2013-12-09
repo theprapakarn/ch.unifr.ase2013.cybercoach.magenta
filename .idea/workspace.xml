@@ -86,15 +86,15 @@
     <file path="/participants_to_partnership.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382992810651" ignored="false" />
     <file path="/soccer_entry.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382999522253" ignored="false" />
     <file path="/running_entry.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382999533412" ignored="false" />
-    <file path="/entry.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386538731182" ignored="false" />
+    <file path="/entry.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386616009231" ignored="false" />
     <file path="/20131028222841_create_entries.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1385459012280" ignored="false" />
     <file path="/entries_helper.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386538350410" ignored="false" />
     <file path="/entries_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1385423877466" ignored="false" />
     <file path="/activity.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520767620" ignored="false" />
     <file path="/20131104081410_create_activities.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520730889" ignored="false" />
     <file path="/application.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1383860286452" ignored="false" />
-    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386594724547" ignored="false" />
-    <file path="/running.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386543781904" ignored="false" />
+    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386621153226" ignored="false" />
+    <file path="/running.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386621993228" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,19 +119,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="activities_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="activities_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="336" column="16" selection-start="11194" selection-end="11194" vertical-scroll-proportion="0.375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="calendar.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///var/lib/gems/1.9.1/gems/google_calendar-0.3.1/lib/google/calendar.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="215" column="38" selection-start="8142" selection-end="8142" vertical-scroll-proportion="0.0">
+            <state line="117" column="49" selection-start="3697" selection-end="3697" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -140,7 +131,7 @@
       <file leaf-file-name="entry.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/entry.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="0" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0">
+            <state line="28" column="40" selection-start="570" selection-end="570" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -149,7 +140,7 @@
       <file leaf-file-name="entries_helper.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/helpers/entries_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="0" selection-start="2313" selection-end="2313" vertical-scroll-proportion="0.0">
+            <state line="66" column="76" selection-start="2212" selection-end="2212" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -167,7 +158,7 @@
       <file leaf-file-name="participants_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/participants_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="63" selection-start="426" selection-end="426" vertical-scroll-proportion="0.0">
+            <state line="98" column="0" selection-start="2644" selection-end="2644" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -176,7 +167,7 @@
       <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="76" selection-start="3520" selection-end="3520" vertical-scroll-proportion="0.0">
+            <state line="116" column="47" selection-start="3752" selection-end="3752" vertical-scroll-proportion="-1.875">
               <folding />
             </state>
           </provider>
@@ -185,16 +176,16 @@
       <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/routes.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="65" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.0">
+            <state line="28" column="1" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="running.html.erb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="running.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/activities/running.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="217" column="27" selection-start="6809" selection-end="6809" vertical-scroll-proportion="-4.3333335">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#style#0;n#div#0;n#script#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#script#0;n#!!top" expanded="true" />
@@ -224,7 +215,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/participants/show.html.erb" />
         <option value="$PROJECT_DIR$/app/models/partnership.rb" />
         <option value="$PROJECT_DIR$/app/helpers/partnerships_helper.rb" />
         <option value="$PROJECT_DIR$/app/helpers/users_helper.rb" />
@@ -235,11 +225,12 @@
         <option value="$PROJECT_DIR$/app/views/partnerships/index.html.erb" />
         <option value="$PROJECT_DIR$/app/views/entries/index.html.erb" />
         <option value="$PROJECT_DIR$/app/models/activity.rb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
-        <option value="$PROJECT_DIR$/app/models/entry.rb" />
         <option value="$PROJECT_DIR$/app/helpers/entries_helper.rb" />
-        <option value="$PROJECT_DIR$/app/views/activities/running.html.erb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="/var/lib/gems/1.9.1/gems/google_calendar-0.3.1/lib/google/calendar.rb" />
+        <option value="$PROJECT_DIR$/app/models/entry.rb" />
         <option value="$PROJECT_DIR$/app/controllers/activities_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/activities/running.html.erb" />
       </list>
     </option>
   </component>
@@ -364,10 +355,6 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -383,25 +370,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Firmy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Firmy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -863,13 +832,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="76" selection-start="3520" selection-end="3520" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20131028222841_create_entries.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="18" selection-start="265" selection-end="265" vertical-scroll-proportion="0.42735043">
@@ -898,6 +860,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/helpers/entries_helper.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="76" selection-start="2212" selection-end="2212" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="1" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///var/lib/gems/1.9.1/gems/google_calendar-0.3.1/lib/google/calendar.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="57" selection-start="213" selection-end="213" vertical-scroll-proportion="-0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/entry.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="40" selection-start="570" selection-end="570" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="49" selection-start="3697" selection-end="3697" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/activity.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="20" selection-start="219" selection-end="219" vertical-scroll-proportion="0.0">
@@ -905,37 +902,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="65" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/entries_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="0" selection-start="2313" selection-end="2313" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/participants_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="63" selection-start="426" selection-end="426" vertical-scroll-proportion="0.0">
+        <state line="98" column="0" selection-start="2644" selection-end="2644" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/entry.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0">
+        <state line="116" column="47" selection-start="3752" selection-end="3752" vertical-scroll-proportion="-1.875">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/activities/running.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="27" selection-start="6809" selection-end="6809" vertical-scroll-proportion="-4.3333335">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#style#0;n#div#0;n#script#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#script#0;n#!!top" expanded="true" />
@@ -943,20 +926,6 @@
             <element signature="n#style#0;n#div#3;n#script#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#script#1;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///var/lib/gems/1.9.1/gems/google_calendar-0.3.1/lib/google/calendar.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="215" column="38" selection-start="8142" selection-end="8142" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="336" column="16" selection-start="11194" selection-end="11194" vertical-scroll-proportion="0.375">
-          <folding />
         </state>
       </provider>
     </entry>

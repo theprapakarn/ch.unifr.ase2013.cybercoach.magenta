@@ -23,7 +23,9 @@ CarTrading::Application.routes.draw do
 
   match "/running" => "activities#running" , via: 'get', :as => :activities_running
   match "/running" => "activities#running_new" , via: 'post', :as => :activities_running_new
-  match "/runningall" => "activities#running_all" , via: 'get', :as => :activities_running_all
+
+  match "/activitiesall" => "activities#activities_all" , via: 'get', :as => :activities_activities_all
+
   match "/runningupdate" => "activities#running_update" , via: 'post', :as => :activities_running_update
   match "/runningdelete" => "activities#running_delete" , via: 'post', :as => :activities_running_delete
 

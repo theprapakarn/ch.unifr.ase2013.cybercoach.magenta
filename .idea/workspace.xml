@@ -18,7 +18,7 @@
     <ignored path="CarTrading.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/development.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380797391403" ignored="false" />
-    <file path="/routes.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386667037126" ignored="false" />
+    <file path="/routes.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386674874654" ignored="false" />
     <file path="/Dummy.txt" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381339863666" ignored="false" />
     <file path="/home_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380820817117" ignored="false" />
     <file path="/database.yml" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1380821314491" ignored="false" />
@@ -93,7 +93,7 @@
     <file path="/activity.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520767620" ignored="false" />
     <file path="/20131104081410_create_activities.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520730889" ignored="false" />
     <file path="/application.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1383860286452" ignored="false" />
-    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386673987071" ignored="false" />
+    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386675466069" ignored="false" />
     <file path="/running.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386621993228" ignored="false" />
     <file path="/testrunning.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386666406963" ignored="false" />
     <file path="/_base.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386670898991" ignored="false" />
@@ -125,8 +125,10 @@
       <file leaf-file-name="activities_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="462" column="84" selection-start="14960" selection-end="14960" vertical-scroll-proportion="0.5833333">
-              <folding />
+            <state line="72" column="14" selection-start="1658" selection-end="1658" vertical-scroll-proportion="-7.913889">
+              <folding>
+                <element signature="e#6832#7193#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,7 +187,7 @@
       <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/routes.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="47" selection-start="1189" selection-end="1189" vertical-scroll-proportion="0.0">
+            <state line="27" column="33" selection-start="1331" selection-end="1331" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -231,10 +233,10 @@
         <option value="$PROJECT_DIR$/app/models/entry.rb" />
         <option value="$PROJECT_DIR$/app/views/activities/running.html.erb" />
         <option value="$PROJECT_DIR$/app/views/partnerships/index.html.erb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/views/activities/testrunning.html.erb" />
         <option value="$PROJECT_DIR$/app/views/activities/_base.html.erb" />
         <option value="$PROJECT_DIR$/app/views/activities/boxing.html.erb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/controllers/activities_controller.rb" />
       </list>
     </option>
@@ -899,13 +901,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="47" selection-start="1189" selection-end="1189" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="110" column="60" selection-start="3520" selection-end="3520" vertical-scroll-proportion="0.0">
@@ -949,10 +944,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="33" selection-start="1331" selection-end="1331" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="462" column="84" selection-start="14960" selection-end="14960" vertical-scroll-proportion="0.5833333">
-          <folding />
+        <state line="72" column="14" selection-start="1658" selection-end="1658" vertical-scroll-proportion="-7.913889">
+          <folding>
+            <element signature="e#6832#7193#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

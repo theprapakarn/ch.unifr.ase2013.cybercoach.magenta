@@ -28,6 +28,8 @@ CarTrading::Application.routes.draw do
 
   match "/boxing" => "activities#boxing" , via: 'get', :as => :activities_boxing
   match "/boxing" => "activities#boxing_new" , via: 'post', :as => :activities_boxing_new
+  match "/boxingdelete" => "activities#boxing_delete" , via: 'post', :as => :activities_boxing_delete
+
 
   match "/runningupdate" => "activities#running_update" , via: 'post', :as => :activities_running_update
   match "/runningdelete" => "activities#running_delete" , via: 'post', :as => :activities_running_delete

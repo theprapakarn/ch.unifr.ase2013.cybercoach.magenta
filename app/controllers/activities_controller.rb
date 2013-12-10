@@ -82,6 +82,11 @@ class ActivitiesController < ApplicationController
                                :password => 'Bern2013',
                                :app_name => 'firmy')
 
+
+    #First is to convert activities of current user to json body.
+    #
+    #
+
     @activities.each do |item|
       exist_event_on_google = cal.find_event_by_id(item.reference)
 
@@ -161,6 +166,11 @@ class ActivitiesController < ApplicationController
       end
     end
 
+
+    #Second is to convert events of google of current user to json body.
+    #
+    #
+
     if (cal.events.instance_of?(Array))
       cal.events.each do |item|
         if (Activity.where('reference like ?', "%" + item.id.to_s + "%").first == nil)
@@ -195,13 +205,23 @@ class ActivitiesController < ApplicationController
       end
     end
 
+    #Third is to convert suggestion weathers to json body.
+    #
+    #
+
     get_suggestions.each do |item|
       @body[activity_count] = item
       activity_count += 1
     end
 
+    #Renders json body on console.
+    #
+    #
     puts @body.to_json
 
+    #Returns json body.
+    #
+    #
     respond_to do |format|
       if params[:callback]
         format.js { render :json => {:data => @body}, :callback => params[:callback] }
@@ -211,6 +231,13 @@ class ActivitiesController < ApplicationController
     end
   end
 
+
+  #Running.
+  #
+  #
+  #Create a new running activity with participants.
+  #
+  #
   def running_new
     entry = Entry.new
     entry.reference = ""
@@ -223,11 +250,20 @@ class ActivitiesController < ApplicationController
 
     base_new(params, "Running", entry)
   end
+  #Delete a new running activity with participants.
+  #
+  #
   def running_delete
     base_delete(params)
   end
 
 
+  #Boxing.
+  #
+  #
+  #Create a new boxing activities with participants.
+  #
+  #
   def boxing_new
     entry = Entry.new
     entry.reference = ""
@@ -239,6 +275,12 @@ class ActivitiesController < ApplicationController
     entry.public_visible = 2
 
     base_new(params, "Boxing", entry)
+  end
+  #Delete a new boxing activity with participants.
+  #
+  #
+  def boxing_delete
+    base_delete(params)
   end
 
   private

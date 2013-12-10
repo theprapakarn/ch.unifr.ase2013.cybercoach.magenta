@@ -19,12 +19,15 @@ CarTrading::Application.routes.draw do
   match "/cars/:car_id/bids/" => "bids#modal" , via: 'get', :as => :bids_modal
   match "/cars/:car_id/bids/" => "bids#create_modal" , via: 'post', :as => :bids_create_modal
 
+  match "/activitiesall" => "activities#activities_all" , via: 'get', :as => :activities_activities_all
   match "/participantsall" => "participants#get_all" , via: 'get', :as => :participants_get_all
 
   match "/running" => "activities#running" , via: 'get', :as => :activities_running
+  match "/testrunning" => "activities#testrunning" , via: 'get', :as => :activities_testrunning
   match "/running" => "activities#running_new" , via: 'post', :as => :activities_running_new
 
-  match "/activitiesall" => "activities#activities_all" , via: 'get', :as => :activities_activities_all
+  match "/boxing" => "activities#boxing" , via: 'get', :as => :activities_boxing
+  match "/boxing" => "activities#boxing_new" , via: 'post', :as => :activities_boxing_new
 
   match "/runningupdate" => "activities#running_update" , via: 'post', :as => :activities_running_update
   match "/runningdelete" => "activities#running_delete" , via: 'post', :as => :activities_running_delete

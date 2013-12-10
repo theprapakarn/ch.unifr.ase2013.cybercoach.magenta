@@ -68,6 +68,9 @@ class ActivitiesController < ApplicationController
   def running
   end
 
+  def testrunning
+  end
+
   def activities_all
     get_suggestions
 
@@ -85,6 +88,19 @@ class ActivitiesController < ApplicationController
       if (exist_event_on_google == nil)
         item.delete()
       else
+
+        #Update the activity if outcoming updated on google.
+        #
+        #
+        update_tree_activities(item,
+                               exist_event_on_google.title,
+                               exist_event_on_google.start_time,
+                               exist_event_on_google.end_time)
+
+        #Get participants who are involved with the activity.
+        #
+        #
+
         count_participant = 0
         json_participants = Array.new
         hash_participants = Hash.new()
@@ -115,6 +131,10 @@ class ActivitiesController < ApplicationController
           count_participant += 1
         end
 
+        #Fetch lastest version of entry from CyberCoach.
+        #
+        #
+
         if (ref_activities.count > 0)
           entry = EntriesHelper.fetch(ref_activities[0].entry)
         else
@@ -131,12 +151,12 @@ class ActivitiesController < ApplicationController
             "Participants" => json_participants,
             "IsAllDay" => false,
             "ReadOnly" => true,
+            "Sport" => entry.subscription.sport.name,
             "Info" => {
                 "Status" => "Busy",
                 "From" => "CyberCoach"
             }
         }
-
         activity_count += 1
       end
     end
@@ -159,7 +179,7 @@ class ActivitiesController < ApplicationController
         end
       end
     else
-      if (Activity.where('reference like ?', "%" + item.id.to_s + "%").first == nil)
+      if (Activity.where('reference like ?', "%" + cal.events.id.to_s + "%").first == nil)
         @body[activity_count] = {
             "Reference" => cal.events.id,
             "Title" => cal.events.title,
@@ -184,9 +204,9 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if params[:callback]
-        format.js { render :json => {:running => @body}, :callback => params[:callback] }
+        format.js { render :json => {:data => @body}, :callback => params[:callback] }
       else
-        format.json { render json: {:running => @body} }
+        format.json { render json: {:data => @body} }
       end
     end
   end
@@ -196,16 +216,29 @@ class ActivitiesController < ApplicationController
     entry.reference = ""
     entry.is_proxy = true
     entry.user = current_user
-    entry.set_property("entrylocation", params[:running][:Location])
-    entry.set_property("comment", params[:running][:Comment])
+    entry.set_property("entrylocation", params[:data][:Location])
+    entry.set_property("comment", params[:data][:Comment])
     entry.set_property("publicvisible", 2)
     entry.public_visible = 2
 
     base_new(params, "Running", entry)
   end
-
   def running_delete
     base_delete(params)
+  end
+
+
+  def boxing_new
+    entry = Entry.new
+    entry.reference = ""
+    entry.is_proxy = true
+    entry.user = current_user
+    entry.set_property("entrylocation", params[:data][:Location])
+    entry.set_property("comment", params[:data][:Comment])
+    entry.set_property("publicvisible", 2)
+    entry.public_visible = 2
+
+    base_new(params, "Boxing", entry)
   end
 
   private
@@ -221,14 +254,14 @@ class ActivitiesController < ApplicationController
 
   def base_new(params, sport_name, entry)
     @activity = Activity.new
-    @activity.name = params[:running][:Title]
-    @activity.start_time = params[:running][:StartTime]
-    @activity.end_time = params[:running][:EndTime]
+    @activity.name = params[:data][:Title]
+    @activity.start_time = params[:data][:StartTime]
+    @activity.end_time = params[:data][:EndTime]
     @activity.user = current_user
 
-    if (params[:running][:Participants] == nil || !params[:running][:Participants].instance_of?(Array))
+    if (params[:data][:Participants] == nil || !params[:data][:Participants].instance_of?(Array))
 
-      subscription = Subscription.find_by(reference: "/CyberCoachServer/resources/users/" + current_user.username.downcase + "/Running/")
+      subscription = Subscription.find_by(reference: "/CyberCoachServer/resources/users/" + current_user.username.downcase + "/" + sport_name + "/")
       if (subscription == nil)
         subscription = Subscription.new
         subscription.user = current_user
@@ -250,7 +283,7 @@ class ActivitiesController < ApplicationController
       entry.is_proxy = false
       entry.subscription = subscription
     else
-      params[:running][:Participants].each do |item|
+      params[:data][:Participants].each do |item|
         partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username.downcase + ";" + item[:text].downcase + "/").first
 
         if (partnership == nil)
@@ -325,7 +358,7 @@ class ActivitiesController < ApplicationController
   end
 
   def base_delete(params)
-    @activity = Activity.where('reference = ?', "#{params[:running][:Reference]}").first
+    @activity = Activity.where('reference = ?', "#{params[:data][:Reference]}").first
 
     if (@activity != nil && @activity.reference != nil && @activity.reference != '')
 
@@ -425,5 +458,69 @@ class ActivitiesController < ApplicationController
     @parsed_json = ActiveSupport::JSON.decode(response.body)
 
     @parsed_json
+  end
+
+  #Provides updating of specified activity with given tile, start_time and end_time.
+  #
+  #
+  def update_tree_activities(activity, title, start_time, end_time)
+
+    #First update itself.
+    #
+    #
+    activity.name =  title
+    activity.start_time =  start_time
+    activity.end_time = end_time
+    activity.save
+
+    #Activity Root Node just update all children.
+    #
+    #
+    if (activity.reference_activity == nil)
+
+      ref_activities = Activity.where('reference_activity_id = ?', "#{ activity.id }")
+
+      ref_activities.each do |ref_item|
+        ref_cal = Google::Calendar.new(:username => ref_item.user.email,
+                                       :password => 'Bern2013',
+                                       :app_name => 'firmy')
+
+        ref_event = ref_cal.find_event_by_id(ref_item.reference)
+        ref_event.title = title
+        ref_event.start_time =  start_time
+        ref_event.end_time = end_time
+        ref_cal.save_event(ref_event)
+
+        ref_item.name =  title
+        ref_item.start_time =  start_time
+        ref_item.end_time = end_time
+        ref_item.save
+      end
+
+    #Activity Child Node need to find root node and then update all children.
+    #
+    #
+    else
+      root_activity = Activity.where('id = ?', "#{ activity.reference_activity.id }").first
+
+      root_cal = Google::Calendar.new(:username => root_activity.user.email,
+                                     :password => 'Bern2013',
+                                     :app_name => 'firmy')
+
+
+      root_event = root_cal.find_event_by_id(root_activity.reference)
+      root_event.title = title
+      root_event.start_time =  start_time
+      root_event.end_time = end_time
+      root_cal.save_event(root_event)
+
+      root_activity.name =  title
+      root_activity.start_time =  start_time
+      root_activity.end_time = end_time
+      root_activity.save
+
+      update_tree_activities(root_activity, title, start_time, end_time)
+    end
+
   end
 end

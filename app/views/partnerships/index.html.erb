@@ -127,10 +127,10 @@
                 dataType: "jsonp",
                 data: JSON.stringify({ participants: $("#participants").data("kendoMultiSelect").value() }),
                 success: function (result) {
-                    options.success(result);
+                    location.reload();
                 },
                 error: function (result) {
-                    options.error(result);
+                   location.reload();
                 }
             });
         });

@@ -1,0 +1,81 @@
+<script>
+    var crudServiceBaseUrl = "/running";
+</script>
+
+<script id="editor" type="text/x-kendo-template">
+  #if(id == ""){#
+  <p>
+    <label>Title:<input name="title" data-bind="value: title"/></label>
+  </p>
+
+  <p>
+    <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
+  </p>
+
+  <p>
+    <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
+  </p>
+
+  <p>
+    <label>Location:<input name="location" data-bind="value: location"/> </label>
+  </p>
+
+  <p>
+    <label>Comment:<input name="comment" data-bind="value: comment"/> </label>
+  </p>
+
+  <p>
+    <label>Participants:
+      <select id="participants"
+              data-placeholder="Select participants..."
+              multiple="multiple"
+              data-bind="value: participants">
+      </select>
+    </label>
+  </p>
+  #}else{#
+  #if(info.From == "Google"){#
+  <p>
+    #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
+  </p>
+
+  <h3>#: title #</h3>
+
+  <div style="background-color: rgb(169,169,169);">
+    This text is enclosed in a box.
+  </div>
+  #}else if(info.From == "Suggestion"){#
+  <p><strong>#: info.Description #</strong></p>
+
+  <p><strong>Morning</strong>: #: info.Morning #</p>
+
+  <p><strong>Noon:</strong> #: info.Noon #</p>
+
+  <p><strong>Evening:</strong> #: info.Evening #</p>
+  #}else{#
+  <p>
+    <label>Title:<input name="title" data-bind="value: title"/></label>
+  </p>
+
+  <p>
+    <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
+  </p>
+
+  <p>
+    <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
+  </p>
+
+  <p>
+    <label>Participants:
+      <select id="readonlyparticipants"
+              data-placeholder="No participant..."
+              multiple="multiple"
+              data-bind="value: participants">
+      </select>
+    </label>
+  </p>
+  #}#
+  #}#
+</script>
+
+<%= render 'base' %>

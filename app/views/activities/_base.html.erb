@@ -1,0 +1,202 @@
+<div id="scheduler"></div>
+
+<script id="all-event-template" type="text/x-kendo-template">
+  #if(info.Status == "Perfect"){#
+  <div style="background-color: rgb(0,128,0);">
+    #: title #
+  </div>
+  #}else if(info.Status == "Good"){#
+  <div style="background-color: rgb(124,252,0);">
+    #: title #
+  </div>
+  #}else if(info.Status == "Quite Bad"){#
+  <div style="background-color: rgb(255,140,0);">
+    #: title #
+  </div>
+  #}else if(info.Status == "Bad"){#
+  <div style="background-color: rgb(255,0,0);">
+    #: title #
+  </div>
+  #}#
+</script>
+
+<script id="event-template" type="text/x-kendo-template">
+  #if(info.From == "Google"){#
+  <strong>Google</strong>
+
+  <p>
+    #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
+  </p>
+
+  <p>#: title #</p>
+
+  #}else if(info.From == "CyberCoach"){#
+  <strong>Firmy - #: sport #</strong>
+
+  <p>
+    #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
+  </p>
+
+  <p>#: title #</p>
+  #}#
+</script>
+
+
+<script>
+    $(function () {
+        $.get("http://ipinfo.io", function (response) {
+        }, "jsonp");
+
+        $("#scheduler").kendoScheduler({
+            height: 600,
+            views: [
+                "day",
+                { type: "week", selected: true },
+                "month",
+                "agenda"
+            ],
+            editable: {
+                move: false,
+                resize: false,
+                template: $("#editor").html()
+            },
+            allDayEventTemplate: $("#all-event-template").html(),
+            eventTemplate: $("#event-template").html(),
+            edit: function (e) {
+                if (e.event.id != "") {
+                    $("#readonlyparticipants").kendoMultiSelect({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        readonly: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "http://localhost:3000/participantsall",
+                                    dataType: "jsonp"
+                                }
+                            },
+                            schema: {
+                                data: "participants",
+                                model: {
+                                    id: "value",
+                                    fields: {
+                                        value: { from: "value"  },
+                                        text: { from: "text" }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    var multiselect = $("#readonlyparticipants").data("kendoMultiSelect");
+                    if(multiselect != null)
+                    {
+                        multiselect.readonly(true);
+                    }
+                }
+                else {
+                    $("#participants").kendoMultiSelect({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "http://localhost:3000/partnershiparticipants",
+                                    dataType: "jsonp"
+                                }
+                            },
+                            schema: {
+                                data: "participants",
+                                model: {
+                                    id: "value",
+                                    fields: {
+                                        value: { from: "value"  },
+                                        text: { from: "text" }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            },
+            timezone: "Etc/UTC",
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: "activitiesall",
+                            dataType: "jsonp",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: crudServiceBaseUrl,
+                            contentType: "application/json",
+                            type: "POST",
+                            data: JSON.stringify({ data: options.data }),
+                            success: function (result) {
+                                options.success(result);
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
+                            }
+                        });
+                    },
+                    destroy: function (options) {
+                        $.ajax({
+                            url: crudServiceBaseUrl + "delete",
+                            contentType: "application/json",
+                            type: "POST",
+                            data: JSON.stringify({ data: options.data }),
+                            success: function (result) {
+                               options.success(result);
+                               var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.read();
+                            }
+                        });
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation != "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
+                schema: {
+                    data: "data",
+                    model: {
+                        id: "id",
+                        fields: {
+                            id: {
+                                from: "Reference"
+                            },
+                            title: { from: "Title", defaultValue: "No title", validation: { required: true } },
+                            start: { type: "date", from: "StartTime" },
+                            end: { type: "date", from: "EndTime" },
+                            location: { from: "Location" },
+                            comment: { from: "Comment" },
+                            sport: { from: "Sport" },
+                            participants: { from: "Participants" },
+                            info: { from: "Info"},
+                            isAllDay: { type: "boolean", from: "IsAllDay", defaultValue: true },
+                            readonly: { type: "boolean", from: "ReadOnly", defaultValue: true }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

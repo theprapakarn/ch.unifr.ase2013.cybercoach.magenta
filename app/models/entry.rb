@@ -28,14 +28,14 @@ class Entry < ActiveRecord::Base
     @dynamic_properties
   end
 
-  def get_data()
-    #if (id == nil)
-    @data ={
-        "entry" + subscription.sport.name.downcase => @dynamic_properties
-    }
-    #else
-    #  @dynamic_properties
-    #end
+  def get_data(entry_root = true)
+    if (entry_root)
+      @data ={
+          "entry" + subscription.sport.name.downcase => @dynamic_properties
+      }
+    else
+      @dynamic_properties
+    end
   end
 
   def self.save(save_info)

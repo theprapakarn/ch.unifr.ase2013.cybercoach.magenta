@@ -1,4 +1,40 @@
 <div id="scheduler"></div>
+<style>
+    .weathertable {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .weathertable > tbody > tr > th {
+        border-bottom: 1px solid #CCCCCC;
+        color: #787878;
+        font-size: 1.4em;
+        font-weight: lighter;
+        text-align: left;
+        padding: 10px 0px 0px 0px;
+        margin:0px 0px 0px 10px;
+    }
+</style>
+
+<style>
+    .metrotable {
+        table-layout: fixed;
+        width: 100%;
+    }
+    .metrotable > tbody > tr > td {
+        padding: 2px 2px 2px 0px;
+    }
+    td h5 {
+        margin:5px 0px 5px 0px;
+    }
+    .metrotable td > input,
+    .metrotable td > textarea,
+    .metrotable td > label,
+    .metrotable td > select
+    {
+        margin:0;
+    }
+</style>
 
 <script id="all-event-template" type="text/x-kendo-template">
   #if(info.Status == "Perfect"){#
@@ -186,8 +222,7 @@
                             title: { from: "Title", defaultValue: "No title", validation: { required: true } },
                             start: { type: "date", from: "StartTime" },
                             end: { type: "date", from: "EndTime" },
-                            location: { from: "Location" },
-                            comment: { from: "Comment" },
+                            entry: { from: "Entry" },
                             sport: { from: "Sport" },
                             participants: { from: "Participants" },
                             info: { from: "Info"},

@@ -151,8 +151,7 @@ class ActivitiesController < ApplicationController
             "Title" => item.name,
             "StartTime" => item.start_time,
             "EndTime" => item.end_time,
-            "Comment" => entry.get_property("comment"),
-            "Location" => entry.get_property("entrylocation"),
+            "Entry" => entry.get_data(false),
             "Participants" => json_participants,
             "IsAllDay" => false,
             "ReadOnly" => true,
@@ -243,9 +242,13 @@ class ActivitiesController < ApplicationController
     entry.reference = ""
     entry.is_proxy = true
     entry.user = current_user
-    entry.set_property("entrylocation", params[:data][:Location])
-    entry.set_property("comment", params[:data][:Comment])
+    entry.set_property("entrydate", params[:data][:StartTime])
+    entry.set_property("entrylocation", params[:data][:location])
+    entry.set_property("comment", params[:data][:comment])
     entry.set_property("publicvisible", 2)
+    entry.set_property("courselength", params[:data][:courselength])
+    entry.set_property("coursetype", params[:data][:coursetype])
+    entry.set_property("numberofrounds", params[:data][:ddsf][:numberofrounds])
     entry.public_visible = 2
 
     base_new(params, "Running", entry)
@@ -269,9 +272,12 @@ class ActivitiesController < ApplicationController
     entry.reference = ""
     entry.is_proxy = true
     entry.user = current_user
-    entry.set_property("entrylocation", params[:data][:Location])
-    entry.set_property("comment", params[:data][:Comment])
+    entry.set_property("entrydate", params[:data][:Entry][:startTime])
+    entry.set_property("entrylocation", params[:data][:Entry][:location])
+    entry.set_property("comment", params[:data][:Entry][:comment])
     entry.set_property("publicvisible", 2)
+    entry.set_property("roundduration", params[:data][:Entry][:roundduration])
+    entry.set_property("numberofrounds", params[:data][:Entry][:numberofrounds])
     entry.public_visible = 2
 
     base_new(params, "Boxing", entry)
@@ -386,7 +392,7 @@ class ActivitiesController < ApplicationController
                                :app_name => 'firmy')
 
     event = cal.create_event do |e|
-      e.title = @activity.name
+      e.title = "[" + current_user.username + "] " + @activity.name
       e.start_time = @activity.start_time
       e.end_time = @activity.end_time
     end

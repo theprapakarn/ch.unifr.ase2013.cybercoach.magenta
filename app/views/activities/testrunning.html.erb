@@ -4,35 +4,64 @@
 
 <script id="editor" type="text/x-kendo-template">
   #if(id == ""){#
-  <p>
-    <label>Title:<input name="title" data-bind="value: title"/></label>
-  </p>
-
-  <p>
-    <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
-  </p>
-
-  <p>
-    <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
-  </p>
-
-  <p>
-    <label>Location:<input name="location" data-bind="value: location"/> </label>
-  </p>
-
-  <p>
-    <label>Comment:<input name="comment" data-bind="value: comment"/> </label>
-  </p>
-
-  <p>
-    <label>Participants:
-      <select id="participants"
-              data-placeholder="Select participants..."
-              multiple="multiple"
-              data-bind="value: participants">
-      </select>
-    </label>
-  </p>
+  <div style="padding: 0px 20px 0px 20px;">
+    <table class="metrotable">
+      <tr>
+        <td>
+          <h5>Title:</h5>
+          <input type="text" data-bind="value: textValue" class="k-textbox" style="width: 100%;"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Start:</h5>
+          <input data-role="datetimepicker" data-bind="value: start" style="width: 100%;"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>End:</h5>
+          <input data-role="datetimepicker" data-bind="value: end" style="width: 100%;"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Location:</h5>
+          <input type="text" data-bind="value: location" class="k-textbox" style="width: 100%;"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Comment:</h5>
+          <textarea data-bind="value: comment" class="k-textbox" style="height: 40px; width: 100%;"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Participants:</h5>
+          <select multiple id="participants"
+                  data-bind="value: participants" style="width: 100%;">
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Course Length: </h5>
+          <input data-role="numerictextbox"
+                 data-min="0"
+                 data-bind="value: courselength"
+                 style="width: 100%;">
+          </input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Course Type: </h5>
+          <input type="text" data-bind="value: coursetype" class="k-textbox" style="width: 100%;"/>
+        </td>
+      </tr>
+    </table>
+  </div>
   #}else{#
   #if(info.From == "Google"){#
   <p>
@@ -77,5 +106,7 @@
   #}#
   #}#
 </script>
+
+
 
 <%= render 'base' %>

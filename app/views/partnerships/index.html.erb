@@ -1,138 +1,159 @@
-<h1>Request Partnerships</h1>
-<div id="participants"></div>
-<button type="button" id="request">Request</button>
+<div style="padding: 0px 20px 0px 20px;">
+  <style scoped>
+      .headtable {
+          color: #787878;
+          font-size: 2em;
+          font-weight: bold;
+      }
 
-<table>
-  <thead>
-  <tr>
-    <th>Reference</th>
-    <th>Public visible</th>
-    <th>First Confirmation</th>
-    <th>Second Confirmation</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @partnerships.each do |partnership| %>
-      <% if (partnership.first_participant_confirmed && !partnership.second_participant_confirmed && partnership.participants[0].reference == Participant.find_by(user_id: current_user.id).reference) %>
-      <tr>
-            <td><%= partnership.reference %></td>
-            <td><%= partnership.public_visible %></td>
-            <td><%= partnership.first_participant_confirmed %></td>
-            <td><%= partnership.second_participant_confirmed %></td>
-            <td><%= link_to 'Show', partnership %></td>
-            <td><%= link_to 'Edit', edit_partnership_path(partnership) %></td>
-            <td><%= link_to 'Destroy', partnership, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-          </tr>
-      <% end %>
-  <% end %>
-  </tbody>
-</table>
-
-<h1>Accept Partnerships</h1>
-<table>
-  <thead>
-  <tr>
-    <th>Reference</th>
-    <th>Public visible</th>
-    <th>First Confirmation</th>
-    <th>Second Confirmation</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @partnerships.each do |partnership| %>
-      <% if (!partnership.second_participant_confirmed && partnership.participants[0].reference != Participant.find_by(user_id: current_user.id).reference) %>
-          <tr>
-            <td><%= partnership.reference %></td>
-            <td><%= partnership.public_visible %></td>
-            <td><%= partnership.first_participant_confirmed %></td>
-            <td><%= partnership.second_participant_confirmed %></td>
-            <td><%= link_to 'Accept', partnership_partnership_accept_path(partnership) %></td>
-            <td><%= link_to 'Destroy', partnership, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-          </tr>
-      <% end %>
-  <% end %>
-  </tbody>
-</table>
+      .partnershiptable > tbody > tr > th {
+          border-bottom: 1px solid #CCCCCC;
+          padding: 10px 0px 0px 0px;
+          margin: 0px 0px 20px 10px;
+          text-align: left;
+      }
+  </style>
 
 
-<h1>Friends</h1>
-<table>
-  <thead>
-  <tr>
-    <th>Reference</th>
-    <th>Public visible</th>
-    <th>First Confirmation</th>
-    <th>Second Confirmation</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
+  <table class="partnershiptable" width="100%">
+    <tr>
+      <th width="30%"><strong class="headtable">Request Partnerships</strong></th>
+      <th width="20%"></th>
+      <th width="40%">
+        <div id="participants"></div>
+      </th>
+      <th width="10%">
+        <button type="button" id="request">Request</button>
+      </th>
+    </tr>
+  </table>
+  </br>
 
-  <tbody>
-  <% @partnerships.each do |partnership| %>
-      <% if (partnership.first_participant_confirmed && partnership.second_participant_confirmed) %>
-          <tr>
-            <td><%= partnership.reference %></td>
-            <td><%= partnership.public_visible %></td>
-            <td><%= partnership.first_participant_confirmed %></td>
-            <td><%= partnership.second_participant_confirmed %></td>
-            <td><%= link_to 'Show', partnership %></td>
-            <td><%= link_to 'Edit', edit_partnership_path(partnership) %></td>
-            <td><%= link_to 'Destroy', partnership, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-          </tr>
-      <% end %>
-  <% end %>
-  </tbody>
-</table>
+  <table width="100%">
+    <% @partnerships.each do |partnership| %>
+        <% if (partnership.first_participant_confirmed && !partnership.second_participant_confirmed && partnership.participants[0].reference == Participant.find_by(user_id: current_user.id).reference) %>
+            <% if (partnership.participants[0].user.username == current_user.username) %>
+                <tr>
+                  <td width="30%"><%= partnership.participants[1].user.username %></td>
+                  <td width="20%"></td>
+                  <td width="40%"></td>
+                  <td width="10%"><%= link_to 'Cancel', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                </tr>
+            <% else %>
+                <tr>
+                  <td width="30%"><%= partnership.participants[0].user.username %></td>
+                  <td width="20%"></td>
+                  <td width="40%"></td>
+                  <td width="10%"><%= link_to 'Cancel', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    <% end %>
+  </table>
 
-<br>
+  </br>
+  </br>
 
-<%= link_to 'New Partnership', new_partnership_path %>
+  <table class="partnershiptable" width="100%">
+    <tr>
+      <th width="100%"><strong class="headtable">Accept Partnerships</strong></th>
+    </tr>
+  </table>
+  </br>
+  <table width="100%">
+    <% @partnerships.each do |partnership| %>
+        <% if (!partnership.second_participant_confirmed && partnership.participants[0].reference != Participant.find_by(user_id: current_user.id).reference) %>
+            <% if (partnership.participants[0].user.username == current_user.username) %>
+                <tr>
+                  <td width="30%"><%= partnership.participants[1].user.username %></td>
+                  <td width="20%"></td>
+                  <td width="40%"></td>
+                  <td width="10%"><%= link_to 'Accept', partnership_partnership_accept_path(partnership), class: 'btn btn-mini' %></td>
+                </tr>
+            <% else %>
+                <tr>
+                  <td width="30%"><%= partnership.participants[0].user.username %></td>
+                  <td width="20%"></td>
+                  <td width="40%"></td>
+                  <td width="10%"><%= link_to 'Accept', partnership_partnership_accept_path(partnership), class: 'btn btn-mini' %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    <% end %>
+  </table>
 
-<script>
-    $(function () {
-        $("#participants").kendoMultiSelect({
-            dataTextField: "text",
-            dataValueField: "value",
-            dataSource: {
-                transport: {
-                    read: {
-                        url: "http://localhost:3000/participantsall",
-                        dataType: "jsonp"
-                    }
-                },
-                schema: {
-                    data: "participants",
-                    model: {
-                        id: "value",
-                        fields: {
-                            value: { from: "value"  },
-                            text: { from: "text" }
-                        }
-                    }
-                }
-            }
-        });
-        $("#request").click(function () {
-            $.ajax({
-                url: "http://localhost:3000/partnershiprequest",
-                contentType: "application/json",
-                type: "POST",
-                dataType: "jsonp",
-                data: JSON.stringify({ participants: $("#participants").data("kendoMultiSelect").value() }),
-                success: function (result) {
-                    location.reload();
-                },
-                error: function (result) {
-                   location.reload();
-                }
-            });
-        });
-    });
-</script>
+  </br>
+  </br>
+
+  <table class="partnershiptable" width="100%">
+    <tr>
+      <th width="100%"><strong class="headtable">Friends</strong></th>
+    </tr>
+  </table>
+  </br>
+  <table width="100%">
+    <% @partnerships.each do |partnership| %>
+        <% if (partnership.first_participant_confirmed && partnership.second_participant_confirmed) %>
+            <% if (partnership.participants[0].user.username == current_user.username) %>
+                <tr>
+                  <td width="30%"><%= partnership.participants[1].user.username %></td>
+                  <td width="20%"></td>
+                  <td width="40%"></td>
+                  <td width="10%"><%= link_to 'UnFriend', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                </tr>
+            <% else %>
+                <tr>
+                  <td width="30%"><%= partnership.participants[0].user.username %></td>
+                  <td width="20%"></td>
+                  <td width="40%"></td>
+                  <td width="10%"><%= link_to 'UnFriend', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    <% end %>
+  </table>
+
+  <br>
+
+  <script>
+      $(function () {
+          $("#participants").kendoMultiSelect({
+              dataTextField: "text",
+              dataValueField: "value",
+              dataSource: {
+                  transport: {
+                      read: {
+                          url: "http://localhost:3000/participantsall",
+                          dataType: "jsonp"
+                      }
+                  },
+                  schema: {
+                      data: "participants",
+                      model: {
+                          id: "value",
+                          fields: {
+                              value: { from: "value"  },
+                              text: { from: "text" }
+                          }
+                      }
+                  }
+              }
+          });
+          $("#request").click(function () {
+              $.ajax({
+                  url: "http://localhost:3000/partnershiprequest",
+                  contentType: "application/json",
+                  type: "POST",
+                  dataType: "jsonp",
+                  data: JSON.stringify({ participants: $("#participants").data("kendoMultiSelect").value() }),
+                  success: function (result) {
+                      location.reload();
+                  },
+                  error: function (result) {
+                      location.reload();
+                  }
+              });
+          });
+      });
+  </script>
+</div>

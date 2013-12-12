@@ -30,24 +30,33 @@
   </br>
 
   <table width="100%">
+    <% found = false %>
     <% @partnerships.each do |partnership| %>
         <% if (partnership.first_participant_confirmed && !partnership.second_participant_confirmed && partnership.participants[0].reference == Participant.find_by(user_id: current_user.id).reference) %>
             <% if (partnership.participants[0].user.username == current_user.username) %>
+                <% found = true %>
                 <tr>
                   <td width="30%"><%= partnership.participants[1].user.username %></td>
                   <td width="20%"></td>
                   <td width="40%"></td>
-                  <td width="10%"><%= link_to 'Cancel', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                  <td width="10%"><%= link_to 'Cancel', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-default btn-danger' %></td>
                 </tr>
             <% else %>
+                <% found = true %>
                 <tr>
                   <td width="30%"><%= partnership.participants[0].user.username %></td>
                   <td width="20%"></td>
                   <td width="40%"></td>
-                  <td width="10%"><%= link_to 'Cancel', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                  <td width="10%"><%= link_to 'Cancel', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-default btn-danger' %></td>
                 </tr>
             <% end %>
         <% end %>
+    <% end %>
+
+    <% if (!found) %>
+        <tr>
+          <td width="100%">No Request.</td>
+        </tr>
     <% end %>
   </table>
 
@@ -56,29 +65,37 @@
 
   <table class="partnershiptable" width="100%">
     <tr>
-      <th width="100%"><strong class="headtable">Accept Partnerships</strong></th>
+      <th width="100%"><strong class="headtable">Asking Partnerships</strong></th>
     </tr>
   </table>
   </br>
   <table width="100%">
+    <% found = false %>
     <% @partnerships.each do |partnership| %>
         <% if (!partnership.second_participant_confirmed && partnership.participants[0].reference != Participant.find_by(user_id: current_user.id).reference) %>
             <% if (partnership.participants[0].user.username == current_user.username) %>
+                <% found = true %>
                 <tr>
                   <td width="30%"><%= partnership.participants[1].user.username %></td>
                   <td width="20%"></td>
                   <td width="40%"></td>
-                  <td width="10%"><%= link_to 'Accept', partnership_partnership_accept_path(partnership), class: 'btn btn-mini' %></td>
+                  <td width="10%"><%= link_to 'Accept', partnership_partnership_accept_path(partnership), class: 'btn btn-default' %></td>
                 </tr>
             <% else %>
+                <% found = true %>
                 <tr>
                   <td width="30%"><%= partnership.participants[0].user.username %></td>
                   <td width="20%"></td>
                   <td width="40%"></td>
-                  <td width="10%"><%= link_to 'Accept', partnership_partnership_accept_path(partnership), class: 'btn btn-mini' %></td>
+                  <td width="10%"><%= link_to 'Accept', partnership_partnership_accept_path(partnership), class: 'btn btn-default' %></td>
                 </tr>
             <% end %>
         <% end %>
+    <% end %>
+    <% if (!found) %>
+        <tr>
+          <td width="100%">No Asking.</td>
+        </tr>
     <% end %>
   </table>
 
@@ -92,24 +109,32 @@
   </table>
   </br>
   <table width="100%">
+    <% found = false %>
     <% @partnerships.each do |partnership| %>
         <% if (partnership.first_participant_confirmed && partnership.second_participant_confirmed) %>
             <% if (partnership.participants[0].user.username == current_user.username) %>
+                <% found = true %>
                 <tr>
                   <td width="30%"><%= partnership.participants[1].user.username %></td>
                   <td width="20%"></td>
                   <td width="40%"></td>
-                  <td width="10%"><%= link_to 'UnFriend', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                  <td width="10%"><%= link_to 'UnFriend', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-default btn-danger' %></td>
                 </tr>
             <% else %>
+                <% found = true %>
                 <tr>
                   <td width="30%"><%= partnership.participants[0].user.username %></td>
                   <td width="20%"></td>
                   <td width="40%"></td>
-                  <td width="10%"><%= link_to 'UnFriend', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-mini btn-danger' %></td>
+                  <td width="10%"><%= link_to 'UnFriend', partnership, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-default btn-danger' %></td>
                 </tr>
             <% end %>
         <% end %>
+    <% end %>
+    <% if (!found) %>
+        <tr>
+          <td width="100%">No Friend.</td>
+        </tr>
     <% end %>
   </table>
 

@@ -65,10 +65,10 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def running
+  def bak_running
   end
 
-  def testrunning
+  def running
   end
 
   def activities_all
@@ -234,7 +234,7 @@ class ActivitiesController < ApplicationController
   #Running.
   #
   #
-  #Create a new running activity with participants.
+  #Create a new Running activity with participants.
   #
   #
   def running_new
@@ -248,23 +248,22 @@ class ActivitiesController < ApplicationController
     entry.set_property("publicvisible", 2)
     entry.set_property("courselength", params[:data][:courselength])
     entry.set_property("coursetype", params[:data][:coursetype])
-    entry.set_property("numberofrounds", params[:data][:ddsf][:numberofrounds])
     entry.public_visible = 2
 
     base_new(params, "Running", entry)
   end
-  #Delete a new running activity with participants.
+  #Delete a new Running activity with participants.
   #
   #
   def running_delete
-    base_delete(params)
+    base_delete(params, "Running")
   end
 
 
   #Boxing.
   #
   #
-  #Create a new boxing activities with participants.
+  #Create a new Boxing activities with participants.
   #
   #
   def boxing_new
@@ -272,21 +271,73 @@ class ActivitiesController < ApplicationController
     entry.reference = ""
     entry.is_proxy = true
     entry.user = current_user
-    entry.set_property("entrydate", params[:data][:Entry][:startTime])
-    entry.set_property("entrylocation", params[:data][:Entry][:location])
-    entry.set_property("comment", params[:data][:Entry][:comment])
+    entry.set_property("entrydate", params[:data][:StartTime])
+    entry.set_property("entrylocation", params[:data][:location])
+    entry.set_property("comment", params[:data][:comment])
     entry.set_property("publicvisible", 2)
-    entry.set_property("roundduration", params[:data][:Entry][:roundduration])
-    entry.set_property("numberofrounds", params[:data][:Entry][:numberofrounds])
+    entry.set_property("roundduration", params[:data][:roundduration])
     entry.public_visible = 2
 
     base_new(params, "Boxing", entry)
   end
-  #Delete a new boxing activity with participants.
+  #Delete a new Boxing activity with participants.
   #
   #
   def boxing_delete
-    base_delete(params)
+    base_delete(params, "Boxing")
+  end
+
+  #Soccer.
+  #
+  #
+  #Create a new Soccer activities with participants.
+  #
+  #
+  def soccer_new
+    entry = Entry.new
+    entry.reference = ""
+    entry.is_proxy = true
+    entry.user = current_user
+    entry.set_property("entrydate", params[:data][:StartTime])
+    entry.set_property("entrylocation", params[:data][:location])
+    entry.set_property("comment", params[:data][:comment])
+    entry.set_property("publicvisible", 2)
+    entry.public_visible = 2
+
+    base_new(params, "Soccer", entry)
+  end
+  #Delete a new Soccer activity with participants.
+  #
+  #
+  def soccer_delete
+    base_delete(params, "Soccer")
+  end
+
+  #Cycling.
+  #
+  #
+  #Create a new Cycling activities with participants.
+  #
+  #
+  def cycling_new
+    entry = Entry.new
+    entry.reference = ""
+    entry.is_proxy = true
+    entry.user = current_user
+    entry.set_property("entrydate", params[:data][:StartTime])
+    entry.set_property("entrylocation", params[:data][:location])
+    entry.set_property("comment", params[:data][:comment])
+    entry.set_property("publicvisible", 2)
+    entry.set_property("bicycletype", params[:data][:bicycletype])
+    entry.public_visible = 2
+
+    base_new(params, "Cycling", entry)
+  end
+  #Delete a new Cycling activity with participants.
+  #
+  #
+  def cycling_delete
+    base_delete(params, "Cycling")
   end
 
   private
@@ -398,6 +449,7 @@ class ActivitiesController < ApplicationController
     end
 
     @activity.entry = entry
+    @activity.entry.reference = Entry.count.to_s
     @activity.entry.save
 
     @activity.entry = Entry.find_by(id: entry.id)
@@ -405,7 +457,7 @@ class ActivitiesController < ApplicationController
     @activity.save
   end
 
-  def base_delete(params)
+  def base_delete(params, sport_name)
     @activity = Activity.where('reference = ?', "#{params[:data][:Reference]}").first
 
     if (@activity != nil && @activity.reference != nil && @activity.reference != '')
@@ -441,6 +493,48 @@ class ActivitiesController < ApplicationController
           end
           ref_item.delete
         end
+      else
+        #Searchs leafs of host.
+        #
+        #
+        ref_activities = Activity.where('reference_activity_id = ?', "#{ @activity.reference_activity.id }")
+
+        #If remains only host, would create an entry with subscription with host user.
+        #
+        #
+        if(ref_activities.count() == 0)
+          subscription = Subscription.find_by(reference: "/CyberCoachServer/resources/users/" + @activity.user.username.downcase + "/" + sport_name + "/")
+          if (subscription == nil)
+            subscription = Subscription.new
+            subscription.user = current_user
+            subscription.participant = Participant.find_by(user_id: current_user.id)
+
+            sport = Sport.new
+            sport.reference = "/CyberCoachServer/resources/sports/" + sport_name
+            sport.name = sport_name
+            sport.is_proxy = true
+
+            subscription.public_visible = 2
+            subscription.sport = sport
+
+            subscription.sport.save
+            subscription.save
+          else
+            subscription = SubscriptionsHelper.fetch(subscription)
+          end
+
+          #Delete entry dummy and assign new one.
+          #
+          @activity.entry.is_proxy = true
+          @activity.entry.delete()
+          @activity.entry = Entry.new
+          @activity.entry.subscription = subscription
+          @activity.entry.set_dynamic_property(ref_activities[0].entry.get_dynamic_property())
+          @activity.entry.save()
+          @activity.save()
+          puts "Delete entry dummy and assign new one"
+        end
+
       end
     end
   end

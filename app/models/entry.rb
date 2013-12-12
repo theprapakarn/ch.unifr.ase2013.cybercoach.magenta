@@ -65,10 +65,14 @@ class Entry < ActiveRecord::Base
   end
 
   def delete
-    EntriesHelper.delete_cy_ber_coach(self)
-    if (self.subscription != nil)
-      self.subscription = Subscription.find_by(reference: self.subscription.reference)
+    if (is_proxy == true)
+        super
+    else
+      EntriesHelper.delete_cy_ber_coach(self)
+      if (self.subscription != nil)
+        self.subscription = Subscription.find_by(reference: self.subscription.reference)
+      end
+      super
     end
-    super
   end
 end

@@ -1,241 +1,4 @@
 <div id="scheduler"></div>
-<style>
-    .weathertable {
-        table-layout: fixed;
-        width: 100%;
-    }
-
-    .weathertable > tbody > tr > th {
-        border-bottom: 1px solid #CCCCCC;
-        color: #787878;
-        font-size: 1.4em;
-        font-weight: lighter;
-        text-align: left;
-        padding: 10px 0px 0px 0px;
-        margin:0px 0px 0px 10px;
-    }
-
-    .headtable{
-        color: #787878;
-        font-size: 2em;
-        font-weight: bold;
-     }
-</style>
-
-<style>
-    .metrotable {
-        table-layout: fixed;
-        width: 100%;
-    }
-    .metrotable > tbody > tr > td {
-        padding: 2px 2px 2px 0px;
-    }
-    td h5 {
-        margin:5px 0px 5px 0px;
-    }
-    .metrotable td > input,
-    .metrotable td > textarea,
-    .metrotable td > label,
-    .metrotable td > select
-    {
-        margin:0;
-    }
-</style>
-
-<script id="editor" type="text/x-kendo-template">
-  #if(id == ""){#
-  <div style="padding: 0px 20px 0px 20px;">
-    <table class="metrotable">
-      <tr>
-        <td>
-          <h5>Title:</h5>
-          <input type="text" data-bind="value: title" class="k-textbox" style="width: 100%;"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h5>Start:</h5>
-          <input data-role="datetimepicker" data-bind="value: start" style="width: 100%;"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h5>End:</h5>
-          <input data-role="datetimepicker" data-bind="value: end" style="width: 100%;"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h5>Location:</h5>
-          <input type="text" data-bind="value: location" class="k-textbox" style="width: 100%;"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h5>Comment:</h5>
-          <textarea data-bind="value: comment" class="k-textbox" style="height: 40px; width: 100%;"></textarea>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h5>Participants:</h5>
-          <select multiple id="participants"
-                  data-bind="value: participants" style="width: 100%;">
-          </select>
-        </td>
-      </tr>
-
-      #if(crudServiceBaseUrl == "/boxing"){#
-        <tr>
-            <td>
-            <h5>Round Duration: </h5>
-            <input  data-role="numerictextbox"
-                    data-min="0"
-                    data-bind="value: roundduration"
-                    style="width: 100%;">
-            </input>
-            </td>
-        </tr>
-      # } #
-
-      #if(crudServiceBaseUrl == "/running"){#
-        <tr>
-            <td>
-            <h5>Course Length: </h5>
-            <input data-role="numerictextbox"
-                    data-min="0"
-                    data-bind="value: courselength"
-                    style="width: 100%;">
-            </input>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            <h5>Course Type: </h5>
-            <input type="text" data-bind="value: coursetype" class="k-textbox" style="width: 100%;"/>
-            </td>
-        </tr>
-      # } #
-
-      #if(crudServiceBaseUrl == "/cycling"){#
-        <tr>
-            <td>
-            <h5>Bicycle Type:</h5>
-              <input type="text" data-bind="value: bicycletype" class="k-textbox" style="width: 100%;"/>
-            </td>
-        </tr>
-      # } #
-    </table>
-  </div>
-  #}else{#
-  #if(info.From == "Google"){#
-  <div style="padding: 0px 20px 0px 20px;">
-    <table class="weathertable">
-      <strong class="headtable">Google</strong></br>
-      <tr>
-        <th>Title</th>
-        <th>Start</th>
-        <th>End</th>
-      </tr>
-      <tr>
-        <td>#: title #</td>
-        <td>#: start #</td>
-        <td>#: end #</td>
-      </tr>
-    </table>
-  </div>
-  #}else if(info.From == "Suggestion"){#
-  <div style="padding: 0px 20px 0px 20px;">
-    <strong class="headtable">Weather</strong></br>
-    <table class="weathertable">
-      <tr>
-        <th>Description</th>
-        <th>Morning</th>
-        <th>Noon</th>
-        <th>Evening</th>
-      </tr>
-      <tr>
-        <td>#: info.Description #</td>
-        <td>#: info.Morning #</td>
-        <td>#: info.Noon #</td>
-        <td>#: info.Evening #</td>
-      </tr>
-    </table>
-  </div>
-  #}else{#
-  <div style="padding: 0px 20px 0px 20px;">
-    <strong class="headtable">Firmy</strong></br>
-    <table class="weathertable">
-      <tr>
-        <th>Sport</th>
-        <th>Title</th>
-      </tr>
-      <tr>
-        <td>#: sport #</td>
-        <td>#: title #</td>
-      </tr>
-      <tr>
-        <th>Start</th>
-        <th>End</th>
-      </tr>
-      <tr>
-        <td>#: start #</td>
-        <td>#: end #</td>
-      </tr>
-      <tr>
-        <th>Location</th>
-        <th>Comment</th>
-      </tr>
-      <tr>
-        <td> # if(entry.entrylocation != null){ # #: entry.entrylocation #   # }else{ # #: "-" # # } #</td>
-        <td> # if(entry.comment != null){ # #: entry.comment #   # }else{ # #: "-" # # } #</td>
-      </tr>
-
-      #if(sport == "Boxing"){#
-        <tr>
-            <th>Round Duration</th>
-            <th></th>
-        </tr>
-        <tr>
-            <td> # if(entry.roundduration != null){ # #: entry.roundduration #  # }else{ # #: "-" # # } #</td>
-        </tr>
-      # } #
-
-      #if(sport == "Running"){#
-        <tr>
-            <th>Course Length</th>
-            <th>Course Type</th>
-        </tr>
-        <tr>
-            <td> # if(entry.courselength != null){ # #: entry.courselength #   # }else{ # #: "-" # # } #</td>
-            <td> # if(entry.coursetype != null){ # #: entry.coursetype #   # }else{ # #: "-" # # } #</td>
-        </tr>
-      # } #
-
-      #if(sport == "Cycling"){#
-        <tr>
-            <th>Bicycle Type</th>
-            <th></th>
-        </tr>
-        <tr>
-            <td> # if(entry.bicycletype != null){ # #: entry.bicycletype #  # }else{ # #: "-" # # } #</td>
-        </tr>
-      # } #
-
-      <tr>
-        <th>Participants</th>
-        <th></th>
-      </tr>
-      # for (var i = 0; i < participants.length; i++) { #
-      <tr>
-        <td>#= participants[i].Text #</td>
-      </tr>
-      # } #
-    </table>
-  </div>
-  #}#
-  #}#
-</script>
 
 <script id="all-event-template" type="text/x-kendo-template">
   #if(info.Status == "Perfect"){#
@@ -257,6 +20,82 @@
   #}#
 </script>
 
+<script id="editor" type="text/x-kendo-template">
+  #if(id == ""){#
+  <p>
+    <label>Title:<input name="title" data-bind="value: title"/></label>
+  </p>
+
+  <p>
+    <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
+  </p>
+
+  <p>
+    <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
+  </p>
+
+  <p>
+    <label>Location:<input name="location" data-bind="value: location"/> </label>
+  </p>
+
+  <p>
+    <label>Comment:<input name="comment" data-bind="value: comment"/> </label>
+  </p>
+
+  <p>
+    <label>Participants:
+      <select id="participants"
+              data-placeholder="Select participants..."
+              multiple="multiple"
+              data-bind="value: participants">
+      </select>
+    </label>
+  </p>
+  #}else{#
+  #if(info.From == "Google"){#
+  <p>
+    #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
+  </p>
+
+  <h3>#: title #</h3>
+
+  <div style="background-color: rgb(169,169,169);">
+    This text is enclosed in a box.
+  </div>
+  #}else if(info.From == "Suggestion"){#
+  <p><strong>#: info.Description #</strong></p>
+
+  <p><strong>Morning</strong>: #: info.Morning #</p>
+
+  <p><strong>Noon:</strong> #: info.Noon #</p>
+
+  <p><strong>Evening:</strong> #: info.Evening #</p>
+  #}else{#
+  <p>
+    <label>Title:<input name="title" data-bind="value: title"/></label>
+  </p>
+
+  <p>
+    <label>Start:<input data-role="datetimepicker" data-bind="value: start"/> </label>
+  </p>
+
+  <p>
+    <label>End:<input data-role="datetimepicker" data-bind="value: end"/> </label>
+  </p>
+
+  <p>
+    <label>Participants:
+      <select id="readonlyparticipants"
+              data-placeholder="No participant..."
+              multiple="multiple"
+              data-bind="value: participants">
+      </select>
+    </label>
+  </p>
+  #}#
+  #}#
+</script>
+
 <script id="event-template" type="text/x-kendo-template">
   #if(info.From == "Google"){#
   <strong>Google</strong>
@@ -268,7 +107,7 @@
   <p>#: title #</p>
 
   #}else if(info.From == "CyberCoach"){#
-  <strong>Firmy - #: sport #</strong>
+  <strong>Firmy</strong>
 
   <p>
     #: kendo.toString(start, "hh:mm") # - #: kendo.toString(end, "hh:mm") #
@@ -281,9 +120,12 @@
 
 <script>
     $(function () {
+        $('#test').hide();
+
         $.get("http://ipinfo.io", function (response) {
         }, "jsonp");
 
+        var crudServiceBaseUrl = "/bak_running";
         $("#scheduler").kendoScheduler({
             height: 600,
             views: [
@@ -375,7 +217,7 @@
                             url: crudServiceBaseUrl,
                             contentType: "application/json",
                             type: "POST",
-                            data: JSON.stringify({ data: options.data }),
+                            data: JSON.stringify({ running: options.data }),
                             success: function (result) {
                                 options.success(result);
                                 var scheduler = $("#scheduler").data("kendoScheduler");
@@ -393,7 +235,7 @@
                             url: crudServiceBaseUrl + "delete",
                             contentType: "application/json",
                             type: "POST",
-                            data: JSON.stringify({ data: options.data }),
+                            data: JSON.stringify({ running: options.data }),
                             success: function (result) {
                                options.success(result);
                                var scheduler = $("#scheduler").data("kendoScheduler");
@@ -413,7 +255,7 @@
                     }
                 },
                 schema: {
-                    data: "data",
+                    data: "bak_running",
                     model: {
                         id: "id",
                         fields: {
@@ -423,8 +265,8 @@
                             title: { from: "Title", defaultValue: "No title", validation: { required: true } },
                             start: { type: "date", from: "StartTime" },
                             end: { type: "date", from: "EndTime" },
-                            entry: { from: "Entry" },
-                            sport: { from: "Sport" },
+                            location: { from: "Location" },
+                            comment: { from: "Comment" },
                             participants: { from: "Participants" },
                             info: { from: "Info"},
                             isAllDay: { type: "boolean", from: "IsAllDay", defaultValue: true },

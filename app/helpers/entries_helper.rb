@@ -54,8 +54,7 @@ module EntriesHelper
       @un_proxy_entry.public_visible = parsed_json[entry_root]["publicvisible"]
       @un_proxy_entry.subscription = entry.subscription
 
-      @un_proxy_entry.set_property("comment", parsed_json[entry_root]["comment"])
-      @un_proxy_entry.set_property("entrylocation", parsed_json[entry_root]["entrylocation"])
+      @un_proxy_entry.set_dynamic_property(parsed_json[entry_root])
       @un_proxy_entry
     else
       puts(response.code)

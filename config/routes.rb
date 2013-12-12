@@ -15,25 +15,30 @@ CarTrading::Application.routes.draw do
   match '/cars/createmodal' => 'cars#create_modal' , via: 'post', :as => :cars_create_modal
   match '/cars/:id/updatemodal' => 'cars#update_modal' , via: 'post', :as => :cars_update_modal
 
-
   match "/cars/:car_id/bids/" => "bids#modal" , via: 'get', :as => :bids_modal
   match "/cars/:car_id/bids/" => "bids#create_modal" , via: 'post', :as => :bids_create_modal
 
   match "/activitiesall" => "activities#activities_all" , via: 'get', :as => :activities_activities_all
   match "/participantsall" => "participants#get_all" , via: 'get', :as => :participants_get_all
 
-  match "/running" => "activities#running" , via: 'get', :as => :activities_running
-  match "/testrunning" => "activities#testrunning" , via: 'get', :as => :activities_testrunning
-  match "/running" => "activities#running_new" , via: 'post', :as => :activities_running_new
+  match "/bak_running" => "activities#bak_running" , via: 'get', :as => :activities_running
+  match "/running" => "activities#running" , via: 'get', :as => :activities_testrunning
+  match "/bak_running" => "activities#running_new" , via: 'post', :as => :activities_running_new
 
   match "/boxing" => "activities#boxing" , via: 'get', :as => :activities_boxing
   match "/boxing" => "activities#boxing_new" , via: 'post', :as => :activities_boxing_new
   match "/boxingdelete" => "activities#boxing_delete" , via: 'post', :as => :activities_boxing_delete
 
+  match "/soccer" => "activities#soccer" , via: 'get', :as => :activities_soccer
+  match "/soccer" => "activities#soccer_new" , via: 'post', :as => :activities_soccer_new
+  match "/soccerdelete" => "activities#soccer_delete" , via: 'post', :as => :activities_soccer_delete
+
+  match "/cycling" => "activities#cycling" , via: 'get', :as => :activities_cycling
+  match "/cycling" => "activities#cycling_new" , via: 'post', :as => :activities_cycling_new
+  match "/cyclingdelete" => "activities#cycling_delete" , via: 'post', :as => :activities_cycling_delete
 
   match "/runningupdate" => "activities#running_update" , via: 'post', :as => :activities_running_update
   match "/runningdelete" => "activities#running_delete" , via: 'post', :as => :activities_running_delete
-
 
   match "/partnershiparticipants" => "partnerships#partnership_participants" , via: 'get', :as => :partnership_partnership_participants
   match "/partnershiprequest" => "partnerships#partnership_request" , via: 'post', :as => :partnership_partnership_request

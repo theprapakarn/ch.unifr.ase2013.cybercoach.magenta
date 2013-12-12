@@ -240,7 +240,6 @@ class ActivitiesController < ApplicationController
   def running_new
     entry = Entry.new
     entry.reference = ""
-    entry.is_proxy = true
     entry.user = current_user
     entry.set_property("entrydate", params[:data][:StartTime])
     entry.set_property("entrylocation", params[:data][:location])
@@ -252,6 +251,7 @@ class ActivitiesController < ApplicationController
 
     base_new(params, "Running", entry)
   end
+
   #Delete a new Running activity with participants.
   #
   #
@@ -269,7 +269,6 @@ class ActivitiesController < ApplicationController
   def boxing_new
     entry = Entry.new
     entry.reference = ""
-    entry.is_proxy = true
     entry.user = current_user
     entry.set_property("entrydate", params[:data][:StartTime])
     entry.set_property("entrylocation", params[:data][:location])
@@ -280,6 +279,7 @@ class ActivitiesController < ApplicationController
 
     base_new(params, "Boxing", entry)
   end
+
   #Delete a new Boxing activity with participants.
   #
   #
@@ -296,7 +296,6 @@ class ActivitiesController < ApplicationController
   def soccer_new
     entry = Entry.new
     entry.reference = ""
-    entry.is_proxy = true
     entry.user = current_user
     entry.set_property("entrydate", params[:data][:StartTime])
     entry.set_property("entrylocation", params[:data][:location])
@@ -306,6 +305,7 @@ class ActivitiesController < ApplicationController
 
     base_new(params, "Soccer", entry)
   end
+
   #Delete a new Soccer activity with participants.
   #
   #
@@ -322,7 +322,6 @@ class ActivitiesController < ApplicationController
   def cycling_new
     entry = Entry.new
     entry.reference = ""
-    entry.is_proxy = true
     entry.user = current_user
     entry.set_property("entrydate", params[:data][:StartTime])
     entry.set_property("entrylocation", params[:data][:location])
@@ -333,6 +332,7 @@ class ActivitiesController < ApplicationController
 
     base_new(params, "Cycling", entry)
   end
+
   #Delete a new Cycling activity with participants.
   #
   #
@@ -358,30 +358,30 @@ class ActivitiesController < ApplicationController
     @activity.end_time = params[:data][:EndTime]
     @activity.user = current_user
 
-    if (params[:data][:Participants] == nil || !params[:data][:Participants].instance_of?(Array))
+    host_subscription = Subscription.find_by(reference: "/CyberCoachServer/resources/users/" + current_user.username.downcase + "/" + sport_name + "/")
+    if (host_subscription == nil)
+      host_subscription = Subscription.new
+      host_subscription.user = current_user
+      host_subscription.participant = Participant.find_by(user_id: current_user.id)
 
-      subscription = Subscription.find_by(reference: "/CyberCoachServer/resources/users/" + current_user.username.downcase + "/" + sport_name + "/")
-      if (subscription == nil)
-        subscription = Subscription.new
-        subscription.user = current_user
-        subscription.participant = Participant.find_by(user_id: current_user.id)
+      sport = Sport.new
+      sport.reference = "/CyberCoachServer/resources/sports/" + sport_name
+      sport.name = sport_name
+      sport.is_proxy = true
 
-        sport = Sport.new
-        sport.reference = "/CyberCoachServer/resources/sports/" + sport_name
-        sport.name = sport_name
-        sport.is_proxy = true
+      host_subscription.public_visible = 2
+      host_subscription.sport = sport
 
-        subscription.public_visible = 2
-        subscription.sport = sport
-
-        subscription.sport.save
-        subscription.save
-      else
-        subscription = SubscriptionsHelper.fetch(subscription)
-      end
-      entry.is_proxy = false
-      entry.subscription = subscription
+      host_subscription.sport.save
+      host_subscription.save
     else
+      host_subscription = SubscriptionsHelper.fetch(host_subscription)
+    end
+
+    entry.subscription = host_subscription
+
+    if (params[:data][:Participants] != nil || params[:data][:Participants].instance_of?(Array))
+
       params[:data][:Participants].each do |item|
         partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username.downcase + ";" + item[:text].downcase + "/").first
 
@@ -449,7 +449,6 @@ class ActivitiesController < ApplicationController
     end
 
     @activity.entry = entry
-    @activity.entry.reference = Entry.count.to_s
     @activity.entry.save
 
     @activity.entry = Entry.find_by(id: entry.id)
@@ -493,48 +492,6 @@ class ActivitiesController < ApplicationController
           end
           ref_item.delete
         end
-      else
-        #Searchs leafs of host.
-        #
-        #
-        ref_activities = Activity.where('reference_activity_id = ?', "#{ @activity.reference_activity.id }")
-
-        #If remains only host, would create an entry with subscription with host user.
-        #
-        #
-        if(ref_activities.count() == 0)
-          subscription = Subscription.find_by(reference: "/CyberCoachServer/resources/users/" + @activity.user.username.downcase + "/" + sport_name + "/")
-          if (subscription == nil)
-            subscription = Subscription.new
-            subscription.user = current_user
-            subscription.participant = Participant.find_by(user_id: current_user.id)
-
-            sport = Sport.new
-            sport.reference = "/CyberCoachServer/resources/sports/" + sport_name
-            sport.name = sport_name
-            sport.is_proxy = true
-
-            subscription.public_visible = 2
-            subscription.sport = sport
-
-            subscription.sport.save
-            subscription.save
-          else
-            subscription = SubscriptionsHelper.fetch(subscription)
-          end
-
-          #Delete entry dummy and assign new one.
-          #
-          @activity.entry.is_proxy = true
-          @activity.entry.delete()
-          @activity.entry = Entry.new
-          @activity.entry.subscription = subscription
-          @activity.entry.set_dynamic_property(ref_activities[0].entry.get_dynamic_property())
-          @activity.entry.save()
-          @activity.save()
-          puts "Delete entry dummy and assign new one"
-        end
-
       end
     end
   end
@@ -610,8 +567,8 @@ class ActivitiesController < ApplicationController
     #First update itself.
     #
     #
-    activity.name =  title
-    activity.start_time =  start_time
+    activity.name = title
+    activity.start_time = start_time
     activity.end_time = end_time
     activity.save
 
@@ -629,35 +586,35 @@ class ActivitiesController < ApplicationController
 
         ref_event = ref_cal.find_event_by_id(ref_item.reference)
         ref_event.title = title
-        ref_event.start_time =  start_time
+        ref_event.start_time = start_time
         ref_event.end_time = end_time
         ref_cal.save_event(ref_event)
 
-        ref_item.name =  title
-        ref_item.start_time =  start_time
+        ref_item.name = title
+        ref_item.start_time = start_time
         ref_item.end_time = end_time
         ref_item.save
       end
 
-    #Activity Child Node need to find root node and then update all children.
-    #
-    #
+      #Activity Child Node need to find root node and then update all children.
+      #
+      #
     else
       root_activity = Activity.where('id = ?', "#{ activity.reference_activity.id }").first
 
       root_cal = Google::Calendar.new(:username => root_activity.user.email,
-                                     :password => 'Bern2013',
-                                     :app_name => 'firmy')
+                                      :password => 'Bern2013',
+                                      :app_name => 'firmy')
 
 
       root_event = root_cal.find_event_by_id(root_activity.reference)
       root_event.title = title
-      root_event.start_time =  start_time
+      root_event.start_time = start_time
       root_event.end_time = end_time
       root_cal.save_event(root_event)
 
-      root_activity.name =  title
-      root_activity.start_time =  start_time
+      root_activity.name = title
+      root_activity.start_time = start_time
       root_activity.end_time = end_time
       root_activity.save
 

@@ -42,6 +42,7 @@ module UsersHelper
     if (response.code == "200" || response.code == "201")
       parsed_json = ActiveSupport::JSON.decode(response.body)
 
+      participant.user = User.find_by(id: user.id)
       participant.reference = parsed_json["uri"]
       participant.date_created = parsed_json["datecreated"]
       participant.save
@@ -56,7 +57,7 @@ module UsersHelper
 
           subscription.participant = participant
           subscription.reference = item['uri']
-          subscription.user = user
+          subscription.user = User.find_by(id: user.id)
           subscription.is_proxy = true
           subscription.save
         end

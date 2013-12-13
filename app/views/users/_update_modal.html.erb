@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <button id="user-modal-close" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="user-header">My Profile - <%= @user.username %></h3>
+</div>
+<%= form_for @user, url: users_update_modal_path(@user), :html => {:class => 'form-horizontal'}, method: 'post', remote: true do |f| %>
+
+    <div class="field">
+      <%= f.label :username %><br>
+      <%= f.text_field :username %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br>
+
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+
+    <%= participant = Participant.find_by(user_id: @user.id) %>
+    <%= form_for participant do |ff|%>
+
+        <div class="field">
+      <%= ff.label :first_name %><br>
+      <%= ff.text_field :first_name %>
+    </div>
+        <div class="actions">
+          <%= ff.submit %>
+        </div>
+<% end %>
+
+
+    <div class="modal-footer">
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    cars_path, :class => 'btn' %>
+    </div>
+<% end %>

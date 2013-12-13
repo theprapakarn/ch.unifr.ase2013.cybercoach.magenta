@@ -2,8 +2,26 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def register
-    @user = User.new
-    @user.sfsfs = "dsds"
+    @user = User.new(username: params[:username], email: params[:email],
+                     password: params[:password], password_confirmation: params[:confirmpassword])
+    @user.save
+
+    participant = Participant.where('user_id = ?', "#{@user.id}").first
+
+    if participant != nil
+      participant.user = @user
+      participant.public_visible = "2"
+      participant.first_name = params[:firstname]
+      participant.last_name = params[:lastname]
+      participant.birth_date = params[:birthdate]
+      participant.gender = params[:gender]
+      participant.save()
+    end
+    @user.email_password =  params[:emailpassword]
+    @user.save
+
+    sign_in(@user)
+    redirect_to root_url
   end
 
   def isuserexist
@@ -109,6 +127,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_modal
+    @user = User.find(params[:id])
+    respond_to :js
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
@@ -118,5 +141,10 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params_2
+    params.permit(:username, :email, :password, :password_confirmation)
   end
 end

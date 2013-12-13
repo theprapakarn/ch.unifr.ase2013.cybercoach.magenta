@@ -5,7 +5,6 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home",  root_path %></li>
-          <li><%= link_to 'Sign Up', users_new_modal_path, {:id => 'new-user-modal', :remote => true, 'data-toggle' => 'modal', 'data-target' => '#user-modal-window', 'class' => ""} %></li>
           <% if signed_in? %>
               <li><%= link_to "Partnerships", partnerships_path %></li>
               <li><%= link_to "Running", activities_running_path %></li>
@@ -18,6 +17,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li class="divider"></li>
+                  <li><%= link_to 'My Profile', users_edit_modal_path(current_user), {:id => 'edit-user-modal', :remote => true, 'data-toggle' => 'modal', 'data-target' => '#user-modal-window', 'class' => ""} %></li>
                   <li>
                     <%= link_to "Sign out", signout_path, method: "delete" %>
                   </li>

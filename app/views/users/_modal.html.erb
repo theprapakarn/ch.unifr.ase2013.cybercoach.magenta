@@ -4,7 +4,7 @@
 </div>
 <div class="field">
   <%= f.label :email %><br>
-  <%= f.text_field :email %>
+
 </div>
 <div class="field">
   <%= f.label :password %>
@@ -13,4 +13,94 @@
 <div class="field">
   <%= f.label :password_confirmation, "Confirmation" %>
   <%= f.password_field :password_confirmation %>
+</div>
+
+<div style="padding: 0px 20px 0px 20px;">
+  <style scoped>
+      .headtable {
+          color: #787878;
+          font-size: 1.5em;
+          font-weight: bold;
+      }
+
+      .myprofiletable > tbody > tr > th {
+          border-bottom: 1px solid #CCCCCC;
+          padding: 10px 0px 0px 0px;
+          margin: 0px 0px 20px 10px;
+          text-align: left;
+      }
+  </style>
+
+
+  <table class="myprofiletable" width="100%">
+    <tr>
+      <th width="50%"><strong class="headtable">Personal</strong></th>
+      <th width="40%">
+      </th>
+      <th width="10%">
+      </th>
+    </tr>
+  </table>
+  </br>
+
+  <table width="100%">
+    <tr>
+      <td>
+        <h5>FirstName:</h5>
+        <input type="text" data-bind="value: firstname" class="k-textbox" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h5>Lastname:</h5>
+        <input type="text" data-bind="value: lastname" class="k-textbox" style="width: 100%;"/>
+      </td>
+    </tr>
+    </table>
+
+  <table class="myprofiletable" width="100%">
+    <tr>
+      <th width="50%"><strong class="headtable">User</strong></th>
+      <th width="40%">
+      </th>
+      <th width="10%">
+      </th>
+    </tr>
+  </table>
+  </br>
+
+  <table width="100%">
+    <tr>
+      <td>
+        <h5>Email:</h5>
+        <input type="text" data-bind="value: email" class="k-textbox" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h5>Email Password:</h5>
+        <input type="text" data-bind="value: emailpassword" class="k-textbox" style="width: 100%;"/>
+      </td>
+    </tr>
+  </table>
+
+  <table class="myprofiletable" width="100%">
+    <tr>
+      <th width="50%"><strong class="headtable">Change Password</strong></th>
+      <th width="40%">
+      </th>
+      <th width="10%">
+      </th>
+    </tr>
+  </table>
+  </br>
+
+  <table width="100%">
+    <tr>
+      <td>
+        <h5>FirstName:</h5>
+        <input type="text" data-bind="value: firstname" class="k-textbox" style="width: 100%;"/>
+      </td>
+    </tr>
+  </table>
 </div>

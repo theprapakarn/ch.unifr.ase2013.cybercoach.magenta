@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   before_save { self.username = username }
+  validates_presence_of :password, :on => :create
   before_create :create_remember_token
   has_secure_password
   has_many :cars
@@ -19,11 +20,6 @@ class User < ActiveRecord::Base
 
   def create_remember_token
     self.remember_token = User.encrypt(User.new_remember_token)
-  end
-
-  def save(save_info)
-    SubscriptionsHelper.save_or_update_cy_ber_coach(self)
-    super(save_info)
   end
 
   def save

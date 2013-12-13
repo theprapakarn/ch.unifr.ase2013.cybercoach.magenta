@@ -68,21 +68,26 @@ class ActivitiesController < ApplicationController
   def activities_all
     get_suggestions
 
+    puts "User Email Password:" + current_user.email_password
+
     @activities = Activity.where('user_id = ?', current_user.id)
     @body = [@activities.length]
     activity_count = 0
 
-    cal = Google::Calendar.new(:username => current_user.email,
-                               :password => 'Bern2013',
-                               :app_name => 'firmy')
-
+    if ((current_user.email != nil && current_user.email != '') && (current_user.password != nil && current_user.password != ''))
+      cal = Google::Calendar.new(:username => current_user.email,
+                                 :password => current_user.email_password,
+                                 :app_name => 'firmy')
+    end
 
     #First is to convert activities of current user to json body.
     #
     #
 
     @activities.each do |item|
-      exist_event_on_google = cal.find_event_by_id(item.reference)
+      if (cal)
+        exist_event_on_google = cal.find_event_by_id(item.reference)
+      end
 
       if (exist_event_on_google == nil)
         item.delete()
@@ -163,15 +168,31 @@ class ActivitiesController < ApplicationController
     #Second is to convert events of google of current user to json body.
     #
     #
-
-    if (cal.events.instance_of?(Array))
-      cal.events.each do |item|
-        if (Activity.where('reference like ?', "%" + item.id.to_s + "%").first == nil)
+    if (cal != nil)
+      if (cal.events.instance_of?(Array))
+        cal.events.each do |item|
+          if (Activity.where('reference like ?', "%" + item.id.to_s + "%").first == nil)
+            @body[activity_count] = {
+                "Reference" => item.id,
+                "Title" => item.title,
+                "StartTime" => item.start_time,
+                "EndTime" => item.end_time,
+                "ReadOnly" => true,
+                "Info" => {
+                    "Status" => "Busy",
+                    "From" => "Google"
+                }
+            }
+            activity_count += 1
+          end
+        end
+      else
+        if (Activity.where('reference like ?', "%" + cal.events.id.to_s + "%").first == nil)
           @body[activity_count] = {
-              "Reference" => item.id,
-              "Title" => item.title,
-              "StartTime" => item.start_time,
-              "EndTime" => item.end_time,
+              "Reference" => cal.events.id,
+              "Title" => cal.events.title,
+              "StartTime" => cal.events.start_time,
+              "EndTime" => cal.events.end_time,
               "ReadOnly" => true,
               "Info" => {
                   "Status" => "Busy",
@@ -180,21 +201,6 @@ class ActivitiesController < ApplicationController
           }
           activity_count += 1
         end
-      end
-    else
-      if (Activity.where('reference like ?', "%" + cal.events.id.to_s + "%").first == nil)
-        @body[activity_count] = {
-            "Reference" => cal.events.id,
-            "Title" => cal.events.title,
-            "StartTime" => cal.events.start_time,
-            "EndTime" => cal.events.end_time,
-            "ReadOnly" => true,
-            "Info" => {
-                "Status" => "Busy",
-                "From" => "Google"
-            }
-        }
-        activity_count += 1
       end
     end
 
@@ -402,14 +408,17 @@ class ActivitiesController < ApplicationController
         end
 
         participant = Participant.find_by(reference: item[:value])
+
         cal_participant = Google::Calendar.new(:username => participant.user.email,
-                                               :password => 'Bern2013',
+                                               :password => participant.user.email_password,
                                                :app_name => 'firmy')
 
-        event_participant = cal_participant.create_event do |e|
-          e.title = "[" + current_user.username + "] " + @activity.name
-          e.start_time = @activity.start_time
-          e.end_time = @activity.end_time
+        if (cal_participant != nil)
+          event_participant = cal_participant.create_event do |e|
+            e.title = "[" + current_user.username + "] " + @activity.name
+            e.start_time = @activity.start_time
+            e.end_time = @activity.end_time
+          end
         end
 
         entry_participant = Entry.new
@@ -428,11 +437,12 @@ class ActivitiesController < ApplicationController
         activity_participant.end_time = @activity.end_time
         activity_participant.user = participant.user
         activity_participant.save
+
       end
     end
 
     cal = Google::Calendar.new(:username => current_user.email,
-                               :password => 'Bern2013',
+                               :password => current_user.email_password,
                                :app_name => 'firmy')
 
     event = cal.create_event do |e|
@@ -455,12 +465,13 @@ class ActivitiesController < ApplicationController
     if (@activity != nil && @activity.reference != nil && @activity.reference != '')
 
       cal = Google::Calendar.new(:username => current_user.email,
-                                 :password => 'Bern2013',
+                                 :password => current_user.emailpassword,
                                  :app_name => 'firmy')
 
-
-      event = cal.find_event_by_id(@activity.reference)
-      cal.delete_event(event)
+      if (cal != nil)
+        event = cal.find_event_by_id(@activity.reference)
+        cal.delete_event(event)
+      end
 
       if (@activity.entry != nil && @activity.entry.reference != nil)
         @activity.entry.delete
@@ -474,11 +485,13 @@ class ActivitiesController < ApplicationController
 
         ref_activities.each do |ref_item|
           ref_cal = Google::Calendar.new(:username => ref_item.user.email,
-                                         :password => 'Bern2013',
+                                         :password => ref_item.user.email_password,
                                          :app_name => 'firmy')
 
-          ref_event = ref_cal.find_event_by_id(ref_item.reference)
-          ref_cal.delete_event(ref_event)
+          if (ref_cal != nil)
+            ref_event = ref_cal.find_event_by_id(ref_item.reference)
+            ref_cal.delete_event(ref_event)
+          end
 
           if (ref_item.entry != nil)
             ref_item.entry.delete
@@ -574,14 +587,16 @@ class ActivitiesController < ApplicationController
 
       ref_activities.each do |ref_item|
         ref_cal = Google::Calendar.new(:username => ref_item.user.email,
-                                       :password => 'Bern2013',
+                                       :password => ref_item.user.email_password,
                                        :app_name => 'firmy')
 
-        ref_event = ref_cal.find_event_by_id(ref_item.reference)
-        ref_event.title = title
-        ref_event.start_time = start_time
-        ref_event.end_time = end_time
-        ref_cal.save_event(ref_event)
+        if (ref_cal != nil)
+          ref_event = ref_cal.find_event_by_id(ref_item.reference)
+          ref_event.title = title
+          ref_event.start_time = start_time
+          ref_event.end_time = end_time
+          ref_cal.save_event(ref_event)
+        end
 
         ref_item.name = title
         ref_item.start_time = start_time
@@ -596,15 +611,16 @@ class ActivitiesController < ApplicationController
       root_activity = Activity.where('id = ?', "#{ activity.reference_activity.id }").first
 
       root_cal = Google::Calendar.new(:username => root_activity.user.email,
-                                      :password => 'Bern2013',
+                                      :password => root_activity.user.email_password,
                                       :app_name => 'firmy')
 
-
-      root_event = root_cal.find_event_by_id(root_activity.reference)
-      root_event.title = title
-      root_event.start_time = start_time
-      root_event.end_time = end_time
-      root_cal.save_event(root_event)
+      if (root_cal != nil)
+        root_event = root_cal.find_event_by_id(root_activity.reference)
+        root_event.title = title
+        root_event.start_time = start_time
+        root_event.end_time = end_time
+        root_cal.save_event(root_event)
+      end
 
       root_activity.name = title
       root_activity.start_time = start_time

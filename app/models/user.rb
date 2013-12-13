@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     self.remember_token = User.encrypt(User.new_remember_token)
   end
 
+  def self.is_exist_cy_ber_coach(username)
+    UsersHelper.is_exist_cy_ber_coach(username)
+  end
+
   def save
     super
     UsersHelper.save_or_update_cy_ber_coach(self)

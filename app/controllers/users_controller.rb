@@ -27,10 +27,15 @@ class UsersController < ApplicationController
   def isuserexist
     @user = User.where('LOWER(username) = ?', "#{params[:username].downcase}").first
     if (@user)
-      render status: 500
+      render status: 401
       render status: :forbidden
     else
-      render nothing: true, status: 200
+      if(User.is_exist_cy_ber_coach(params[:username]) == false)
+        render nothing: true, status: 200
+     else
+       render status: 401
+       render status: :forbidden
+     end
     end
   end
 

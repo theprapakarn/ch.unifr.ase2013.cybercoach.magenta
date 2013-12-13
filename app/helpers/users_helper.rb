@@ -91,4 +91,24 @@ module UsersHelper
     end
   end
 
+
+  def self.is_exist_cy_ber_coach(username)
+
+    uri = URI.parse("http://diufvm31.unifr.ch:8090/")
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new("/CyberCoachServer/resources/users/" + username)
+    request["Accept"] = "application/json"
+
+    response = http.request(request)
+
+    if (response.code == "200" || response.code == "201")
+      puts "User Exist"
+      true
+    else
+      puts "No User Exist"
+      false
+    end
+  end
+
 end

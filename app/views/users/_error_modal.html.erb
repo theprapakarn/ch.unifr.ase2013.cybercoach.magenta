@@ -1,0 +1,14 @@
+<% if @errors != nil %>
+    <% if @errors.any? %>
+        <h2><%= pluralize(@errors.count, "error") %> prohibited this car from being saved:</h2>
+
+        <ul>
+          <% @errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+    <% else %>
+        <strong><%= @success %></strong>
+    <% end %>
+<% end %>
+

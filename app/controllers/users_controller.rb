@@ -1,6 +1,31 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  def register
+    @user = User.new
+    @user.sfsfs = "dsds"
+  end
+
+  def isuserexist
+    @user = User.where('LOWER(username) = ?', "#{params[:username].downcase}").first
+    if (@user)
+      render status: 500
+      render status: :forbidden
+    else
+      render nothing: true, status: 200
+    end
+  end
+
+  def isemailexist
+    @user = User.where('LOWER(email) = ?', "#{params[:email].downcase}").first
+    if (@user)
+      render status: 500
+      render status: :forbidden
+    else
+      render nothing: true, status: 200
+    end
+  end
+
   # GET /users
   # GET /users.json
   def index
@@ -65,14 +90,33 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def new_modal
+    @user = User.new()
+    respond_to :js
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
+
+  def create_modal
+    @user = User.new(car_params)
+
+    if @user.save
+      @errors = @user.errors
+      @success = "Saved"
+      respond_to :js
+    else
+      @errors = @user.errors
+      respond_to :js
     end
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+  end
 end

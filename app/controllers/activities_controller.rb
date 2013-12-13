@@ -65,12 +65,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def bak_running
-  end
-
-  def running
-  end
-
   def activities_all
     get_suggestions
 
@@ -207,7 +201,6 @@ class ActivitiesController < ApplicationController
     #Third is to convert suggestion weathers to json body.
     #
     #
-
     get_suggestions.each do |item|
       @body[activity_count] = item
       activity_count += 1

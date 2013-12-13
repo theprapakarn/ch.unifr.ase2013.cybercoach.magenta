@@ -5,8 +5,13 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home",  root_path %></li>
-          <li><%= link_to "Cars", cars_path %></li>
+          <li><%= link_to 'Sign Up', users_new_modal_path, {:id => 'new-user-modal', :remote => true, 'data-toggle' => 'modal', 'data-target' => '#user-modal-window', 'class' => ""} %></li>
           <% if signed_in? %>
+              <li><%= link_to "Partnerships", partnerships_path %></li>
+              <li><%= link_to "Running", activities_running_path %></li>
+              <li><%= link_to "Boxing", activities_boxing_path %></li>
+              <li><%= link_to "Soccer", activities_soccer_path %></li>
+              <li><%= link_to "Cycling", activities_cycling_path %></li>
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                  <%= current_user.username %> Account <b class="caret"></b>
@@ -26,3 +31,6 @@
     </div>
   </div>
 </header>
+
+<div id="user-modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>

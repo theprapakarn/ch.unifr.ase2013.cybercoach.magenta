@@ -144,6 +144,8 @@ class ActivitiesController < ApplicationController
         #
         #
 
+        puts "ID KAkkkk" + item.id.to_s
+
         if (ref_activities.count > 0)
           entry = EntriesHelper.fetch(ref_activities[0].entry)
         else
@@ -468,9 +470,8 @@ class ActivitiesController < ApplicationController
      puts "Google Error"
     end
 
-    @activity.entry.set_current_user(current_user())
-    @activity.entry = entry
-    @activity.entry.save
+    entry.set_current_user(current_user())
+    entry.save
 
     @activity.entry = Entry.find_by(id: entry.id)
 

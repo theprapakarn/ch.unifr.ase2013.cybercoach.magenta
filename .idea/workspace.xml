@@ -93,7 +93,7 @@
     <file path="/activity.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520767620" ignored="false" />
     <file path="/20131104081410_create_activities.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386520730889" ignored="false" />
     <file path="/application.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1383860286452" ignored="false" />
-    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386938280416" ignored="false" />
+    <file path="/activities_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386939586196" ignored="false" />
     <file path="/running.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386621993228" ignored="false" />
     <file path="/testrunning.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386796264695" ignored="false" />
     <file path="/_base.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386803944765" ignored="false" />
@@ -126,7 +126,7 @@
       <file leaf-file-name="activities_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="451" column="39" selection-start="13885" selection-end="13885" vertical-scroll-proportion="0.6027778">
+            <state line="452" column="53" selection-start="13883" selection-end="13883" vertical-scroll-proportion="0.5611111">
               <folding />
             </state>
           </provider>
@@ -171,7 +171,7 @@
       <file leaf-file-name="entries_helper.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/helpers/entries_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="44" selection-start="2607" selection-end="2607" vertical-scroll-proportion="0.0">
+            <state line="42" column="0" selection-start="1247" selection-end="1247" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -966,6 +966,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/helpers/entries_helper.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="0" selection-start="1247" selection-end="1247" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/entry.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="76" column="23" selection-start="1617" selection-end="1617" vertical-scroll-proportion="0.0">
@@ -973,16 +980,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/entries_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="44" selection-start="2607" selection-end="2607" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="451" column="39" selection-start="13885" selection-end="13885" vertical-scroll-proportion="0.6027778">
+        <state line="452" column="53" selection-start="13883" selection-end="13883" vertical-scroll-proportion="0.5611111">
           <folding />
         </state>
       </provider>

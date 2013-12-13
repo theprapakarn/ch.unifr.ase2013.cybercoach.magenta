@@ -123,27 +123,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="activities_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="activities_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="378" column="41" selection-start="10940" selection-end="10940" vertical-scroll-proportion="0.37428573">
+            <state line="377" column="11" selection-start="10860" selection-end="10860" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_modal.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/users/_modal.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="9" selection-start="367" selection-end="367" vertical-scroll-proportion="-9.375">
-              <folding>
-                <element signature="n#style#0;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#tr#0;n#table#1;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#tr#1;n#table#1;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#tr#0;n#table#3;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#tr#1;n#table#3;n#div#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#0;n#tr#0;n#table#5;n#div#4;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -152,6 +136,15 @@
         <entry file="file://$PROJECT_DIR$/app/views/users/_update_modal.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="18" column="8" selection-start="633" selection-end="633" vertical-scroll-proportion="-2.6666667">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="148" column="48" selection-start="5346" selection-end="5346" vertical-scroll-proportion="1.8773006">
               <folding />
             </state>
           </provider>
@@ -238,7 +231,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/db/migrate/20131025202704_create_participants.rb" />
         <option value="$PROJECT_DIR$/app/views/sessions/_new_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/users/_edit_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/users/edit_modal.js.erb" />
@@ -254,6 +246,7 @@
         <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/activities_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/partnerships/index.html.erb" />
       </list>
     </option>
   </component>
@@ -405,6 +398,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Firmy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Firmy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="partnerships" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -868,15 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="183" column="25" selection-start="0" selection-end="6568" vertical-scroll-proportion="1.1907895">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/activities/_form.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="51" column="9" selection-start="1235" selection-end="1286" vertical-scroll-proportion="-6.875">
@@ -1008,6 +1014,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="377" column="11" selection-start="10860" selection-end="10860" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/partnerships_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="17" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0">
@@ -1015,9 +1028,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="378" column="41" selection-start="10940" selection-end="10940" vertical-scroll-proportion="0.37428573">
+        <state line="148" column="48" selection-start="5346" selection-end="5346" vertical-scroll-proportion="1.8773006">
           <folding />
         </state>
       </provider>

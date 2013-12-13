@@ -123,10 +123,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="_form.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/users/_form.html.erb">
+      <file leaf-file-name="activities_controller.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="192" selection-end="192" vertical-scroll-proportion="4.9166665">
+            <state line="378" column="41" selection-start="10940" selection-end="10940" vertical-scroll-proportion="0.37428573">
               <folding />
             </state>
           </provider>
@@ -193,10 +193,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="production.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="production.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="0" selection-start="3252" selection-end="3252" vertical-scroll-proportion="2.4828572">
+            <state line="80" column="0" selection-start="3252" selection-end="3252" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="partnerships_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/partnerships_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="17" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -229,7 +238,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20131025202704_create_participants.rb" />
         <option value="$PROJECT_DIR$/app/views/sessions/_new_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/users/_edit_modal.html.erb" />
@@ -245,6 +253,7 @@
         <option value="$PROJECT_DIR$/config/environments/development.rb" />
         <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/activities_controller.rb" />
       </list>
     </option>
   </component>
@@ -852,20 +861,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/models/user.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="32" selection-end="32" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/static_pages/home.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="153" selection-start="3799" selection-end="3814" vertical-scroll-proportion="0.5739796">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/activities/_base.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="18" selection-start="992" selection-end="1157" vertical-scroll-proportion="-8.125">
@@ -1008,7 +1003,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="3252" selection-end="3252" vertical-scroll-proportion="2.4828572">
+        <state line="80" column="0" selection-start="3252" selection-end="3252" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/partnerships_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="17" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="378" column="41" selection-start="10940" selection-end="10940" vertical-scroll-proportion="0.37428573">
           <folding />
         </state>
       </provider>

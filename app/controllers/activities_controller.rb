@@ -373,7 +373,7 @@ class ActivitiesController < ApplicationController
 
     entry.subscription = host_subscription
 
-    if (params[:data][:Participants] != nil || params[:data][:Participants].instance_of?(Array))
+    if (params[:data][:Participants] != nil && params[:data][:Participants].instance_of?(Array))
 
       params[:data][:Participants].each do |item|
         partnership = Partnership.where('reference = ?', "/CyberCoachServer/resources/partnerships/" + current_user.username.downcase + ";" + item[:text].downcase + "/").first

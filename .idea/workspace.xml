@@ -60,7 +60,7 @@
     <file path="/new_modal.js.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381272856462" ignored="false" />
     <file path="/_error_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386903743028" ignored="false" />
     <file path="/update_modal.js.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381307151911" ignored="false" />
-    <file path="/_update_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386940444028" ignored="false" />
+    <file path="/_update_modal.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386941433635" ignored="false" />
     <file path="/a.dummy" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1381312705395" ignored="false" />
     <file path="/sports_helper.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382792465740" ignored="false" />
     <file path="/sports_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382786920090" ignored="false" />
@@ -144,7 +144,7 @@
       <file leaf-file-name="_update_modal.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/users/_update_modal.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="19" selection-start="367" selection-end="367" vertical-scroll-proportion="0.35714287">
+            <state line="5" column="27" selection-start="236" selection-end="236" vertical-scroll-proportion="0.22321428">
               <folding />
             </state>
           </provider>
@@ -997,7 +997,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/users/_update_modal.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="19" selection-start="367" selection-end="367" vertical-scroll-proportion="0.35714287">
+        <state line="5" column="27" selection-start="236" selection-end="236" vertical-scroll-proportion="0.22321428">
           <folding />
         </state>
       </provider>

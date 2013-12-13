@@ -12,8 +12,10 @@ module EntriesHelper
         puts "Entry Subscription: " +  entry.reference
       end
 
+      puts "Entry User: "  + entry.user.username
+
       request["Accept"] = "application/json"
-      request["Authorization"] = entry.user.basic_authorization
+      request["Authorization"] = entry.current_user.basic_authorization
       request["Content-Type"] = "application/json"
       request.body = entry.get_data().to_json
 
@@ -72,7 +74,7 @@ module EntriesHelper
     if (entry.subscription != nil)
       request = Net::HTTP::Delete.new(entry.reference)
       request["Accept"] = "application/json"
-      request["Authorization"] = entry.user.basic_authorization
+      request["Authorization"] = entry.current_user.basic_authorization
       request["Content-Type"] = "application/json"
       response = http.request(request)
 

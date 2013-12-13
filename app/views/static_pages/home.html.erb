@@ -94,12 +94,17 @@
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <input type="text" placeholder="Email" name="email" id="email" data-bind="value: email" class="k-textbox" style="width: 100%;" data-isemailexist-field="email" data-isemailexist-msg='Email already exist'/>
+                      <input type="text" placeholder="Email" name="email" id="email" data-bind="value: email" class="k-textbox" style="width: 100%;" required validationMessage="Please fill Email" data-isemailexist-field="email" data-isemailexist-msg='Email already exist'/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="k-invalid-msg" data-for="emailpassword"></span>
                     </td>
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <input type="password" placeholder="Email-Password" data-bind="value: emailpassword" class="k-textbox" style="width: 100%;"/>
+                      <input type="password" name="emailpassword" placeholder="Email-Password" data-bind="value: emailpassword" class="k-textbox" style="width: 100%;" required validationMessage="Please fill Email Password"/>
                     </td>
                   </tr>
                   <tr>

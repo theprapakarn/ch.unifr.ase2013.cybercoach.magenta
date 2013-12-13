@@ -22,16 +22,15 @@ module PartnershipsHelper
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new("/CyberCoachServer/resources/partnerships/" + participants_path)
     request["Accept"] = "application/json"
-    request["Authorization"] =  partnership.user.basic_authorization
-    request.set_form_data({ "publicvisible" => "1" })
+    request["Authorization"] =  partnership.current_user.basic_authorization
+    request.set_form_data({ "publicvisible" => "2" })
     response = http.request(request)
 
     if(response.code == "200" || response.code == "201")
       parsed_json = ActiveSupport::JSON.decode(response.body)
       partnership.reference = parsed_json["uri"]
 
-      if parsed_json["subscriptions"] != nil
-        parsed_json["subscriptions"].each do |item|
+      puts "Saved" + partnership.reference
 =begin
           subscription = Subscription.where('reference = ?', "#{item['uri']}").first
 
@@ -44,8 +43,7 @@ module PartnershipsHelper
           subscription.is_proxy = true
           subscription.save
 =end
-        end
-      end
+
       partnership.is_proxy = true
       true
     else

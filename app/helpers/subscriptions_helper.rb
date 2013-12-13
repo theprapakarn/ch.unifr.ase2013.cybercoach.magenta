@@ -12,6 +12,8 @@ module SubscriptionsHelper
       put_path = subscription.partnership.reference + subscription.sport.name
     end
 
+    puts "SubScription: " + put_path
+
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Put.new(put_path)
     request["Accept"] = "application/json"

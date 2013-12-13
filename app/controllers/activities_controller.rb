@@ -68,17 +68,20 @@ class ActivitiesController < ApplicationController
   def activities_all
     get_suggestions
 
-    puts "User Email Password:" + current_user.email_password
-
     @activities = Activity.where('user_id = ?', current_user.id)
     @body = [@activities.length]
     activity_count = 0
 
-    if ((current_user.email != nil && current_user.email != '') && (current_user.password != nil && current_user.password != ''))
+    enabledGoogle = true
+    begin
       cal = Google::Calendar.new(:username => current_user.email,
                                  :password => current_user.email_password,
                                  :app_name => 'firmy')
+    rescue Exception
+      enabledGoogle = false
     end
+
+
 
     #First is to convert activities of current user to json body.
     #
@@ -89,17 +92,19 @@ class ActivitiesController < ApplicationController
         exist_event_on_google = cal.find_event_by_id(item.reference)
       end
 
-      if (exist_event_on_google == nil)
+      if (enabledGoogle && exist_event_on_google == nil)
         item.delete()
       else
 
         #Update the activity if outcoming updated on google.
         #
         #
+        if(enabledGoogle)
         update_tree_activities(item,
                                exist_event_on_google.title,
                                exist_event_on_google.start_time,
                                exist_event_on_google.end_time)
+        end
 
         #Get participants who are involved with the activity.
         #
@@ -145,8 +150,14 @@ class ActivitiesController < ApplicationController
           entry = EntriesHelper.fetch(item.entry)
         end
 
+        reference = item.reference
+
+        if (item.reference == nil || item.reference == '')
+          reference = item.id
+        end
+
         @body[activity_count] = {
-            "Reference" => item.reference,
+            "Reference" => reference,
             "Title" => item.name,
             "StartTime" => item.start_time,
             "EndTime" => item.end_time,
@@ -409,9 +420,14 @@ class ActivitiesController < ApplicationController
 
         participant = Participant.find_by(reference: item[:value])
 
-        cal_participant = Google::Calendar.new(:username => participant.user.email,
-                                               :password => participant.user.email_password,
-                                               :app_name => 'firmy')
+        enabledGoogle = true
+        begin
+          cal_participant = Google::Calendar.new(:username => participant.user.email,
+                                                 :password => participant.user.email_password,
+                                                 :app_name => 'firmy')
+        rescue Exception
+          enabledGoogle = false
+        end
 
         if (cal_participant != nil)
           event_participant = cal_participant.create_event do |e|
@@ -426,13 +442,16 @@ class ActivitiesController < ApplicationController
         entry_participant.user = participant.user
         entry_participant.set_dynamic_property(entry.get_dynamic_property)
         entry_participant.public_visible = 2
+        entry_participant.set_current_user(current_user())
         entry_participant.save
 
         activity_participant = Activity.new
         activity_participant.name = "[" + current_user.username + "] " + @activity.name
         activity_participant.entry = entry_participant
         activity_participant.reference_activity = @activity
-        activity_participant.reference = event_participant.id
+        if(event_participant != nil)
+          activity_participant.reference = event_participant.id
+        end
         activity_participant.start_time = @activity.start_time
         activity_participant.end_time = @activity.end_time
         activity_participant.user = participant.user
@@ -441,32 +460,49 @@ class ActivitiesController < ApplicationController
       end
     end
 
-    cal = Google::Calendar.new(:username => current_user.email,
-                               :password => current_user.email_password,
-                               :app_name => 'firmy')
-
-    event = cal.create_event do |e|
-      e.title = "[" + current_user.username + "] " + @activity.name
-      e.start_time = @activity.start_time
-      e.end_time = @activity.end_time
+    begin
+      cal = Google::Calendar.new(:username => current_user.email,
+                                 :password => current_user.email_password,
+                                 :app_name => 'firmy')
+    rescue Exception
+     puts "Google Error"
     end
 
+    @activity.entry.set_current_user(current_user())
     @activity.entry = entry
     @activity.entry.save
 
     @activity.entry = Entry.find_by(id: entry.id)
-    @activity.reference = event.id
+
+    if (cal != nil)
+      event = cal.create_event do |e|
+        e.title = "[" + current_user.username + "] " + @activity.name
+        e.start_time = @activity.start_time
+        e.end_time = @activity.end_time
+      end
+      @activity.reference = event.id
+    end
+
     @activity.save
   end
 
   def base_delete(params, sport_name)
     @activity = Activity.where('reference = ?', "#{params[:data][:Reference]}").first
 
-    if (@activity != nil && @activity.reference != nil && @activity.reference != '')
+    if(@activity == nil)
+      @activity = Activity.where('id = ?', "#{params[:data][:Reference]}").first
+    end
 
+    enabledGoogle = true
+    begin
       cal = Google::Calendar.new(:username => current_user.email,
                                  :password => current_user.emailpassword,
                                  :app_name => 'firmy')
+    rescue Exception
+      enabledGoogle = false
+    end
+
+    if (@activity != nil)
 
       if (cal != nil)
         event = cal.find_event_by_id(@activity.reference)
@@ -474,6 +510,7 @@ class ActivitiesController < ApplicationController
       end
 
       if (@activity.entry != nil && @activity.entry.reference != nil)
+        @activity.entry.set_current_user(current_user())
         @activity.entry.delete
       end
 
@@ -484,9 +521,14 @@ class ActivitiesController < ApplicationController
         ref_activities = Activity.where('reference_activity_id = ?', "#{ @activity.id }")
 
         ref_activities.each do |ref_item|
-          ref_cal = Google::Calendar.new(:username => ref_item.user.email,
-                                         :password => ref_item.user.email_password,
-                                         :app_name => 'firmy')
+
+          begin
+            ref_cal = Google::Calendar.new(:username => ref_item.user.email,
+                                           :password => ref_item.user.email_password,
+                                           :app_name => 'firmy')
+          rescue Exception
+          end
+
 
           if (ref_cal != nil)
             ref_event = ref_cal.find_event_by_id(ref_item.reference)
@@ -494,6 +536,7 @@ class ActivitiesController < ApplicationController
           end
 
           if (ref_item.entry != nil)
+            ref_item.entry.set_current_user(current_user())
             ref_item.entry.delete
           end
           ref_item.delete

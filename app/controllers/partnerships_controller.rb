@@ -38,10 +38,10 @@ class PartnershipsController < ApplicationController
                 "value" => item_participant.reference,
                 "text" => item_participant.user.username
             }
+            count += 1
           end
         end
       end
-      count += 1
     end
 
     if (count == 0)
@@ -85,6 +85,7 @@ class PartnershipsController < ApplicationController
           partnership.participants.concat(participant2)
         end
 
+        partnership.set_current_user(current_user())
         partnership.first_participant_confirmed = true
 
         partnership.save
@@ -96,6 +97,7 @@ class PartnershipsController < ApplicationController
     partnership = Partnership.where('id = ?', params[:id]).first
 
     if (partnership != nil)
+      partnership.set_current_user(current_user())
       partnership.second_participant_confirmed = true
       partnership.save
     end

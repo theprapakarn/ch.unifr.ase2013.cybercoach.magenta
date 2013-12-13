@@ -11,11 +11,14 @@ module UsersHelper
       participant = Participant.where('user_id = ?', "#{user.id}").first
 
       if participant == nil
+        puts "Participant new" + user.username
         participant = Participant.new
         participant.user = user
         participant.public_visible = "2"
         participant.first_name = ""
         participant.last_name = ""
+      else
+        puts "Participant Exist" + participant.reference
       end
     end
 

@@ -75,4 +75,12 @@ class Entry < ActiveRecord::Base
       super
     end
   end
+
+  def set_current_user(current_user)
+    @current_user = current_user
+  end
+
+  def current_user
+    @current_user
+  end
 end

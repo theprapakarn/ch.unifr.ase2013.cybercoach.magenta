@@ -24,7 +24,7 @@ class Partnership < ActiveRecord::Base
     end
   end
 
-  def current_user(current_user)
+  def set_current_user(current_user)
     @current_user = current_user
   end
 

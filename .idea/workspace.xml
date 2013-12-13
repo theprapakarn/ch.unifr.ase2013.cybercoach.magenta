@@ -70,7 +70,7 @@
     <file path="/subscriptions_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1383246403300" ignored="false" />
     <file path="/participant.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382992510650" ignored="false" />
     <file path="/20131025171320_create_subscriptions.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1385421470324" ignored="false" />
-    <file path="/participants_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386928671380" ignored="false" />
+    <file path="/participants_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386928931546" ignored="false" />
     <file path="/show.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1384800805652" ignored="false" />
     <file path="/20131025202704_create_participants.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382797334841" ignored="false" />
     <file path="/20131023211603_create_sports.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382780723596" ignored="false" />
@@ -144,7 +144,7 @@
       <file leaf-file-name="participants_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/participants_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="48" selection-start="1908" selection-end="1908" vertical-scroll-proportion="0.36857143">
+            <state line="66" column="43" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.33142856">
               <folding />
             </state>
           </provider>
@@ -1010,7 +1010,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/participants_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="48" selection-start="1908" selection-end="1908" vertical-scroll-proportion="0.36857143">
+        <state line="66" column="43" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.33142856">
           <folding />
         </state>
       </provider>

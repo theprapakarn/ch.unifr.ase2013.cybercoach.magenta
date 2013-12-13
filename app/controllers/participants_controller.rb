@@ -64,7 +64,7 @@ class ParticipantsController < ApplicationController
 
   def get_all
     @participants = Participant.all
-    json_participants = Arra.new
+    json_participants = Array.new
     count = 0
     @participants.each do |item|
       if (item.user.username != current_user.username)

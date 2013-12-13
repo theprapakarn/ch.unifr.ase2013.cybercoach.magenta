@@ -64,14 +64,16 @@ class ParticipantsController < ApplicationController
 
   def get_all
     @participants = Participant.all
-    json_participants = [@participants.length]
+    json_participants = Arra.new
     count = 0
     @participants.each do |item|
-      json_participants[count] = {
-          "value" => item.reference,
-          "text" => item.user.username
-      }
-      count += 1
+      if (item.user.username != current_user.username)
+        json_participants[count] = {
+            "value" => item.reference,
+            "text" => item.user.username
+        }
+        count += 1
+      end
     end
 
     puts json_participants.to_json

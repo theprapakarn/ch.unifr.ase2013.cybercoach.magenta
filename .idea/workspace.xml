@@ -70,7 +70,7 @@
     <file path="/subscriptions_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1383246403300" ignored="false" />
     <file path="/participant.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382992510650" ignored="false" />
     <file path="/20131025171320_create_subscriptions.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1385421470324" ignored="false" />
-    <file path="/participants_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1385414632377" ignored="false" />
+    <file path="/participants_controller.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1386928671380" ignored="false" />
     <file path="/show.html.erb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1384800805652" ignored="false" />
     <file path="/20131025202704_create_participants.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382797334841" ignored="false" />
     <file path="/20131023211603_create_sports.rb" changelist="f4afee48-2ba0-4619-9161-40f7840da48d" time="1382780723596" ignored="false" />
@@ -132,19 +132,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_update_modal.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/users/_update_modal.html.erb">
+      <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="8" selection-start="633" selection-end="633" vertical-scroll-proportion="-2.6666667">
+            <state line="109" column="23" selection-start="3817" selection-end="3817" vertical-scroll-proportion="-1.125">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html.erb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
+      <file leaf-file-name="participants_controller.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/participants_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="148" column="48" selection-start="5346" selection-end="5346" vertical-scroll-proportion="1.8773006">
+            <state line="70" column="48" selection-start="1908" selection-end="1908" vertical-scroll-proportion="0.36857143">
               <folding />
             </state>
           </provider>
@@ -154,6 +154,15 @@
         <entry file="file://$PROJECT_DIR$/vendor/assets/stylesheets/bootstrap.css">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_base.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/activities/_base.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="339" column="42" selection-start="9255" selection-end="9255" vertical-scroll-proportion="-211.875">
               <folding />
             </state>
           </provider>
@@ -195,15 +204,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="partnerships_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/partnerships_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="17" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="test.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/test.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -231,8 +231,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/sessions/_new_modal.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/users/_edit_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/users/edit_modal.js.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/_header.html.erb" />
         <option value="$PROJECT_DIR$/app/helpers/users_helper.rb" />
@@ -247,6 +245,8 @@
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/activities_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/partnerships/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/activities/_base.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/participants_controller.rb" />
       </list>
     </option>
   </component>
@@ -419,7 +419,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="partnerships" />
+              <option name="myItemId" value="activities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -434,6 +434,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Firmy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Firmy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -876,58 +894,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/activities/_base.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="18" selection-start="992" selection-end="1157" vertical-scroll-proportion="-8.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/activities/_form.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="9" selection-start="1235" selection-end="1286" vertical-scroll-proportion="-6.875">
-          <folding>
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;height&quot;: 600...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="[...]" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;batch&quot;: true...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: &quot;http://demos.kendoui.com/service/meetings&quot;...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: &quot;http://demos.kendoui.com/service/meetings/update&quot;...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: &quot;http://demos.kendoui.com/service/meetings/create&quot;...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;url&quot;: &quot;http://demos.kendoui.com/service/meetings/destroy&quot;...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;id&quot;: &quot;meetingID&quot;...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="[...]" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;field&quot;: &quot;roomId&quot;...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="[...]" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="{&quot;field&quot;: &quot;atendees&quot;...}" />
-            <marker date="1384124637942" expanded="true" signature="-1:-1" placeholder="[...]" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/users/_form.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="0" selection-start="192" selection-end="192" vertical-scroll-proportion="4.9166665">
@@ -1007,13 +973,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="3252" selection-end="3252" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/activities_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="377" column="11" selection-start="10860" selection-end="10860" vertical-scroll-proportion="0.0">
@@ -1021,16 +980,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/partnerships_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="17" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0">
+        <state line="109" column="23" selection-start="3817" selection-end="3817" vertical-scroll-proportion="-1.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/partnerships/index.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/activities/_base.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="48" selection-start="5346" selection-end="5346" vertical-scroll-proportion="1.8773006">
+        <state line="339" column="42" selection-start="9255" selection-end="9255" vertical-scroll-proportion="-211.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/partnerships_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="13" selection-start="747" selection-end="747" vertical-scroll-proportion="0.49462366">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="0" selection-start="3252" selection-end="3252" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/participants_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="48" selection-start="1908" selection-end="1908" vertical-scroll-proportion="0.36857143">
           <folding />
         </state>
       </provider>
